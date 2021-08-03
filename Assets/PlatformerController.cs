@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //TODO:
-//clean up code and remove unnecessary bits
-//crouching (create function to change player/collider size)
+// Allow dynamic resizing of player dimensions
+// have width and height parameters to enter which will:
+//  -   adjust number of rays to go along with dimensions
+//  -   resize collider and adjust offset
+//  -   resize sprite (only temp)
 
 public class PlatformerController : MonoBehaviour
 {
@@ -16,12 +19,14 @@ public class PlatformerController : MonoBehaviour
     public float movementSpeed = 7.0f;
     public float maxWalkAngle = 50f;
     public float maxJumpHeight = 3.6f; //in units
+    public int maxAirJumps = 2;
     public bool constantXSpeed = true; //maintain max horizontal speed on slopes
     public float gravity = 20.0f;
 
     // Advanced Character Settings
     float remainGroundedSnap = 0.25f;
-    float groundSnap = 0.1f;
+    float groundSnap = 0.05f;
+    float snapVelocityLimit = 4.0f;
 
     float jumpCooldown = 0.1f;
     float jumpVel = 1.0f;
@@ -35,10 +40,12 @@ public class PlatformerController : MonoBehaviour
     int moveDir = 0;
     int lastMoveDir = 0;
     bool grounded;
-    bool jumping = false;
     Vector2 groundNormal;
     float groundAngle;
+
     Vector2 velocity = Vector2.zero; //only used for in-air vertical velocity
+    bool jumping = false;
+    public int airJumpsPerformed = 0;
     
     // Temp Raycast Result Storage
     RaycastHit2D topHit, bottomHit, rightHit, leftHit, moveHit;
@@ -48,6 +55,8 @@ public class PlatformerController : MonoBehaviour
     // Input
     int xAxis = 0;
     bool jumpInput = false;
+    bool crouchInput = false;
+    bool jumpDampenFlag = false;
     float step;
 
     [Header("Debug")]
@@ -184,15 +193,23 @@ public class PlatformerController : MonoBehaviour
             raycastsPerUpdate++;
 
             //cast down
-            start = center - halfWidthVec*edgeInset + offset;
-            end = center + halfWidthVec*edgeInset + offset;
+            start = center - halfWidthVec*edgeInset + offset - (halfHeightVec * edgeInset - (Vector3.up * groundSnap));
+            end = center + halfWidthVec*edgeInset + offset - (halfHeightVec * edgeInset - (Vector3.up * groundSnap));
             inc = (end - start) / (Mathf.Max(vRays - 1, 1));
 
             rayPos = start + (inc * i);
-            hit = Physics2D.Raycast(rayPos, Vector2.down, rayDist, groundLayer);
+            hit = Physics2D.Raycast(rayPos, Vector2.down, rayDist, groundLayer | oneWayLayer);
 
             if(hit.collider != null){
                 float dist = hit.point.y - (center.y - halfHeight + offset.y);
+
+                if(oneWayLayer == (oneWayLayer | (1 << hit.collider.gameObject.layer))){
+                    if(!crouchInput && dist <= 0.005f && velocity.y <= 0){
+                        //valid one way platform
+                    }else{
+                        continue;
+                    }
+                }
                 if(!bottomCollide || dist > bottomDist){
                     bottomCollide = true;
                     bottomDist = dist;
@@ -232,10 +249,17 @@ public class PlatformerController : MonoBehaviour
                 usePos.x = center.x - halfWidth + offset.x;
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(usePos, Vector2.down, rayDist, groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(usePos, Vector2.down, rayDist, groundLayer | oneWayLayer);
 
             if(hit.collider != null){
                 float dist = hit.point.y - (center.y - halfHeight + offset.y);
+                if(oneWayLayer == (oneWayLayer | (1 << hit.collider.gameObject.layer))){
+                    if(!crouchInput && dist <= 0.005f && velocity.y <= 0){
+                        //valid one way platform
+                    }else{
+                        continue;
+                    }
+                }
                 if(!bottomCollide || dist > bottomDist){
                     bottomCollide = true;
                     bottomDist = dist;
@@ -250,13 +274,14 @@ public class PlatformerController : MonoBehaviour
     }
 
     void CheckGrounded(){
-        if(bottomCollide && !jumping &&
+        if(bottomCollide && !jumping && (velocity.y <= snapVelocityLimit || grounded) &&
             ((grounded && bottomDist >= -remainGroundedSnap) || (!grounded && bottomDist >= -groundSnap))){
             
             grounded = true;
             groundNormal = bottomHit.normal;
             velocity.y = 0;
             groundAngle = GetHitAngle(bottomHit, false);
+            airJumpsPerformed = 0;
         }else{
             grounded = false;
             groundAngle = 0;
@@ -292,11 +317,15 @@ public class PlatformerController : MonoBehaviour
                 moveVecInc *= a;
             }
 
-            if(grounded && jumpInput && (!topCollide || topDist > 0.05f)){
+            if(((airJumpsPerformed < maxAirJumps) || grounded) && !jumping && jumpInput && (!topCollide || topDist > 0.05f)){
+                if(!grounded){
+                    airJumpsPerformed++;
+                }
                 jumpInput = false;
                 jumping = true;
                 velocity.y = jumpVel;
                 grounded = false;
+                
                 StopCoroutine(JumpInputPersist());
                 StartCoroutine(JumpStartup());
             }
@@ -331,6 +360,10 @@ public class PlatformerController : MonoBehaviour
             CheckGrounded();
             
             if(!grounded){
+                if(jumpDampenFlag && velocity.y > 0){
+                    velocity.y = velocity.y / 2.0f;
+                    jumpDampenFlag = false;
+                }
                 velocity.y -= (gravity * step) * stepInc;
             }
         }
@@ -353,7 +386,16 @@ public class PlatformerController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.UpArrow)){
             jumpInput = true;
+            jumpDampenFlag = false;
             StartCoroutine(JumpInputPersist());
+        }
+        if(Input.GetKeyUp(KeyCode.UpArrow)){
+            jumpDampenFlag = true;
+        }
+        if(Input.GetKey(KeyCode.DownArrow)){
+            crouchInput = true;
+        }else{
+            crouchInput = false;
         }
     }
 
