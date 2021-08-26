@@ -9,7 +9,7 @@ using UnityEngine;
 //  -   resize collider and adjust offset
 //  -   resize sprite (only temp)
 
-public class PlatformerController : MonoBehaviour
+public class RayHandler : MonoBehaviour
 {
     [Header("Editor Settings")]
     public Collider2D col;
@@ -20,8 +20,8 @@ public class PlatformerController : MonoBehaviour
     public float maxWalkAngle = 50f;
     public float maxJumpHeight = 3.6f; //in units
     public int maxAirJumps = 2;
-    public bool constantXSpeed = true; //maintain max horizontal speed on slopes
     public float gravity = 20.0f;
+    public bool canJump = true;
 
     // Advanced Character Settings
     float remainGroundedSnap = 0.25f;
@@ -32,25 +32,33 @@ public class PlatformerController : MonoBehaviour
     float jumpVel = 1.0f;
     float jumpInputPersist = 0.1f;
 
-    int hRays = 9, vRays = 15;
+    float knockbackVel = 1.0f;
+    float knockbackVelH = 3.0f;
+    float knockbackHeight = 1.0f;
+    float iFrameDuration = 3.0f;
+    bool invincible = false;
+
+    public int hRays = 5, vRays = 9;
+    public float rayDist = 1.0f;
     float edgeInset = 0.98f;
-    int movementSubdivisions = 4;
+    public int movementSubdivisions = 4;
 
     // Character State
     int moveDir = 0;
     int lastMoveDir = 0;
-    bool grounded;
+    public bool grounded;
     Vector2 groundNormal;
     float groundAngle;
+    public bool knockback = false;
 
-    Vector2 velocity = Vector2.zero; //only used for in-air vertical velocity
+    public Vector2 velocity = Vector2.zero; //only used for in-air vertical velocity
     bool jumping = false;
     public int airJumpsPerformed = 0;
     
     // Temp Raycast Result Storage
     RaycastHit2D topHit, bottomHit, rightHit, leftHit, moveHit;
-    float topDist, bottomDist, rightDist, leftDist, moveDist;
-    bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
+    [HideInInspector] public float topDist, bottomDist, rightDist, leftDist, moveDist;
+    [HideInInspector] public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
 
     // Input
     int xAxis = 0;
@@ -62,8 +70,6 @@ public class PlatformerController : MonoBehaviour
     [Header("Debug")]
     public float updatePeriod = -0.1f;
     public bool showRays = true;
-    public bool updateJumpVel = false;
-    float updateCounter = 0.0f;
     public int raycastsPerUpdate = 0;
 
     //For convenience
@@ -73,30 +79,63 @@ public class PlatformerController : MonoBehaviour
     void Start() {
         //calculate jump velocity based on max jump height
         jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
+        knockbackVel = Mathf.Sqrt(2 * gravity * knockbackHeight);
     }
-
-    void Update(){
-        UpdateInput();
-
-        if(updateJumpVel){ //allow updating jump variables on the fly (debug)
-            jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
-        }
-    }
-
+    
     void FixedUpdate() {
-        if(updateCounter < updatePeriod){ //debug
-            updateCounter += Time.fixedDeltaTime;
+        CastRays();
+        AdvanceMovement();
+    }
+
+    public void ProvideInput(int x, bool jumpStart, bool jumpRelease, bool crouch){
+        if(knockback){
+            //override inputs if stunned
             return;
         }
-        updateCounter = 0f;
-        raycastsPerUpdate = 0;
+        xAxis = x;
+        crouchInput = crouch;
 
+        if(canJump && jumpStart){
+            jumpInput = true;
+            jumpDampenFlag = false;
+            StartCoroutine(JumpInputPersist());
+        }
+        if(canJump && jumpRelease){
+            jumpDampenFlag = true;
+        }
+    }
+
+    public void StartKnockback(GameObject other){
+        if(invincible){
+            return;
+        }
+        StartCoroutine(StartIFrame());
+        knockback = true;
+
+        if (center.x  >= other.transform.position.x){
+            velocity.x = knockbackVelH;
+        }else{
+            velocity.x = -knockbackVelH;
+        }
+
+        if (center.y >= other.transform.position.y || true){
+            grounded = false;
+            jumping = true;
+            velocity.y = knockbackVel;
+            StartCoroutine(JumpStartup());
+        }
+    }
+
+    public void CastRays() {
+        raycastsPerUpdate = 0;
         UpdateVariables();
         CastHRays(Vector3.zero);
         CastVRays(Vector3.zero);
         GetAccurateGroundDist(Vector3.zero);
         CheckGrounded();
+    }
 
+    public void AdvanceMovement(){
         HandleMove();
     }
 
@@ -106,7 +145,7 @@ public class PlatformerController : MonoBehaviour
         leftCollide = false;
 
         //Handle horizontal first
-        float rayDist = halfWidth + 2.0f;
+        float rayDistH = halfWidth + rayDist;
 
         for(int i = 0; i< hRays; i++){
 
@@ -116,9 +155,11 @@ public class PlatformerController : MonoBehaviour
             Vector3 inc = (end - start) / (Mathf.Max(hRays - 1, 1));
 
             Vector3 rayPos = start + (inc * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.right, rayDist, groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.right, rayDistH, groundLayer);
 
             if(hit.collider != null){
+                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
+
                 float angle = GetHitAngle(hit, false);
                 if(angle < maxWalkAngle){
                     continue;
@@ -129,9 +170,8 @@ public class PlatformerController : MonoBehaviour
                     rightDist = dist;
                     rightHit = hit;
                 }
-                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
             }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.right*rayDist, Color.red, Time.fixedDeltaTime/updatePeriod);
+                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.right*rayDistH, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
 
@@ -141,9 +181,11 @@ public class PlatformerController : MonoBehaviour
             inc = (end - start) / (Mathf.Max(hRays - 1, 1));
 
             rayPos = start + (inc * i);
-            hit = Physics2D.Raycast(rayPos, Vector2.left, rayDist, groundLayer);
+            hit = Physics2D.Raycast(rayPos, Vector2.left, rayDistH, groundLayer);
 
             if(hit.collider != null){
+                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
+
                 float angle = GetHitAngle(hit, false);
                 if(angle < maxWalkAngle){
                     continue;
@@ -154,9 +196,8 @@ public class PlatformerController : MonoBehaviour
                     leftDist = dist;
                     leftHit = hit;
                 }
-                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
             }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.left*rayDist, Color.red, Time.fixedDeltaTime/updatePeriod);
+                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.left*rayDistH, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
         }
@@ -167,7 +208,7 @@ public class PlatformerController : MonoBehaviour
         bottomCollide = false;
 
         //handle vertical
-        float rayDist = halfHeight + 2.0f;
+        float rayDistV = halfHeight + rayDist;
 
         for(int i = 0; i< vRays; i++){
 
@@ -177,7 +218,7 @@ public class PlatformerController : MonoBehaviour
             Vector3 inc = (end - start) / (Mathf.Max(vRays - 1, 1));
 
             Vector3 rayPos = start + (inc * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.up, rayDist, groundLayer);
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.up, rayDistV, groundLayer);
 
             if(hit.collider != null){
                 float dist = hit.point.y - (center.y + halfHeight + offset.y);
@@ -188,7 +229,7 @@ public class PlatformerController : MonoBehaviour
                 }
                 if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
             }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.up*rayDist, Color.red, Time.fixedDeltaTime/updatePeriod);
+                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.up*rayDistV, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
 
@@ -198,7 +239,7 @@ public class PlatformerController : MonoBehaviour
             inc = (end - start) / (Mathf.Max(vRays - 1, 1));
 
             rayPos = start + (inc * i);
-            hit = Physics2D.Raycast(rayPos, Vector2.down, rayDist, groundLayer | oneWayLayer);
+            hit = Physics2D.Raycast(rayPos, Vector2.down, rayDistV, groundLayer | oneWayLayer);
 
             if(hit.collider != null){
                 float dist = hit.point.y - (center.y - halfHeight + offset.y);
@@ -217,12 +258,11 @@ public class PlatformerController : MonoBehaviour
                 }
                 if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
             }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.down*rayDist, Color.red, Time.fixedDeltaTime/updatePeriod);
+                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.down*rayDistV, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
         }
     }
-
     void GetAccurateGroundDist(Vector3 offset){
         if(!grounded){
             return;
@@ -237,7 +277,7 @@ public class PlatformerController : MonoBehaviour
         rayPosList.Add(new Vector3(bottomHit.point.x - (1f-edgeInset)*0.5f, center.y + offset.y, 0));
         rayPosList.Add(new Vector3(bottomHit.point.x - (1f-edgeInset)*0.25f, center.y + offset.y, 0));
 
-        float rayDist = halfHeight + 2.0f;
+        float rayDistV = halfHeight + rayDist;
 
         foreach(Vector3 pos in rayPosList){
             Vector3 usePos = pos;
@@ -249,7 +289,7 @@ public class PlatformerController : MonoBehaviour
                 usePos.x = center.x - halfWidth + offset.x;
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(usePos, Vector2.down, rayDist, groundLayer | oneWayLayer);
+            RaycastHit2D hit = Physics2D.Raycast(usePos, Vector2.down, rayDistV, groundLayer | oneWayLayer);
 
             if(hit.collider != null){
                 float dist = hit.point.y - (center.y - halfHeight + offset.y);
@@ -267,7 +307,7 @@ public class PlatformerController : MonoBehaviour
                 }
                 if(showRays) Debug.DrawLine(usePos, hit.point, Color.blue, Time.fixedDeltaTime/updatePeriod);
             }else{
-                if(showRays) Debug.DrawLine(usePos, usePos + Vector3.down*rayDist, Color.red, Time.fixedDeltaTime/updatePeriod);
+                if(showRays) Debug.DrawLine(usePos, usePos + Vector3.down*rayDistV, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
         }
@@ -282,6 +322,7 @@ public class PlatformerController : MonoBehaviour
             velocity.y = 0;
             groundAngle = GetHitAngle(bottomHit, false);
             airJumpsPerformed = 0;
+            knockback = false;
         }else{
             grounded = false;
             groundAngle = 0;
@@ -299,8 +340,9 @@ public class PlatformerController : MonoBehaviour
     
     void HandleMove(){
         Vector3 moveVec = Vector3.zero;
-        float movementInc = (movementSpeed * step) / (float)movementSubdivisions;
+        float movementInc = step / (float)movementSubdivisions;
         float stepInc = 1.0f / (float) movementSubdivisions;
+        velocity.x -= 0.1f * step;
         
         UpdateVariables();
         for(int i = 0; i < movementSubdivisions; i++){
@@ -310,12 +352,7 @@ public class PlatformerController : MonoBehaviour
             //GetAccurateGroundDist(moveVec);
             CheckGrounded();
 
-            Vector3 moveVecInc = Vector2.Perpendicular(groundNormal)*-1f * moveDir * movementInc;
-
-            if(constantXSpeed && moveDir != 0){
-                float a = (moveDir * movementInc) / moveVecInc.x;
-                moveVecInc *= a;
-            }
+            Vector3 moveVecInc = Vector2.Perpendicular(groundNormal)*-1f * velocity.x * movementInc;
 
             if(((airJumpsPerformed < maxAirJumps) || grounded) && !jumping && jumpInput && (!topCollide || topDist > 0.05f)){
                 if(!grounded){
@@ -375,34 +412,13 @@ public class PlatformerController : MonoBehaviour
         transform.position += moveVec;
     }
 
-    void UpdateInput(){
-        xAxis = 0;
-
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            xAxis -= 1;
-        }
-        if(Input.GetKey(KeyCode.RightArrow)){
-            xAxis += 1;
-        }
-        if(Input.GetKeyDown(KeyCode.UpArrow)){
-            jumpInput = true;
-            jumpDampenFlag = false;
-            StartCoroutine(JumpInputPersist());
-        }
-        if(Input.GetKeyUp(KeyCode.UpArrow)){
-            jumpDampenFlag = true;
-        }
-        if(Input.GetKey(KeyCode.DownArrow)){
-            crouchInput = true;
-        }else{
-            crouchInput = false;
-        }
-    }
-
     void UpdateVariables(){
         moveDir = xAxis;
         if(moveDir != 0){
             lastMoveDir = moveDir;
+        }
+        if(!knockback){
+            velocity.x = moveDir * movementSpeed;
         }
         step = Time.fixedDeltaTime;
 
@@ -422,5 +438,15 @@ public class PlatformerController : MonoBehaviour
     IEnumerator JumpInputPersist(){
         yield return new WaitForSeconds(jumpInputPersist);
         jumpInput = false;
+    }
+
+    IEnumerator StartIFrame(){
+        invincible = true;
+        yield return new WaitForSeconds(iFrameDuration);
+        invincible = false;
+        HitDetector hd = GetComponentInChildren<HitDetector>();
+        if(hd != null){
+            hd.DetectHit();
+        }
     }
 }
