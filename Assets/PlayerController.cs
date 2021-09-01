@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     private RayHandler rayHandler;
+    private AttackHandler attackHandler;
 
     void Start() {
         rayHandler = GetComponent<RayHandler>();
+        attackHandler = GetComponent<AttackHandler>();
     }
 
     void Update(){
@@ -23,6 +25,10 @@ public class PlayerController : MonoBehaviour {
             xAxis += 1;
         }
         rayHandler.ProvideInput(xAxis, Input.GetKeyDown(KeyCode.UpArrow), Input.GetKeyUp(KeyCode.UpArrow), Input.GetKey(KeyCode.DownArrow));
+
+        if(Input.GetKeyDown(KeyCode.X)){
+            attackHandler.StartAttack();
+        }
     }
 
     public void ReceiveHit(GameObject other){

@@ -39,13 +39,13 @@ public class EnemyController : MonoBehaviour {
             if ((target.transform.position.y > transform.position.y + desiredDistanceV && rayHandler.velocity.y <= 0.0f)
                 || (physicsState.CollideLeft() || physicsState.CollideRight())){
                 jump = true;
-            }else if(physicsState.LeavingGround() && target.transform.position.y >= transform.position.y - desiredDistanceV){
+            }else if(physicsState.LeavingGround() && target.transform.position.y >= transform.position.y - desiredDistanceV*0.5f){
                 rayHandler.airJumpsPerformed = -1;
                 jump = true;
             }
 
             // Fall through platforms if target is below
-            if (target.transform.position.y < transform.position.y - desiredDistanceV){
+            if (target.transform.position.y < transform.position.y - 1.0f){
                 crouch = true;
             }
         }

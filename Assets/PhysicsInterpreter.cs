@@ -37,5 +37,9 @@ public class PhysicsInterpreter : MonoBehaviour
         return false;
     }
 
+    public int FaceDir(){
+        return rayHandler.lastMoveDir;
+    }
+
 
 }

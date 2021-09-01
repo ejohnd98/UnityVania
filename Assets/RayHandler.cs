@@ -35,7 +35,7 @@ public class RayHandler : MonoBehaviour
     float knockbackVel = 1.0f;
     float knockbackVelH = 3.0f;
     float knockbackHeight = 1.0f;
-    float iFrameDuration = 3.0f;
+    public float iFrameDuration = 1.0f;
     bool invincible = false;
 
     public int hRays = 5, vRays = 9;
@@ -45,7 +45,7 @@ public class RayHandler : MonoBehaviour
 
     // Character State
     int moveDir = 0;
-    int lastMoveDir = 0;
+    public int lastMoveDir = 0;
     public bool grounded;
     Vector2 groundNormal;
     float groundAngle;
@@ -111,6 +111,7 @@ public class RayHandler : MonoBehaviour
         }
         StartCoroutine(StartIFrame());
         knockback = true;
+        crouchInput = false;
 
         if (center.x  >= other.transform.position.x){
             velocity.x = knockbackVelH;
