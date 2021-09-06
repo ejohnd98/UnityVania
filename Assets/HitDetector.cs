@@ -6,24 +6,26 @@ using UnityEngine.Events;
 public class HitDetector : MonoBehaviour
 {
     public UnityEvent hitEvents;
-    PlayerController pc;
-    EnemyController ec;
+    PlatformControllerBase controller;
     bool currentlyColliding = false;
     Collider2D otherCol;
+    PlatformControllerBase otherController;
 
     private void Start() {
-        pc = GetComponentInParent<PlayerController>();
-        ec = GetComponentInParent<EnemyController>();
+        controller = GetComponentInParent<PlatformControllerBase>();
     }
 
     public void DetectHit(){
         if(currentlyColliding){
-            hitEvents.Invoke();
-            if(pc != null){
-                pc.ReceiveHit(otherCol.gameObject);
+            otherController = otherCol.transform.GetComponentInParent<PlatformControllerBase>();
+            
+            if(otherController!=null && !otherController.SimActive()){
+                return;
             }
-            if(ec != null){
-                ec.ReceiveHit(otherCol.gameObject);
+
+            hitEvents.Invoke();
+            if(controller != null){
+                controller.ReceiveHit(otherCol.gameObject);
             }
         }
     }
@@ -37,5 +39,6 @@ public class HitDetector : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other){
         currentlyColliding = false;
         otherCol = null;
+        otherController = null;
     }
 }

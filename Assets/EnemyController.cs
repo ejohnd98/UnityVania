@@ -2,19 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour {
-    
-    private RayHandler rayHandler;
-    private PhysicsInterpreter physicsState;
+public class EnemyController : PlatformControllerBase {
+
     public GameObject target;
     public float desiredDistanceH = 0.25f;
     public float desiredDistanceV = 1.5f;
     public float detectDistance = 20.0f;
-
-    void Start() {
-        rayHandler = GetComponent<RayHandler>();
-        physicsState = GetComponent<PhysicsInterpreter>();
-    }
 
     void Update(){
         UpdateInput();
@@ -53,11 +46,9 @@ public class EnemyController : MonoBehaviour {
         rayHandler.ProvideInput(xAxis, jump, endJump, crouch);
     }
 
-    public void ReceiveHit(GameObject other){
-        Debug.Log("Enemy got hit!");
-
-        //deal damage
-
-        rayHandler.StartKnockback(other);
+    public override void KillActor(){
+        rayHandler.SetSimState(false);
+        Debug.Log("Enemy Killed");
+        Destroy(this.gameObject);
     }
 }

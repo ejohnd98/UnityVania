@@ -50,6 +50,7 @@ public class RayHandler : MonoBehaviour
     Vector2 groundNormal;
     float groundAngle;
     public bool knockback = false;
+    bool simEnabled = true;
 
     public Vector2 velocity = Vector2.zero; //only used for in-air vertical velocity
     bool jumping = false;
@@ -57,8 +58,8 @@ public class RayHandler : MonoBehaviour
     
     // Temp Raycast Result Storage
     RaycastHit2D topHit, bottomHit, rightHit, leftHit, moveHit;
-    [HideInInspector] public float topDist, bottomDist, rightDist, leftDist, moveDist;
-    [HideInInspector] public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
+public float topDist, bottomDist, rightDist, leftDist, moveDist;
+public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
 
     // Input
     int xAxis = 0;
@@ -88,7 +89,7 @@ public class RayHandler : MonoBehaviour
     }
 
     public void ProvideInput(int x, bool jumpStart, bool jumpRelease, bool crouch){
-        if(knockback){
+        if(knockback || !simEnabled){
             //override inputs if stunned
             return;
         }
@@ -106,7 +107,7 @@ public class RayHandler : MonoBehaviour
     }
 
     public void StartKnockback(GameObject other){
-        if(invincible){
+        if(invincible || !simEnabled){
             return;
         }
         StartCoroutine(StartIFrame());
@@ -127,17 +128,36 @@ public class RayHandler : MonoBehaviour
         }
     }
 
+    public void SetSimState(bool enabled){
+        simEnabled = enabled;
+        xAxis = 0;
+        jumpInput = false;
+        crouchInput = false;
+    }
+
+    public bool SimActive(){
+        return simEnabled;
+    }
+
+    public bool IsInvincible(){
+        return invincible;
+    }
+
     public void CastRays() {
-        raycastsPerUpdate = 0;
-        UpdateVariables();
-        CastHRays(Vector3.zero);
-        CastVRays(Vector3.zero);
-        GetAccurateGroundDist(Vector3.zero);
-        CheckGrounded();
+        if(simEnabled){
+            raycastsPerUpdate = 0;
+            UpdateVariables();
+            CastHRays(Vector3.zero);
+            CastVRays(Vector3.zero);
+            GetAccurateGroundDist(Vector3.zero);
+            CheckGrounded();
+        }
     }
 
     public void AdvanceMovement(){
-        HandleMove();
+        if(simEnabled){
+            HandleMove();
+        }
     }
 
     void CastHRays(Vector3 offset){
@@ -343,7 +363,13 @@ public class RayHandler : MonoBehaviour
         Vector3 moveVec = Vector3.zero;
         float movementInc = step / (float)movementSubdivisions;
         float stepInc = 1.0f / (float) movementSubdivisions;
-        velocity.x -= 0.1f * step;
+        if(velocity.x > 0){
+            velocity.x = Mathf.Max(velocity.x - 0.1f * step, 0.0f);
+        }
+        else if(velocity.x < 0){
+            velocity.x = Mathf.Min(velocity.x + 0.1f * step, 0.0f);
+        }
+        
         
         UpdateVariables();
         for(int i = 0; i < movementSubdivisions; i++){
@@ -374,9 +400,11 @@ public class RayHandler : MonoBehaviour
 
             if(moveDir==-1 && leftCollide && leftDist > moveVecInc.x){ //if moving left into wall
                 moveVecInc.x = leftDist;
+                velocity.x = 0;
             }
             if(moveDir==1 && rightCollide && rightDist < moveVecInc.x){ //if moving right into wall
                 moveVecInc.x = rightDist;
+                velocity.x = 0;
             }
             if(topCollide && topDist < moveVecInc.y){ //if moving up into ceiling
                 moveVecInc.y = topDist;

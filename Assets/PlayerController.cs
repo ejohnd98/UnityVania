@@ -2,15 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine; 
 
-public class PlayerController : MonoBehaviour {
-
-    private RayHandler rayHandler;
-    private AttackHandler attackHandler;
-
-    void Start() {
-        rayHandler = GetComponent<RayHandler>();
-        attackHandler = GetComponent<AttackHandler>();
-    }
+public class PlayerController : PlatformControllerBase {
 
     void Update(){
         UpdateInput();
@@ -26,16 +18,13 @@ public class PlayerController : MonoBehaviour {
         }
         rayHandler.ProvideInput(xAxis, Input.GetKeyDown(KeyCode.UpArrow), Input.GetKeyUp(KeyCode.UpArrow), Input.GetKey(KeyCode.DownArrow));
 
-        if(Input.GetKeyDown(KeyCode.X)){
+        if(Input.GetKeyDown(KeyCode.X) && rayHandler.SimActive()){
             attackHandler.StartAttack();
         }
     }
 
-    public void ReceiveHit(GameObject other){
-        Debug.Log("Player got hit!");
-
-        //deal damage
-
-        rayHandler.StartKnockback(other);
+    public override void KillActor(){
+        rayHandler.SetSimState(false);
+        Debug.Log("GAME OVER");
     }
 }
