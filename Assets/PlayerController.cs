@@ -21,10 +21,14 @@ public class PlayerController : PlatformControllerBase {
         if(Input.GetKeyDown(KeyCode.X) && rayHandler.SimActive()){
             attackHandler.StartAttack();
         }
+
+        FaceDirection(physicsState.FaceDir());
     }
 
     public override void KillActor(){
         rayHandler.SetSimState(false);
         Debug.Log("GAME OVER");
     }
+
+    
 }

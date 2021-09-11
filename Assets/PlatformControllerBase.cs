@@ -9,6 +9,7 @@ abstract public class PlatformControllerBase : MonoBehaviour {
     protected AttackHandler attackHandler;
     protected Health hp;
 
+    public GameObject mirrorPivot;
     public float damage = 5.0f;
 
     void Start() {
@@ -36,4 +37,10 @@ abstract public class PlatformControllerBase : MonoBehaviour {
     }
 
     public abstract void KillActor();
+
+    public void FaceDirection(int dir){
+        Vector3 locScale = mirrorPivot.transform.localScale;
+        locScale.x = dir;
+        mirrorPivot.transform.localScale = locScale;
+    }
 }
