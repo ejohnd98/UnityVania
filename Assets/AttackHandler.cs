@@ -61,4 +61,8 @@ public class AttackHandler : MonoBehaviour {
         timer = 0.0f;
     }
 
+    public bool IsAttacking(){
+        return attackCoolingDown;
+    }
+
 }

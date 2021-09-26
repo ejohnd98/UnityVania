@@ -1,0 +1,10 @@
+Idle
+Attack
+Running
+Jump start
+Jump peak
+Jump attack
+Jump fall
+
+Crouch
+Crouch attack
