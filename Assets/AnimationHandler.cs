@@ -14,5 +14,9 @@ public class AnimationHandler : MonoBehaviour
         animator.SetBool("attacking", attack.IsAttacking());
         animator.SetFloat("hSpeed", rayHandler.velocity.x);
         animator.SetFloat("vSpeed", rayHandler.velocity.y);
+
+        if(attack.GetAttackFlag()){
+            animator.SetTrigger("attackTrigger");
+        }
     }
 }

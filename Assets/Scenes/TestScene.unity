@@ -1913,8 +1913,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497eb6aee67e05f4cbd00bbc765c1765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 25
+  currentHealth: 25
   healthDepleted: 0
 --- !u!114 &169661996
 MonoBehaviour:
@@ -9899,7 +9899,7 @@ MonoBehaviour:
   maxWalkAngle: 50
   maxJumpHeight: 3.6
   maxAirJumps: 2
-  gravity: 18
+  gravity: 20
   canJump: 1
   iFrameDuration: 1
   hRays: 9
@@ -9936,8 +9936,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ddd9af403db124d8ace3f01d65d23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
-  attackActiveTime: 0.4
+  attackCooldown: 0.35
+  attackActiveTime: 0.2
   attackCollider: {fileID: 2142176731}
 --- !u!114 &855370316
 MonoBehaviour:
@@ -10906,8 +10906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497eb6aee67e05f4cbd00bbc765c1765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 25
+  currentHealth: 25
   healthDepleted: 0
 --- !u!1001 &983815215
 PrefabInstance:
@@ -18796,8 +18796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497eb6aee67e05f4cbd00bbc765c1765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 25
+  currentHealth: 25
   healthDepleted: 0
 --- !u!114 &1773775478
 MonoBehaviour:
@@ -23062,8 +23062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497eb6aee67e05f4cbd00bbc765c1765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 25
+  currentHealth: 25
   healthDepleted: 0
 --- !u!114 &2059744167
 MonoBehaviour:

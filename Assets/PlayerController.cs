@@ -10,13 +10,23 @@ public class PlayerController : PlatformControllerBase {
 
     void UpdateInput(){
         int xAxis = 0;
+        bool jumpInput = Input.GetKeyDown(KeyCode.UpArrow);
+        bool jumpRelease = Input.GetKeyUp(KeyCode.UpArrow);
+
         if(Input.GetKey(KeyCode.LeftArrow)){
             xAxis -= 1;
         }
         if(Input.GetKey(KeyCode.RightArrow)){
             xAxis += 1;
         }
-        rayHandler.ProvideInput(xAxis, Input.GetKeyDown(KeyCode.UpArrow), Input.GetKeyUp(KeyCode.UpArrow), Input.GetKey(KeyCode.DownArrow));
+
+        if(attackHandler.IsAttacking() && rayHandler.grounded){
+            xAxis = 0;
+            jumpInput = false;
+            jumpRelease = false;
+        }
+        
+        rayHandler.ProvideInput(xAxis, jumpInput, jumpRelease, Input.GetKey(KeyCode.DownArrow));
 
         if(Input.GetKeyDown(KeyCode.X) && rayHandler.SimActive()){
             attackHandler.StartAttack();

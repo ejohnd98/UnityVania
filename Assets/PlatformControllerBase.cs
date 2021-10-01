@@ -33,7 +33,6 @@ abstract public class PlatformControllerBase : MonoBehaviour {
             Debug.Log("Actor got hit!");
         }
 
-        
     }
 
     public abstract void KillActor();

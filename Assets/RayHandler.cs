@@ -457,6 +457,9 @@ public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
 
         halfWidthVec = Vector3.right * halfWidth;
         halfHeightVec = Vector3.up * halfHeight;
+
+        jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
+        knockbackVel = Mathf.Sqrt(2 * gravity * knockbackHeight);
     }
 
     IEnumerator JumpStartup(){

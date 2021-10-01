@@ -13,6 +13,7 @@ public class AttackHandler : MonoBehaviour {
     double timer = 0.0f;
     bool attackActive = false;
     bool attackCoolingDown = false;
+    bool attackAnimFlag = false;
     int direction = 1;
 
     public bool StartAttack(){
@@ -49,6 +50,7 @@ public class AttackHandler : MonoBehaviour {
         attackCoolingDown = true;
         timer = 0.0f;
         attackCollider.SetActive(true);
+        attackAnimFlag = true;
     }
 
     private void DisableAttack(){
@@ -63,6 +65,12 @@ public class AttackHandler : MonoBehaviour {
 
     public bool IsAttacking(){
         return attackCoolingDown;
+    }
+
+    public bool GetAttackFlag(){
+        bool ret = attackAnimFlag;
+        attackAnimFlag = false;
+        return ret;
     }
 
 }
