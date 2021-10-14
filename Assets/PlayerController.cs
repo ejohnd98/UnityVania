@@ -10,14 +10,21 @@ public class PlayerController : PlatformControllerBase {
 
     void UpdateInput(){
         int xAxis = 0;
-        bool jumpInput = Input.GetKeyDown(KeyCode.UpArrow);
-        bool jumpRelease = Input.GetKeyUp(KeyCode.UpArrow);
+        bool jumpInput = Input.GetKeyDown(KeyCode.Z);
+        bool jumpRelease = Input.GetKeyUp(KeyCode.Z);
 
         if(Input.GetKey(KeyCode.LeftArrow)){
             xAxis -= 1;
         }
         if(Input.GetKey(KeyCode.RightArrow)){
             xAxis += 1;
+        }
+
+        if(Input.GetKeyDown(KeyCode.DownArrow)){
+            //rayHandler.SetCharHeight(1.25f);
+        }
+        if(Input.GetKeyUp(KeyCode.DownArrow)){
+            //rayHandler.SetCharHeight(2.5f);
         }
 
         if(attackHandler.IsAttacking() && rayHandler.grounded){

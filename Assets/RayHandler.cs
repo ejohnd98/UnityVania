@@ -13,6 +13,7 @@ public class RayHandler : MonoBehaviour
 {
     [Header("Editor Settings")]
     public Collider2D col;
+    public BoxCollider2D boxCol;
     public LayerMask groundLayer, oneWayLayer;
 
     [Header("Basic Character Settings")]
@@ -22,16 +23,22 @@ public class RayHandler : MonoBehaviour
     public int maxAirJumps = 2;
     public float gravity = 20.0f;
     public bool canJump = true;
+    public bool canCrouch = false;
+    public float crouchHeightMod = 0.5f;
 
     // Advanced Character Settings
     float remainGroundedSnap = 0.25f;
     float groundSnap = 0.05f;
     float snapVelocityLimit = 4.0f;
 
+    float standingHeight = 1.0f;
+    float crouchHeight = 1.0f;
+
     float jumpCooldown = 0.1f;
     float jumpVel = 1.0f;
     float jumpInputPersist = 0.1f;
 
+    public float slideVel = 10.0f;
     float knockbackVel = 1.0f;
     float knockbackVelH = 3.0f;
     float knockbackHeight = 1.0f;
@@ -51,6 +58,7 @@ public class RayHandler : MonoBehaviour
     float groundAngle;
     public bool knockback = false;
     bool simEnabled = true;
+    public bool isCrouched = false;
 
     public Vector2 velocity = Vector2.zero; //only used for in-air vertical velocity
     bool jumping = false;
@@ -58,8 +66,8 @@ public class RayHandler : MonoBehaviour
     
     // Temp Raycast Result Storage
     RaycastHit2D topHit, bottomHit, rightHit, leftHit, moveHit;
-public float topDist, bottomDist, rightDist, leftDist, moveDist;
-public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
+    public float topDist, bottomDist, rightDist, leftDist, moveDist;
+    public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
 
     // Input
     int xAxis = 0;
@@ -81,6 +89,9 @@ public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
         //calculate jump velocity based on max jump height
         jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
         knockbackVel = Mathf.Sqrt(2 * gravity * knockbackHeight);
+
+        standingHeight = col.bounds.size.y;
+        crouchHeight = standingHeight * crouchHeightMod;
     }
     
     void FixedUpdate() {
@@ -158,6 +169,22 @@ public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
         if(simEnabled){
             HandleMove();
         }
+    }
+
+    public bool SetCharHeight(float height){
+        float oldHeight = boxCol.size.y;
+
+        if(topCollide && topDist < height - oldHeight){
+            Debug.Log("can't change height!");
+            return false;
+        }
+        
+        boxCol.size = new Vector2(boxCol.size.x, height);
+        Vector3 temp = boxCol.transform.localPosition;
+        temp.y = height * 0.5f;
+        boxCol.transform.localPosition = temp;
+
+        return true;
     }
 
     void CastHRays(Vector3 offset){
@@ -363,6 +390,7 @@ public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
         Vector3 moveVec = Vector3.zero;
         float movementInc = step / (float)movementSubdivisions;
         float stepInc = 1.0f / (float) movementSubdivisions;
+
         if(velocity.x > 0){
             velocity.x = Mathf.Max(velocity.x - 0.1f * step, 0.0f);
         }
@@ -381,17 +409,32 @@ public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
 
             Vector3 moveVecInc = Vector2.Perpendicular(groundNormal)*-1f * velocity.x * movementInc;
 
+            // Handle jumping
             if(((airJumpsPerformed < maxAirJumps) || grounded) && !jumping && jumpInput && (!topCollide || topDist > 0.05f)){
                 if(!grounded){
                     airJumpsPerformed++;
                 }
-                jumpInput = false;
-                jumping = true;
-                velocity.y = jumpVel;
-                grounded = false;
+                if(isCrouched && false){
+                    velocity.x = slideVel * (float)lastMoveDir; //WIP sliding
+                    //could use arrow keys to slide as well. Can only slide when x velocity is below certain value
+                    //when sliding, use custom decelleration for velocity, or tweak existing one
+                }else{
+                    jumpInput = false;
+                    jumping = true;
+                    velocity.y = jumpVel;
+                    grounded = false;
+                    
+                    StopCoroutine(JumpInputPersist());
+                    StartCoroutine(JumpStartup());
+                }
                 
-                StopCoroutine(JumpInputPersist());
-                StartCoroutine(JumpStartup());
+            }
+
+            // Handle crouching
+            if(canCrouch && grounded && !isCrouched && crouchInput){
+                isCrouched = SetCharHeight(crouchHeight);
+            }else if (isCrouched && (!grounded || !crouchInput)){
+                isCrouched = !SetCharHeight(standingHeight);
             }
 
             if(!grounded){
