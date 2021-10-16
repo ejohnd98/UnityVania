@@ -1974,6 +1974,7 @@ MonoBehaviour:
   canJump: 1
   canCrouch: 0
   crouchHeightMod: 0.5
+  slideVel: 10
   iFrameDuration: 0.6
   hRays: 9
   vRays: 5
@@ -5523,7 +5524,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6329420634031446844, guid: 0e59f5c793f7067469cb85d8d805ac01, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 20d1bf741dde7c44b88c01e0d2385da0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5850,7 +5851,7 @@ Transform:
   m_Children:
   - {fileID: 517566980}
   m_Father: {fileID: 855370313}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &560546626
 PrefabInstance:
@@ -9841,6 +9842,7 @@ GameObject:
   - component: {fileID: 855370316}
   - component: {fileID: 855370317}
   - component: {fileID: 855370318}
+  - component: {fileID: 855370319}
   m_Layer: 0
   m_Name: PlayerBasic
   m_TagString: Untagged
@@ -9862,6 +9864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mirrorPivot: {fileID: 555860916}
   damage: 5
+  inputHandler: {fileID: 855370319}
 --- !u!4 &855370313
 Transform:
   m_ObjectHideFlags: 0
@@ -9875,7 +9878,6 @@ Transform:
   m_Children:
   - {fileID: 855422159}
   - {fileID: 1996573426}
-  - {fileID: 2142176732}
   - {fileID: 555860917}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -9908,6 +9910,7 @@ MonoBehaviour:
   canJump: 1
   canCrouch: 1
   crouchHeightMod: 0.5
+  slideVel: 10
   iFrameDuration: 1
   hRays: 9
   vRays: 5
@@ -9990,6 +9993,38 @@ MonoBehaviour:
   phys: {fileID: 855370316}
   rayHandler: {fileID: 855370314}
   attack: {fileID: 855370315}
+--- !u!114 &855370319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855370311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64386ce34a6b94a438ca0b59c23d2d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  h_axis: 0
+  v_axis: 0
+  jump_button: 0
+  crouch_button: 0
+  attack_button: 0
+  h_axis_held: 0
+  v_axis_held: 0
+  jump_button_held: 0
+  crouch_button_held: 0
+  attack_button_held: 0
+  h_axis_pressed: 0
+  v_axis_pressed: 0
+  jump_button_pressed: 0
+  crouch_button_pressed: 0
+  attack_button_pressed: 0
+  h_axis_released: 0
+  v_axis_released: 0
+  jump_button_released: 0
+  crouch_button_released: 0
+  attack_button_released: 0
 --- !u!1 &855422156
 GameObject:
   m_ObjectHideFlags: 0
@@ -10059,7 +10094,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2142176732}
   m_Father: {fileID: 855370313}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10835,6 +10871,7 @@ MonoBehaviour:
   canJump: 1
   canCrouch: 0
   crouchHeightMod: 0.5
+  slideVel: 10
   iFrameDuration: 0.6
   hRays: 9
   vRays: 5
@@ -18869,6 +18906,7 @@ MonoBehaviour:
   canJump: 1
   canCrouch: 0
   crouchHeightMod: 0.5
+  slideVel: 10
   iFrameDuration: 0.6
   hRays: 9
   vRays: 5
@@ -23139,6 +23177,7 @@ MonoBehaviour:
   canJump: 1
   canCrouch: 0
   crouchHeightMod: 0.5
+  slideVel: 10
   iFrameDuration: 0.6
   hRays: 9
   vRays: 5
@@ -23876,11 +23915,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142176731}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0.10000038, y: 0.08, z: 0}
   m_LocalScale: {x: 2.4, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 855370313}
-  m_RootOrder: 2
+  m_Father: {fileID: 855422159}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2142176733
 Rigidbody2D:

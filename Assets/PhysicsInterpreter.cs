@@ -38,7 +38,12 @@ public class PhysicsInterpreter : MonoBehaviour
     }
 
     public int FaceDir(){
-        return rayHandler.lastMoveDir;
+        if(rayHandler.lastMoveDir == 0){
+            return 1;
+        }else{
+            return rayHandler.lastMoveDir;
+        }
+        
     }
 
 

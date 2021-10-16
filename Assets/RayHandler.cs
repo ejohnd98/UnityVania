@@ -52,7 +52,8 @@ public class RayHandler : MonoBehaviour
 
     // Character State
     int moveDir = 0;
-    public int lastMoveDir = 0;
+    float moveAmplitude = 0.0f;
+    public int lastMoveDir = 1;
     public bool grounded;
     Vector2 groundNormal;
     float groundAngle;
@@ -70,7 +71,7 @@ public class RayHandler : MonoBehaviour
     public bool topCollide, bottomCollide, rightCollide, leftCollide, moveCollide;
 
     // Input
-    int xAxis = 0;
+    float xAxis = 0;
     bool jumpInput = false;
     bool crouchInput = false;
     bool jumpDampenFlag = false;
@@ -100,6 +101,10 @@ public class RayHandler : MonoBehaviour
     }
 
     public void ProvideInput(int x, bool jumpStart, bool jumpRelease, bool crouch){
+        ProvideInput((float)x, jumpStart, jumpRelease, crouch);
+    }
+
+    public void ProvideInput(float x, bool jumpStart, bool jumpRelease, bool crouch){
         if(knockback || !simEnabled){
             //override inputs if stunned
             return;
@@ -485,12 +490,24 @@ public class RayHandler : MonoBehaviour
     }
 
     void UpdateVariables(){
-        moveDir = xAxis;
+        if(xAxis > 0.05f){
+            moveDir = 1;
+        }else if(xAxis < -0.05f){
+            moveDir = -1;
+        }else {
+            moveDir = 0;
+        }
+        if(grounded && canCrouch && crouchInput){
+            moveDir = 0;
+        }
         if(moveDir != 0){
             lastMoveDir = moveDir;
+            moveAmplitude = xAxis;
+        }else{
+            moveAmplitude = 0.0f;
         }
         if(!knockback){
-            velocity.x = moveDir * movementSpeed;
+            velocity.x = moveAmplitude * movementSpeed;
         }
         step = Time.fixedDeltaTime;
 

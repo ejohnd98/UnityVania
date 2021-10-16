@@ -4,27 +4,22 @@ using UnityEngine;
 
 public class PlayerController : PlatformControllerBase {
 
+    public InputHandler inputHandler;
+
     void Update(){
         UpdateInput();
     }
 
     void UpdateInput(){
-        int xAxis = 0;
-        bool jumpInput = Input.GetKeyDown(KeyCode.Z);
-        bool jumpRelease = Input.GetKeyUp(KeyCode.Z);
+        float xAxis = inputHandler.h_axis;
+        bool jumpInput = inputHandler.jump_button_pressed;
+        bool jumpRelease = inputHandler.jump_button_released;
 
         if(Input.GetKey(KeyCode.LeftArrow)){
-            xAxis -= 1;
+            //xAxis -= 1;
         }
         if(Input.GetKey(KeyCode.RightArrow)){
-            xAxis += 1;
-        }
-
-        if(Input.GetKeyDown(KeyCode.DownArrow)){
-            //rayHandler.SetCharHeight(1.25f);
-        }
-        if(Input.GetKeyUp(KeyCode.DownArrow)){
-            //rayHandler.SetCharHeight(2.5f);
+            //xAxis += 1;
         }
 
         if(attackHandler.IsAttacking() && rayHandler.grounded){
@@ -33,9 +28,9 @@ public class PlayerController : PlatformControllerBase {
             jumpRelease = false;
         }
         
-        rayHandler.ProvideInput(xAxis, jumpInput, jumpRelease, Input.GetKey(KeyCode.DownArrow));
+        rayHandler.ProvideInput(xAxis, jumpInput, jumpRelease, inputHandler.CrouchHeld());
 
-        if(Input.GetKeyDown(KeyCode.X) && rayHandler.SimActive()){
+        if(inputHandler.attack_button_pressed && rayHandler.SimActive()){
             attackHandler.StartAttack();
         }
 
