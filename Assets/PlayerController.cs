@@ -15,13 +15,6 @@ public class PlayerController : PlatformControllerBase {
         bool jumpInput = inputHandler.jump_button_pressed;
         bool jumpRelease = inputHandler.jump_button_released;
 
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            //xAxis -= 1;
-        }
-        if(Input.GetKey(KeyCode.RightArrow)){
-            //xAxis += 1;
-        }
-
         if(attackHandler.IsAttacking() && rayHandler.grounded){
             xAxis = 0;
             jumpInput = false;

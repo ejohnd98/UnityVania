@@ -101,6 +101,6 @@ public class InputHandler : MonoBehaviour
     }
 
     public bool CrouchHeld(){
-        return v_axis <= -0.05f && v_axis_held;
+        return v_axis <= -0.15f && v_axis_held;
     }
 }

@@ -15,6 +15,7 @@ public class RayHandler : MonoBehaviour
     public Collider2D col;
     public BoxCollider2D boxCol;
     public LayerMask groundLayer, oneWayLayer;
+    public AttackHandler attackHandler;
 
     [Header("Basic Character Settings")]
     public float movementSpeed = 7.0f;
@@ -40,8 +41,7 @@ public class RayHandler : MonoBehaviour
 
     public float slideVel = 10.0f;
     float knockbackVel = 1.0f;
-    float knockbackVelH = 3.0f;
-    float knockbackHeight = 1.0f;
+    public float knockbackHeight = 1.0f;
     public float iFrameDuration = 1.0f;
     bool invincible = false;
 
@@ -85,11 +85,11 @@ public class RayHandler : MonoBehaviour
     //For convenience
     float halfWidth, halfHeight;
     Vector3 center, halfHeightVec, halfWidthVec;
+    Vector2 defaultKnockback = (new Vector2 (2.0f, 2.0f)).normalized;
 
     void Start() {
         //calculate jump velocity based on max jump height
         jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
-        knockbackVel = Mathf.Sqrt(2 * gravity * knockbackHeight);
 
         standingHeight = col.bounds.size.y;
         crouchHeight = standingHeight * crouchHeightMod;
@@ -130,16 +130,16 @@ public class RayHandler : MonoBehaviour
         knockback = true;
         crouchInput = false;
 
-        if (center.x  >= other.transform.position.x){
-            velocity.x = knockbackVelH;
-        }else{
-            velocity.x = -knockbackVelH;
-        }
+        Vector2 defaultDir = defaultKnockback;
+        defaultDir.x *= Mathf.Sign(center.x - other.transform.position.x);
+        Vector2 dir = (center - other.transform.position).normalized;
+        Vector2 knockbackDir = (dir + defaultDir*1.5f).normalized;
+        velocity.x = knockbackDir.x * knockbackVel;
 
         if (center.y >= other.transform.position.y || true){
             grounded = false;
             jumping = true;
-            velocity.y = knockbackVel;
+            velocity.y = knockbackDir.y * knockbackVel;
             StartCoroutine(JumpStartup());
         }
     }
@@ -396,11 +396,13 @@ public class RayHandler : MonoBehaviour
         float movementInc = step / (float)movementSubdivisions;
         float stepInc = 1.0f / (float) movementSubdivisions;
 
+        float velocityReduceAmount = (Mathf.Abs(velocity.x) * 1.0f) + 0.5f;
+
         if(velocity.x > 0){
-            velocity.x = Mathf.Max(velocity.x - 0.1f * step, 0.0f);
+            velocity.x = Mathf.Max(velocity.x - velocityReduceAmount * step, 0.0f);
         }
         else if(velocity.x < 0){
-            velocity.x = Mathf.Min(velocity.x + 0.1f * step, 0.0f);
+            velocity.x = Mathf.Min(velocity.x + velocityReduceAmount * step, 0.0f);
         }
         
         
@@ -498,15 +500,20 @@ public class RayHandler : MonoBehaviour
             moveDir = 0;
         }
         if(grounded && canCrouch && crouchInput){
+            if(moveDir != 0 && (attackHandler == null || !attackHandler.IsAttacking())){
+                lastMoveDir = moveDir;
+            }
             moveDir = 0;
         }
         if(moveDir != 0){
-            lastMoveDir = moveDir;
+            if(attackHandler == null || !attackHandler.IsAttacking()){
+                lastMoveDir = moveDir;
+            }
             moveAmplitude = xAxis;
         }else{
             moveAmplitude = 0.0f;
         }
-        if(!knockback){
+        if(!knockback && !isCrouched){
             velocity.x = moveAmplitude * movementSpeed;
         }
         step = Time.fixedDeltaTime;
