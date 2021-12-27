@@ -12,8 +12,10 @@ Levels:
 		Final Boss
 	
 Items:
-	upwards grapple hook
-		good against birds
+	double jump
 	acid cloak
 		allows walking through poison waterfalls
 		can use to approach some enemies
+	upwards grapple hook
+		good against birds
+	
