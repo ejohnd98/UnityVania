@@ -1,0 +1,19 @@
+Levels:
+	Mansion
+	Cemetery
+	Tombs
+		Boss: Creature formed from tons of skeletons
+	Library
+		Boss: Evil wizard that levitates weapons to attack
+	Clocktower
+		Boss: Giant clock that moves hands, then stops them to fire in those directions
+	
+	[Preboss area]
+		Final Boss
+	
+Items:
+	upwards grapple hook
+		good against birds
+	acid cloak
+		allows walking through poison waterfalls
+		can use to approach some enemies
