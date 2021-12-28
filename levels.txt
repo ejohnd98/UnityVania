@@ -19,3 +19,8 @@ Items:
 	upwards grapple hook
 		good against birds
 	
+TO-DO:
+	Create darkness tileset to overlay on top of map to fade out around floors and walls
+	Create reversed gradient castle tileset
+	
+	create background
