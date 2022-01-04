@@ -421,7 +421,7 @@ public class RayHandler : MonoBehaviour
                 if(!grounded){
                     airJumpsPerformed++;
                 }
-                if(isCrouched && false){
+                if(isCrouched && true){
                     velocity.x = slideVel * (float)lastMoveDir; //WIP sliding
                     //could use arrow keys to slide as well. Can only slide when x velocity is below certain value
                     //when sliding, use custom decelleration for velocity, or tweak existing one
@@ -448,11 +448,11 @@ public class RayHandler : MonoBehaviour
                 moveVecInc += Vector3.up * velocity.y *step * stepInc;
             }
 
-            if(moveDir==-1 && leftCollide && leftDist > moveVecInc.x){ //if moving left into wall
+            if(leftCollide && leftDist > moveVecInc.x){ //if moving left into wall
                 moveVecInc.x = leftDist;
                 velocity.x = 0;
             }
-            if(moveDir==1 && rightCollide && rightDist < moveVecInc.x){ //if moving right into wall
+            if(rightCollide && rightDist < moveVecInc.x){ //if moving right into wall
                 moveVecInc.x = rightDist;
                 velocity.x = 0;
             }

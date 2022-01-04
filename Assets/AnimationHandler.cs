@@ -11,13 +11,16 @@ public class AnimationHandler : MonoBehaviour
 
     void Update(){
         animator.SetBool("grounded", rayHandler.grounded);
-        animator.SetBool("attacking", attack.IsAttacking());
+        
         animator.SetFloat("hSpeed", rayHandler.velocity.x);
         animator.SetFloat("vSpeed", rayHandler.velocity.y);
         animator.SetBool("crouching", rayHandler.isCrouched);
 
-        if(attack.GetAttackFlag()){
-            animator.SetTrigger("attackTrigger");
+        if(attack != null){
+            animator.SetBool("attacking", attack.IsAttacking());
+            if(attack.GetAttackFlag()){
+                animator.SetTrigger("attackTrigger");
+            }
         }
     }
 }

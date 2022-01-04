@@ -44,6 +44,7 @@ public class EnemyController : PlatformControllerBase {
         }
 
         rayHandler.ProvideInput(xAxis, jump, endJump, crouch);
+        FaceDirection(physicsState.FaceDir());
     }
 
     public override void KillActor(){
