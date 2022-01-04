@@ -1,10 +1,13 @@
 Levels:
 	Mansion
+		Zombies
+		Bats
+	Library
+		Boss: Evil wizard that levitates weapons to attack
 	Cemetery
 	Tombs
 		Boss: Creature formed from tons of skeletons
-	Library
-		Boss: Evil wizard that levitates weapons to attack
+	
 	Clocktower
 		Boss: Giant clock that moves hands, then stops them to fire in those directions
 	
@@ -20,7 +23,44 @@ Items:
 		good against birds
 	
 TO-DO:
+Create script for enemy spawning
+Create script for designating areas + playing music
 	Create darkness tileset to overlay on top of map to fade out around floors and walls
-	Create reversed gradient castle tileset
+	create backgrounds
 	
-	create background
+TO-DO:
+	Coding
+		Areas (have trigger colliders corresponding to each area with attached script specifying area from enum)
+			background parallax handler
+		Unlock system (unlock double jump, grapple jump)
+		Camera (bounding box style of camera movement, with maybe some fixed sections?)
+		
+		Grapple jump (raycast upwards. if within certain distance, )
+		
+		Music and sound player (music should fade in and out instead of hard cuts)
+		Enemy Spawner (respawn enemies when leaving areas)
+		Dialogue box (pause gameplay and show relealing text with small avatar)
+		
+
+	Art
+		Player sprites
+		Enemy sprites
+		Bosses
+		backgrounds + parallax
+		area props
+		UI
+
+	Music
+		menu theme
+		mini boss theme
+		final area
+		credits theme
+		
+		sound effects
+			walking
+			slashing
+
+	Polish
+		Particle effects
+		screen shake
+		doors between areas
