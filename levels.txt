@@ -30,8 +30,7 @@ Create script for designating areas + playing music
 	
 TO-DO:
 	Coding
-		Areas (have trigger colliders corresponding to each area with attached script specifying area from enum)
-			background parallax handler
+		background parallax handler
 		Unlock system (unlock double jump, grapple jump)
 		Camera (bounding box style of camera movement, with maybe some fixed sections?)
 		
@@ -59,8 +58,12 @@ TO-DO:
 		sound effects
 			walking
 			slashing
+			enemy sounds
 
 	Polish
 		Particle effects
 		screen shake
 		doors between areas
+		randomize enemy speeds
+		only spawn enemies not on screen
+		damage effects (character flash red, screen shake)
