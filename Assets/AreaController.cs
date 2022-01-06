@@ -26,6 +26,7 @@ public class AreaController : MonoBehaviour
     public Areas currentArea = Areas.None;
     public GameObject areaRoot;
     public GameObject playerObj;
+    public SoundSystem sndSystem;
 
     public GameObject[] enemyPrefabs;
     public List<GameObject> currentEnemies;
@@ -52,7 +53,7 @@ public class AreaController : MonoBehaviour
             Destroy(obj);
         }
 
-        //begin fade out of music
+        sndSystem.ChangeMusic(newArea);
 
         currentArea = newArea;
         areaRoot = newAreaRoot;
@@ -64,9 +65,6 @@ public class AreaController : MonoBehaviour
             enemy.GetComponent<EnemyController>().target = playerObj;
             currentEnemies.Add(enemy);
         }
-
-        
-        //queue new music
         //set background
         //toggle appropriate "fog of war" for other areas
     }
