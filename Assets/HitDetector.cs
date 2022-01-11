@@ -17,6 +17,9 @@ public class HitDetector : MonoBehaviour
 
     public void DetectHit(){
         if(currentlyColliding){
+            if(otherCol == null){
+                return;
+            }
             otherController = otherCol.transform.GetComponentInParent<PlatformControllerBase>();
             
             if(otherController!=null && !otherController.SimActive()){

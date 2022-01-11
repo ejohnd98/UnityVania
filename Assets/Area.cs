@@ -13,6 +13,6 @@ public class Area : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other){
-        areaController.UpdateArea(correspondingArea, gameObject);
+        areaController.UpdateArea(correspondingArea, this);
     }
 }

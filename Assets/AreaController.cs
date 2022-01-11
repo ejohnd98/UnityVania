@@ -10,6 +10,7 @@ public enum Areas{
     Clocktower,
     Bridge,
     Preboss,
+    Boss,
 
     None
 };
@@ -43,20 +44,22 @@ public class AreaController : MonoBehaviour
         
     }
 
-    public void UpdateArea (Areas newArea, GameObject newAreaRoot){
+    public void UpdateArea (Areas newArea, Area obj){
         if(newArea == currentArea){
             return;
         }
 
         //despawn enemies
-        foreach(GameObject obj in currentEnemies){
-            Destroy(obj);
+        foreach(GameObject en in currentEnemies){
+            if(en != null){
+                Destroy(en.gameObject);
+            }
         }
 
         sndSystem.ChangeMusic(newArea);
 
         currentArea = newArea;
-        areaRoot = newAreaRoot;
+        areaRoot = obj.gameObject;
 
         //spawn enemies
         EnemySpawn[] spawners = areaRoot.GetComponentsInChildren<EnemySpawn>();
@@ -65,6 +68,13 @@ public class AreaController : MonoBehaviour
             enemy.GetComponent<EnemyController>().target = playerObj;
             currentEnemies.Add(enemy);
         }
+
+        //start boss
+        BossHandler boss = areaRoot.GetComponentInChildren<BossHandler>();
+        if(boss != null){
+            boss.StartBoss();
+        }
+
         //set background
         //toggle appropriate "fog of war" for other areas
     }
