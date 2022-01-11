@@ -30,6 +30,10 @@ Create script for designating areas + playing music
 	
 TO-DO:
 	Coding
+		boss handler
+			upon entering area, spawn boss prefab and block entrance until object is destroyed
+			boss will have custom script with switch statement for phases and attacks
+	
 		background parallax handler
 		Unlock system (unlock double jump, grapple jump)
 		Camera (bounding box style of camera movement, with maybe some fixed sections?)
@@ -51,8 +55,6 @@ TO-DO:
 
 	Music
 		menu theme
-		mini boss theme
-		final area
 		credits theme
 		
 		sound effects
