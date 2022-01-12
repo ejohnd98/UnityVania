@@ -32,6 +32,9 @@ public class AreaController : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public List<GameObject> currentEnemies;
 
+    //debug
+    public bool disableEnemies = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,10 @@ public class AreaController : MonoBehaviour
 
         currentArea = newArea;
         areaRoot = obj.gameObject;
+
+        if(disableEnemies){
+            return;
+        }
 
         //spawn enemies
         EnemySpawn[] spawners = areaRoot.GetComponentsInChildren<EnemySpawn>();

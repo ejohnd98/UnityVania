@@ -25,7 +25,6 @@ Items:
 TO-DO:
 Create script for enemy spawning
 Create script for designating areas + playing music
-	Create darkness tileset to overlay on top of map to fade out around floors and walls
 	create backgrounds
 	
 TO-DO:
