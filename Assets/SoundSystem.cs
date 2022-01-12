@@ -45,6 +45,20 @@ public class SoundSystem : MonoBehaviour
         
     }
 
+    public void StopMusic(){
+        ChangeMusic((AudioClip)null);
+    }
+
+    public void ChangeMusic(AudioClip newMusic){
+        nextMusic = newMusic;
+        if(musicPlayer.isPlaying && fadingOut && nextMusic == musicPlayer.clip){
+            fadingOut = false;
+        }else{
+            StartCoroutine(TransitionMusic());
+        }
+        
+    }
+
     IEnumerator TransitionMusic(){
         fadingOut = true;
         yield return new WaitUntil(() => (musicPlayer.volume <= 0.001f || !musicPlayer.isPlaying));
