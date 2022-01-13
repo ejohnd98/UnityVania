@@ -1,3 +1,8 @@
+Bosses:
+	bullet hell falling projectiles
+	
+Spawn single sprite anim upon enemies death.
+
 Levels:
 	Mansion
 		Zombies

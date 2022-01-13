@@ -146,6 +146,7 @@ MonoBehaviour:
   canJump: 0
   canCrouch: 0
   crouchHeightMod: 0.5
+  velocityDampenX: 10
   slideVel: 10
   knockbackHeight: 1.6
   iFrameDuration: 0.6
@@ -156,6 +157,7 @@ MonoBehaviour:
   lastMoveDir: 0
   grounded: 0
   knockback: 0
+  knockbackTime: 0.8
   isCrouched: 0
   velocity: {x: 0, y: 0}
   airJumpsPerformed: 0

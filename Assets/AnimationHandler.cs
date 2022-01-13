@@ -15,6 +15,7 @@ public class AnimationHandler : MonoBehaviour
         animator.SetFloat("hSpeed", rayHandler.velocity.x);
         animator.SetFloat("vSpeed", rayHandler.velocity.y);
         animator.SetBool("crouching", rayHandler.isCrouched);
+        animator.SetBool("knockback", rayHandler.knockback);
 
         if(attack != null){
             animator.SetBool("attacking", attack.IsAttacking());

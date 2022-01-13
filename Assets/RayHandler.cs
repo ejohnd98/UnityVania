@@ -27,6 +27,8 @@ public class RayHandler : MonoBehaviour
     public bool canCrouch = false;
     public float crouchHeightMod = 0.5f;
 
+    public float velocityDampenX = 0.5f;
+
     // Advanced Character Settings
     float remainGroundedSnap = 0.25f;
     float groundSnap = 0.05f;
@@ -58,6 +60,7 @@ public class RayHandler : MonoBehaviour
     Vector2 groundNormal;
     float groundAngle;
     public bool knockback = false;
+    public float knockbackTime = 1.0f;
     bool simEnabled = true;
     public bool isCrouched = false;
 
@@ -127,6 +130,7 @@ public class RayHandler : MonoBehaviour
             return;
         }
         StartCoroutine(StartIFrame());
+        StartCoroutine(HoldKnockback());
         knockback = true;
         crouchInput = false;
 
@@ -375,7 +379,7 @@ public class RayHandler : MonoBehaviour
             velocity.y = 0;
             groundAngle = GetHitAngle(bottomHit, false);
             airJumpsPerformed = 0;
-            knockback = false;
+            //knockback = false;
         }else{
             grounded = false;
             groundAngle = 0;
@@ -396,7 +400,7 @@ public class RayHandler : MonoBehaviour
         float movementInc = step / (float)movementSubdivisions;
         float stepInc = 1.0f / (float) movementSubdivisions;
 
-        float velocityReduceAmount = (Mathf.Abs(velocity.x) * 1.0f) + 0.5f;
+        float velocityReduceAmount = (Mathf.Abs(velocity.x) * 1.0f) + (grounded? velocityDampenX : 0.5f);
 
         if(velocity.x > 0){
             velocity.x = Mathf.Max(velocity.x - velocityReduceAmount * step, 0.0f);
@@ -532,6 +536,11 @@ public class RayHandler : MonoBehaviour
     IEnumerator JumpStartup(){
         yield return new WaitForSeconds(jumpCooldown);
         jumping = false;
+    }
+
+    IEnumerator HoldKnockback(){
+        yield return new WaitForSeconds(knockbackTime);
+        knockback = false;
     }
 
     IEnumerator JumpInputPersist(){
