@@ -6,6 +6,8 @@ public enum ItemTypes{
     Gold,
     Key,
     DoubleJump,
+    TripleJump,
+    TallJump,
 
     None
 };
@@ -13,6 +15,7 @@ public enum ItemTypes{
 public class ItemHandler : MonoBehaviour
 {
     public List<ItemTypes> inventory;
+    public PlayerController player;
 
     private void Start() {
         inventory = new List<ItemTypes>();
@@ -24,6 +27,23 @@ public class ItemHandler : MonoBehaviour
         }
 
         inventory.Add(newItem);
+        switch(newItem){
+            case ItemTypes.DoubleJump:
+                player.GrantDoubleJump();
+                break;
+            case ItemTypes.TripleJump:
+                player.GrantTripleJump();
+                break;
+            case ItemTypes.TallJump:
+                player.GrantTallJump();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public bool HasItem(ItemTypes itemType){
+        return inventory.Contains(itemType);
     }
 
     private void OnTriggerEnter2D(Collider2D other){

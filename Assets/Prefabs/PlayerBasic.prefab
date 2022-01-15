@@ -300,12 +300,14 @@ MonoBehaviour:
   movementSpeed: 5
   maxWalkAngle: 50
   maxJumpHeight: 3.08
-  maxAirJumps: 1
+  maxTallJumpHeight: 6.16
+  maxAirJumps: 0
+  maxTallJumps: 0
   gravity: 30
   canJump: 1
   canCrouch: 1
   crouchHeightMod: 0.5
-  velocityDampenX: 10
+  velocityDampenX: 12
   slideVel: 10
   knockbackHeight: 2
   iFrameDuration: 1
@@ -316,7 +318,7 @@ MonoBehaviour:
   lastMoveDir: 0
   grounded: 0
   knockback: 0
-  knockbackTime: 0.6
+  knockbackTime: 0.55
   isCrouched: 0
   velocity: {x: 0, y: 0}
   airJumpsPerformed: 0
@@ -670,3 +672,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408e6d9f17c133a4d871d8b125847a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: 
+  player: {fileID: 1182643519627546238}

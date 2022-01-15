@@ -41,7 +41,7 @@ public class BossHandler : MonoBehaviour
     public void ChangeState(BossPhases newState){
         switch(newState){
             case BossPhases.NotStarted:
-                SetDoors(true);
+                SetDoors(true, true);
                 break;
 
             case BossPhases.Phase1:
@@ -81,9 +81,9 @@ public class BossHandler : MonoBehaviour
         }
     }
 
-    void SetDoors(bool open){
+    void SetDoors(bool open, bool force = false){
         foreach(Door door in doors){
-            door.SetOpen(open);
+            door.SetOpen(open, force);
         }
     }
 }

@@ -10,6 +10,18 @@ public class PlayerController : PlatformControllerBase {
         UpdateInput();
     }
 
+    public void GrantDoubleJump(){
+        rayHandler.maxAirJumps = Mathf.Max(rayHandler.maxAirJumps, 1);
+    }
+
+    public void GrantTripleJump(){
+        rayHandler.maxAirJumps = Mathf.Max(rayHandler.maxAirJumps, 2);
+    }
+
+    public void GrantTallJump(){
+        rayHandler.maxTallJumps = Mathf.Max(rayHandler.maxTallJumps, 1);
+    }
+
     void UpdateInput(){
         float xAxis = inputHandler.h_axis;
         bool jumpInput = inputHandler.jump_button_pressed;

@@ -1,6 +1,3 @@
-Bosses:
-	bullet hell falling projectiles
-	
 Spawn single sprite anim upon enemies death.
 
 Levels:
@@ -19,35 +16,18 @@ Levels:
 	[Preboss area]
 		Final Boss
 	
-Items:
-	double jump
-	acid cloak
-		allows walking through poison waterfalls
-		can use to approach some enemies
-	upwards grapple hook
-		good against birds
-	
-TO-DO:
-Create script for enemy spawning
-Create script for designating areas + playing music
-	create backgrounds
+NEXT:
+	Portals & Save Points
+
 	
 TO-DO:
 	Coding
-		boss handler
-			upon entering area, spawn boss prefab and block entrance until object is destroyed
-			boss will have custom script with switch statement for phases and attacks
-	
-		background parallax handler
-		Unlock system (unlock double jump, grapple jump)
 		Camera (bounding box style of camera movement, with maybe some fixed sections?)
-		
-		Grapple jump (raycast upwards. if within certain distance, )
-		
-		Music and sound player (music should fade in and out instead of hard cuts)
-		Enemy Spawner (respawn enemies when leaving areas)
 		Dialogue box (pause gameplay and show relealing text with small avatar)
-		
+		Mini Map
+		Portals
+		Shop
+		Different Weapons?
 
 	Art
 		Player sprites
@@ -59,6 +39,7 @@ TO-DO:
 
 	Music
 		menu theme
+		shop theme
 		credits theme
 		
 		sound effects
@@ -69,7 +50,5 @@ TO-DO:
 	Polish
 		Particle effects
 		screen shake
-		doors between areas
 		randomize enemy speeds
-		only spawn enemies not on screen
 		damage effects (character flash red, screen shake)

@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO:
-// Allow dynamic resizing of player dimensions
-// have width and height parameters to enter which will:
-//  -   adjust number of rays to go along with dimensions
-//  -   resize collider and adjust offset
-//  -   resize sprite (only temp)
-
 public class RayHandler : MonoBehaviour
 {
     [Header("Editor Settings")]
@@ -21,11 +14,14 @@ public class RayHandler : MonoBehaviour
     public float movementSpeed = 7.0f;
     public float maxWalkAngle = 50f;
     public float maxJumpHeight = 3.6f; //in units
+    public float maxTallJumpHeight = 6.0f; //in units
     public int maxAirJumps = 2;
+    public int maxTallJumps = 0;
     public float gravity = 20.0f;
     public bool canJump = true;
     public bool canCrouch = false;
     public float crouchHeightMod = 0.5f;
+    
 
     public float velocityDampenX = 0.5f;
 
@@ -39,6 +35,7 @@ public class RayHandler : MonoBehaviour
 
     float jumpCooldown = 0.1f;
     float jumpVel = 1.0f;
+    float tallJumpVel = 1.0f;
     float jumpInputPersist = 0.1f;
 
     public float slideVel = 10.0f;
@@ -93,6 +90,7 @@ public class RayHandler : MonoBehaviour
     void Start() {
         //calculate jump velocity based on max jump height
         jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
+        tallJumpVel = Mathf.Sqrt(2 * gravity * maxTallJumpHeight);
 
         standingHeight = col.bounds.size.y;
         crouchHeight = standingHeight * crouchHeightMod;
@@ -421,7 +419,7 @@ public class RayHandler : MonoBehaviour
             Vector3 moveVecInc = Vector2.Perpendicular(groundNormal)*-1f * velocity.x * movementInc;
 
             // Handle jumping
-            if(((airJumpsPerformed < maxAirJumps) || grounded) && !jumping && jumpInput && (!topCollide || topDist > 0.05f)){
+            if(((airJumpsPerformed < maxAirJumps + maxTallJumps) || grounded) && !jumping && jumpInput && (!topCollide || topDist > 0.05f)){
                 if(!grounded){
                     airJumpsPerformed++;
                 }
@@ -432,7 +430,7 @@ public class RayHandler : MonoBehaviour
                 }else{
                     jumpInput = false;
                     jumping = true;
-                    velocity.y = jumpVel;
+                    velocity.y = (airJumpsPerformed <= maxAirJumps)? jumpVel : tallJumpVel;
                     grounded = false;
                     
                     StopCoroutine(JumpInputPersist());
@@ -530,6 +528,7 @@ public class RayHandler : MonoBehaviour
         halfHeightVec = Vector3.up * halfHeight;
 
         jumpVel = Mathf.Sqrt(2 * gravity * maxJumpHeight);
+        tallJumpVel = Mathf.Sqrt(2 * gravity * maxTallJumpHeight);
         knockbackVel = Mathf.Sqrt(2 * gravity * knockbackHeight);
     }
 
