@@ -24,11 +24,11 @@ public class SoundSystem : MonoBehaviour
     // Update is called once per frame
     void Update(){
         if(fadingOut && musicPlayer.volume > 0.0){
-            musicPlayer.volume = easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
+            musicPlayer.volume = musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter += Time.deltaTime;
         }
         if(!fadingOut && musicPlayer.volume < musicVolume){
-            musicPlayer.volume = easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
+            musicPlayer.volume = musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter -= Time.deltaTime;
         }
     }
