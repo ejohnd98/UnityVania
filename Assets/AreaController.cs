@@ -55,7 +55,7 @@ public class AreaController : MonoBehaviour
         //despawn enemies
         foreach(GameObject en in currentEnemies){
             if(en != null){
-                Destroy(en.gameObject);
+                ObjectHandler.DestroyObjects(en.gameObject);
             }
         }
 

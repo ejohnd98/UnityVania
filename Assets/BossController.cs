@@ -33,19 +33,19 @@ public class BossController : PlatformControllerBase {
         foreach (GameObject obj in DefeatedObjects){obj.SetActive(false);}
         switch(phase){
             case BossPhases.NotStarted:
-                foreach (GameObject obj in IntroObjects){obj.SetActive(true);}
+                foreach (GameObject obj in IntroObjects){ObjectHandler.SetObjectActive(obj, true);}
                 break;
             case BossPhases.Phase1:
-                foreach (GameObject obj in Phase1Objects){obj.SetActive(true);}
+                foreach (GameObject obj in Phase1Objects){ObjectHandler.SetObjectActive(obj, true);}
                 break;
             case BossPhases.Phase2:
-                foreach (GameObject obj in Phase2Objects){obj.SetActive(true);}
+                foreach (GameObject obj in Phase2Objects){ObjectHandler.SetObjectActive(obj, true);}
                 break;
             case BossPhases.Phase3:
-                foreach (GameObject obj in Phase3Objects){obj.SetActive(true);}
+                foreach (GameObject obj in Phase3Objects){ObjectHandler.SetObjectActive(obj, true);}
                 break;
             case BossPhases.Defeated:
-                foreach (GameObject obj in DefeatedObjects){obj.SetActive(true);}
+                foreach (GameObject obj in DefeatedObjects){ObjectHandler.SetObjectActive(obj, true);}
                 break;
             default:
             break;
@@ -73,8 +73,11 @@ public class BossController : PlatformControllerBase {
             healthSections[section].DealDamage(otherController.damage);
         }
         if(healthSections[section].healthDepleted){
-            if(healthSectionObjects[section] != null)
-                healthSectionObjects[section].SetActive(false);
+            if(healthSectionObjects[section] != null){
+                ObjectHandler.SetObjectActive(healthSectionObjects[section], false);
+            }
+                
+                
         }
     }
 }

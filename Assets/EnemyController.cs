@@ -50,6 +50,6 @@ public class EnemyController : PlatformControllerBase {
     public override void KillActor(){
         rayHandler.SetSimState(false);
         Debug.Log("Enemy Killed");
-        Destroy(this.gameObject);
+        ObjectHandler.DestroyObjects(this.gameObject);
     }
 }

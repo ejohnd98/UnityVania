@@ -49,13 +49,13 @@ public class AttackHandler : MonoBehaviour {
         attackActive = true;
         attackCoolingDown = true;
         timer = 0.0f;
-        attackCollider.SetActive(true);
+        ObjectHandler.SetObjectActive(attackCollider, true);
         attackAnimFlag = true;
     }
 
     private void DisableAttack(){
         attackActive = false;
-        attackCollider.SetActive(false);
+        ObjectHandler.SetObjectActive(attackCollider, false);
     }
 
     private void StopCooldown(){

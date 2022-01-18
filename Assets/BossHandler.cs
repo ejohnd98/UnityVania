@@ -58,7 +58,7 @@ public class BossHandler : MonoBehaviour
                 break;
 
             case BossPhases.Defeated:
-                Destroy(bossObj);
+                ObjectHandler.DestroyObjects(bossObj);
                 sndSystem.StopMusic();
                 SetDoors(true);
                 break;

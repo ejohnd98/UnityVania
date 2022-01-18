@@ -19,7 +19,7 @@ public class Door : MonoBehaviour
             return;
         }
         isOpen = newState;
-        colliderObject.SetActive(!newState);
+        ObjectHandler.SetObjectActive(colliderObject, !newState);
         animator.SetBool("isOpen", isOpen);
     }
 }

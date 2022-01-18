@@ -49,6 +49,6 @@ public class ItemHandler : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
         GameItem pickup = other.GetComponent<GameItem>();
         AddItem(pickup.itemType);
-        Destroy(pickup.gameObject);
+        ObjectHandler.DestroyObjects(pickup.gameObject);
     }
 }
