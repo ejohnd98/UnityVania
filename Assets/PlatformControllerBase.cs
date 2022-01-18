@@ -11,6 +11,7 @@ abstract public class PlatformControllerBase : MonoBehaviour {
 
     public GameObject mirrorPivot;
     public float damage = 5.0f;
+    public bool ignoreHits = false;
 
     void Start() {
         rayHandler = GetComponent<RayHandler>();
@@ -20,17 +21,15 @@ abstract public class PlatformControllerBase : MonoBehaviour {
     }
 
     public bool SimActive(){
-        return rayHandler.SimActive();
+        return ignoreHits || rayHandler.SimActive();
     }
 
     public void ReceiveHit(GameObject other){
         
         PlatformControllerBase otherController = other.GetComponentInParent<PlatformControllerBase>();
-        if(otherController != null && !rayHandler.IsInvincible()){
+        if(!ignoreHits && otherController != null && !rayHandler.IsInvincible()){
             hp.DealDamage(otherController.damage);
             rayHandler.StartKnockback(other);
-            
-            Debug.Log("Actor got hit!");
         }
 
     }

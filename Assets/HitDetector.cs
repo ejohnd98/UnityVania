@@ -27,7 +27,7 @@ public class HitDetector : MonoBehaviour
             }
 
             hitEvents.Invoke();
-            if(controller != null){
+            if(controller != null && otherCol != null){
                 controller.ReceiveHit(otherCol.gameObject);
             }
         }

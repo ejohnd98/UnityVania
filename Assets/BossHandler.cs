@@ -2,10 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BossPhases{
+        NotStarted,
+        Phase1,
+        Phase2,
+        Phase3,
+        Defeated,
+
+        None
+    };
 public class BossHandler : MonoBehaviour
 {
     public GameObject bossPrefab;
     GameObject bossObj;
+    BossController bossController;
     public BossPhases currentPhase = BossPhases.NotStarted;
 
     public AudioClip bossMusic;
@@ -13,16 +23,7 @@ public class BossHandler : MonoBehaviour
     public GameObject playerObj;
     public Door[] doors;
 
-    public enum BossPhases{
-        NotStarted,
-        //intro animation
-        Phase1,
-        //other phases
-        //death animation
-        Defeated,
-
-        None
-    };
+    
 
     private void Start() {
         ChangeState(BossPhases.NotStarted);
@@ -42,16 +43,22 @@ public class BossHandler : MonoBehaviour
         switch(newState){
             case BossPhases.NotStarted:
                 SetDoors(true, true);
+                
                 break;
 
             case BossPhases.Phase1:
                 SetDoors(false);
                 sndSystem.ChangeMusic(bossMusic);
                 bossObj = GameObject.Instantiate(bossPrefab, transform.position, Quaternion.identity, transform);
-                bossObj.GetComponent<EnemyController>().target = playerObj;
+                bossController = bossObj.GetComponent<BossController>();
+                if(bossController == null){
+                    bossController = bossObj.GetComponentInChildren<BossController>();
+                }
+                bossController.target = playerObj;
                 break;
 
             case BossPhases.Defeated:
+                Destroy(bossObj);
                 sndSystem.StopMusic();
                 SetDoors(true);
                 break;
@@ -60,7 +67,8 @@ public class BossHandler : MonoBehaviour
             default:
                 break;
         }
-
+        if(bossController != null)
+            bossController.SetPhaseObjects(newState);
         currentPhase = newState;
     }
 
@@ -70,7 +78,19 @@ public class BossHandler : MonoBehaviour
                 break;
 
             case BossPhases.Phase1:
-                if(bossObj == null || bossObj.GetComponent<Health>().currentHealth <= 0){
+                if(bossController.SectionKilled(0) || bossController.SectionKilled(1)){
+                    ChangeState(BossPhases.Phase2);
+                }
+                break;
+
+            case BossPhases.Phase2:
+                if(bossController.SectionKilled(0) && bossController.SectionKilled(1)){
+                    ChangeState(BossPhases.Phase3);
+                }
+                break;
+
+            case BossPhases.Phase3:
+                if(bossObj == null || bossController.SectionKilled(bossController.healthSectionsUsed - 1)){
                     ChangeState(BossPhases.Defeated);
                 }
                 break;
