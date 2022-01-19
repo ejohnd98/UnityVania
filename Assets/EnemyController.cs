@@ -9,6 +9,12 @@ public class EnemyController : PlatformControllerBase {
     public float desiredDistanceV = 1.5f;
     public float detectDistance = 20.0f;
 
+    ItemDropper itemDropper;
+
+    private void Awake() {
+        itemDropper = GetComponentInChildren<ItemDropper>();
+    }
+
     void Update(){
         UpdateInput();
     }
@@ -48,8 +54,9 @@ public class EnemyController : PlatformControllerBase {
     }
 
     public override void KillActor(){
+        itemDropper.DropItems();
         rayHandler.SetSimState(false);
-        Debug.Log("Enemy Killed");
+
         ObjectHandler.DestroyObjects(this.gameObject);
     }
 }

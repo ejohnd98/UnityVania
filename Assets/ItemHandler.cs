@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemTypes{
-    Gold,
+    Soul,
     Key,
     DoubleJump,
     TripleJump,
@@ -15,31 +15,36 @@ public enum ItemTypes{
 public class ItemHandler : MonoBehaviour
 {
     public List<ItemTypes> inventory;
+    public int souls = 0;
     public PlayerController player;
 
     private void Start() {
         inventory = new List<ItemTypes>();
     }
 
-    public void AddItem(ItemTypes newItem){
-        if(newItem == ItemTypes.None){
+    public void AddItem(GameItem newItem){
+        if(newItem.itemType == ItemTypes.None){
             return;
         }
-
-        inventory.Add(newItem);
-        switch(newItem){
-            case ItemTypes.DoubleJump:
-                player.GrantDoubleJump();
-                break;
-            case ItemTypes.TripleJump:
-                player.GrantTripleJump();
-                break;
-            case ItemTypes.TallJump:
-                player.GrantTallJump();
-                break;
-            default:
-                break;
+        if(newItem.itemType == ItemTypes.Soul){
+            souls += newItem.value;
+        }else{
+            inventory.Add(newItem.itemType);
+            switch(newItem.itemType){
+                case ItemTypes.DoubleJump:
+                    player.GrantDoubleJump();
+                    break;
+                case ItemTypes.TripleJump:
+                    player.GrantTripleJump();
+                    break;
+                case ItemTypes.TallJump:
+                    player.GrantTallJump();
+                    break;
+                default:
+                    break;
+            }
         }
+        
     }
 
     public bool HasItem(ItemTypes itemType){
@@ -48,7 +53,7 @@ public class ItemHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other){
         GameItem pickup = other.GetComponent<GameItem>();
-        AddItem(pickup.itemType);
+        AddItem(pickup);
         ObjectHandler.DestroyObjects(pickup.gameObject);
     }
 }

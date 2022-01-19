@@ -63,6 +63,7 @@ public class BossHandler : MonoBehaviour
                 if(bossDeadPrefab != null){
                     GameObject.Instantiate(bossDeadPrefab, bossController.transform.position, Quaternion.identity, transform);
                 }
+                bossObj.GetComponentInChildren<ItemDropper>().DropItems();
                 ObjectHandler.DestroyObjects(bossObj);
                 sndSystem.StopMusic();
                 SetDoors(true);

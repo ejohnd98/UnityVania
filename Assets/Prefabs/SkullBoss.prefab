@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 1343108261841914758}
   - component: {fileID: 1343108261841914780}
   - component: {fileID: 1343108261841914783}
+  - component: {fileID: 6009405870323392449}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -235,7 +236,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 5, y: 4.5}
   m_EdgeRadius: 0
 --- !u!114 &1343108261841914752
 MonoBehaviour:
@@ -303,6 +304,24 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 10
   healthDepleted: 0
+--- !u!114 &6009405870323392449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343108261841914756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446519ee8b9d9784f87bc350c6617c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToDrop: []
+  soulPrefab: {fileID: 1933309472906859873, guid: ad43b0c4b5601b747a9dd052f36a87c5, type: 3}
+  soulsToDrop: 10
+  overalSoulValue: 100
+  impulseStrength: 6
+  debugToggle: 0
 --- !u!1 &1343108262309417920
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +731,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 3.2}
+  m_Offset: {x: 0, y: 3.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -723,7 +742,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 2}
+  m_Size: {x: 5.6, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &4880389447350412693
 MonoBehaviour:
@@ -947,6 +966,7 @@ MonoBehaviour:
   - 0
   notStarted: 1
   debugStart: 0
+  startOnEnable: 0
 --- !u!1 &7704934012126571964
 GameObject:
   m_ObjectHideFlags: 0

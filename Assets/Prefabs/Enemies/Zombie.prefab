@@ -111,6 +111,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7576098395460874871}
   - {fileID: 8095707985111444546}
   - {fileID: 8095707986223272575}
   - {fileID: 8095707985382284088}
@@ -141,7 +142,9 @@ MonoBehaviour:
   movementSpeed: 1.25
   maxWalkAngle: 50
   maxJumpHeight: 1.5
+  maxTallJumpHeight: 6
   maxAirJumps: 0
+  maxTallJumps: 0
   gravity: 25
   canJump: 0
   canCrouch: 0
@@ -231,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mirrorPivot: {fileID: 8095707985382284089}
   damage: 1
+  ignoreHits: 0
   target: {fileID: 0}
   desiredDistanceH: 0.05
   desiredDistanceV: 5
@@ -265,7 +269,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8095707985111364292}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8095707985111444544
 BoxCollider2D:
@@ -338,7 +342,7 @@ Transform:
   - {fileID: 2801919539071430382}
   - {fileID: 8095707985851558537}
   m_Father: {fileID: 8095707985111364292}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8095707985851558542
 GameObject:
@@ -472,7 +476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 8095707985111364292}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8095707986223272574
 SpriteRenderer:
@@ -526,3 +530,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8548530113689900035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7576098395460874871}
+  - component: {fileID: 8591934727083987061}
+  m_Layer: 0
+  m_Name: itemDropper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7576098395460874871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8548530113689900035}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 1.25, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8095707985111364292}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8591934727083987061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8548530113689900035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446519ee8b9d9784f87bc350c6617c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToDrop: []
+  soulPrefab: {fileID: 1933309472906859873, guid: ad43b0c4b5601b747a9dd052f36a87c5, type: 3}
+  soulsToDrop: 1
+  overalSoulValue: 2
+  impulseStrength: 4
+  debugToggle: 0
