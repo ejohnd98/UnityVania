@@ -13,7 +13,7 @@ public enum BossPhases{
     };
 public class BossHandler : MonoBehaviour
 {
-    public GameObject bossPrefab;
+    public GameObject bossPrefab, bossDeadPrefab;
     GameObject bossObj;
     BossController bossController;
     public BossPhases currentPhase = BossPhases.NotStarted;
@@ -22,6 +22,7 @@ public class BossHandler : MonoBehaviour
     public SoundSystem sndSystem;
     public GameObject playerObj;
     public Door[] doors;
+    public BoxCollider2D bossArea;
 
     
 
@@ -55,12 +56,17 @@ public class BossHandler : MonoBehaviour
                     bossController = bossObj.GetComponentInChildren<BossController>();
                 }
                 bossController.target = playerObj;
+                bossController.handler = this;
                 break;
 
             case BossPhases.Defeated:
+                if(bossDeadPrefab != null){
+                    GameObject.Instantiate(bossDeadPrefab, bossController.transform.position, Quaternion.identity, transform);
+                }
                 ObjectHandler.DestroyObjects(bossObj);
                 sndSystem.StopMusic();
                 SetDoors(true);
+                
                 break;
             
             case BossPhases.None:
