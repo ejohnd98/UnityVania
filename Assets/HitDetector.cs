@@ -10,14 +10,16 @@ public class HitDetector : MonoBehaviour
     bool currentlyColliding = false;
     Collider2D otherCol;
     PlatformControllerBase otherController;
+    bool isEnemy;
 
     private void Start() {
         controller = GetComponentInParent<PlatformControllerBase>();
+        isEnemy = GetComponentInParent<PlayerController>() == null;
     }
 
     public void DetectHit(){
         if(currentlyColliding){
-            if(otherCol == null){
+            if(otherCol == null || (isEnemy && otherCol.GetComponent<playerAttack>() == null)){
                 return;
             }
             otherController = otherCol.transform.GetComponentInParent<PlatformControllerBase>();
