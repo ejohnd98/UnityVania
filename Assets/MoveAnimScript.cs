@@ -13,6 +13,7 @@ public class MoveAnimScript : MonoBehaviour
     public bool notStarted = true;
     public bool debugStart = false;
     public bool startOnEnable = false;
+    public bool loopAnim = false;
 
     float progress = 0.0f;
     int nextState = 0;
@@ -69,6 +70,9 @@ public class MoveAnimScript : MonoBehaviour
                     nextState = 0;
                     progress = 0.0f;
                     notStarted = true;
+                    if(loopAnim){
+                        StartAnim();
+                    }
                 }
             }
         }

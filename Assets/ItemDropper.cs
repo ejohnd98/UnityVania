@@ -21,16 +21,20 @@ public class ItemDropper : MonoBehaviour
 
     public void DropItems(){
         foreach (GameObject i in itemsToDrop){
-            GameObject obj = GameObject.Instantiate(i, transform.position, Quaternion.identity);
-            GameItem gameItem = obj.GetComponent<GameItem>();
-            GiveImpulse(obj);
+            SpawnItem(i);
         }
         for(int i = 0; i < soulsToDrop; i++){
-            GameObject obj = GameObject.Instantiate(soulPrefab, transform.position, Quaternion.identity);
-            GameItem gameItem = obj.GetComponent<GameItem>();
-            gameItem.value = overalSoulValue/soulsToDrop;
-            GiveImpulse(obj);
+            SpawnItem(soulPrefab, true);
         }
+    }
+
+    private void SpawnItem(GameObject prefab, bool giveValue = false){
+        Vector3 pos = transform.position;
+        pos.z = 0.1f;
+        GameObject obj = GameObject.Instantiate(prefab, pos, Quaternion.identity);
+        GameItem gameItem = obj.GetComponent<GameItem>();
+        if (giveValue) { gameItem.value = overalSoulValue/soulsToDrop; }
+        GiveImpulse(obj);
     }
 
     private void GiveImpulse(GameObject obj){
