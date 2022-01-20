@@ -962,7 +962,7 @@ MonoBehaviour:
   useScales: 0
   useRotations: 0
   timeAtEachSpot:
-  - 4
+  - 2
   - 0
   notStarted: 1
   debugStart: 0
