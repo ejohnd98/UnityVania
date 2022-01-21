@@ -53,10 +53,11 @@ public class BossHandler : MonoBehaviour
                 break;
             case BossPhases.Intro:
                 introEvent.Invoke();
+                SetDoors(false);
                 break;
 
             case BossPhases.Phase1:
-                SetDoors(false);
+                
                 sndSystem.ChangeMusic(bossMusic);
                 bossObj = GameObject.Instantiate(bossPrefab, transform.position, Quaternion.identity, transform);
                 bossController = bossObj.GetComponent<BossController>();
