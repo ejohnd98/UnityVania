@@ -4925,7 +4925,6 @@ GameObject:
   - component: {fileID: 1933309472906859885}
   - component: {fileID: 1933309472906859886}
   - component: {fileID: 1933309472906859887}
-  - component: {fileID: 1933309472906859872}
   m_Layer: 14
   m_Name: Soul
   m_TagString: Untagged
@@ -5010,10 +5009,10 @@ MonoBehaviour:
   slideVel: 10
   knockbackHeight: 1
   iFrameDuration: 1
-  hRays: 2
-  vRays: 2
+  hRays: 1
+  vRays: 1
   rayDist: 1
-  movementSubdivisions: 2
+  movementSubdivisions: 1
   lastMoveDir: 1
   grounded: 0
   knockback: 0
@@ -5031,7 +5030,7 @@ MonoBehaviour:
   leftCollide: 0
   moveCollide: 0
   updatePeriod: -0.1
-  showRays: 1
+  showRays: 0
   raycastsPerUpdate: 0
   debugHit: 0
   debugHitStrength: 7
@@ -5062,17 +5061,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &1933309472906859872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933309472906859873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bebeb1b601cfca94584daffc26c32a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemType: 2
-  value: 0

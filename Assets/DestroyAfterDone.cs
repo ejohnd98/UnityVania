@@ -5,8 +5,9 @@ using UnityEngine.Audio;
 
 public class DestroyAfterDone : MonoBehaviour
 {
-    public bool afterSound = false, afterParticles = false;
+    public bool afterSound = false, afterParticles = false, afterTime = false;
     public bool persistThroughLoad = false;
+    public float timeLength;
 
     private AudioSource audioSource;
     private ParticleSystem particles;
@@ -27,7 +28,16 @@ public class DestroyAfterDone : MonoBehaviour
             particles = GetComponent<ParticleSystem>();
             particles.Play();
         }
+        if (afterTime){
+            StartCoroutine(DestroyTimer());
+
+        }
         
+    }
+
+    IEnumerator DestroyTimer(){
+        yield return new WaitForSeconds(timeLength);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame

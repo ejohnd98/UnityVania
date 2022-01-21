@@ -10,6 +10,7 @@ public class HitDetector : MonoBehaviour
     bool currentlyColliding = false;
     Collider2D otherCol;
     PlatformControllerBase otherController;
+    DamageObject damageObject;
     bool isEnemy;
 
     private void Start() {
@@ -23,13 +24,16 @@ public class HitDetector : MonoBehaviour
                 return;
             }
             otherController = otherCol.transform.GetComponentInParent<PlatformControllerBase>();
+            damageObject = otherCol.GetComponent<DamageObject>();
             
-            if(otherController!=null && !otherController.SimActive()){
+            if(otherController!=null && !otherController.SimActive() && damageObject == null){
                 return;
             }
 
             hitEvents.Invoke();
             if(controller != null && otherCol != null){
+                controller.ReceiveHit(otherCol.gameObject);
+            }else if(damageObject != null){
                 controller.ReceiveHit(otherCol.gameObject);
             }
         }

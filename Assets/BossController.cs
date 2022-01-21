@@ -9,9 +9,13 @@ public class BossController : PlatformControllerBase {
     public BossHandler handler;
     public Health[] healthSections;
     public GameObject[] healthSectionObjects;
+    public UnityEvent[] healthSectionDefeatedActions;
     public int healthSectionsUsed = 0;
 
+    public Animator animator;
+
     public GameObject[] IntroObjects, Phase1Objects, Phase2Objects, Phase3Objects, DefeatedObjects;
+    public UnityEvent Phase2Actions, Phase3Actions;
 
     public enum BossAIState{
         Moving,
@@ -22,6 +26,8 @@ public class BossController : PlatformControllerBase {
     };
 
     public GameObject[] attackPrefabs, attackLocations;
+    public bool[] ignoreAttackParents;
+    public bool[] alignWithPlayerX;
     public UnityEvent[] attackEvents;
     public int numberOfAttacks = 0;
 
@@ -91,19 +97,19 @@ public class BossController : PlatformControllerBase {
             case 0:
                 canMove = false;
                 attackEvents[index].Invoke();
-                attackObj = Instantiate(attackPrefabs[index], attackLocations[index].transform.position, attackLocations[index].transform.rotation, attackLocations[index].transform);
+                attackObj = CreateAttack(index);
                 yield return new WaitWhile(() => attackObj != null);
                 attackingDone = true;
                 break;
             case 1:
-                attackObj = Instantiate(attackPrefabs[index], attackLocations[index].transform.position, attackLocations[index].transform.rotation, attackLocations[index].transform);
+                attackObj = CreateAttack(index);
                 attackEvents[index].Invoke();
                 canMove = true;
                 yield return new WaitWhile(() => attackObj != null);
                 attackingDone = true;
                 break;
             case 2:
-                attackObj = Instantiate(attackPrefabs[index], attackLocations[index].transform.position, attackLocations[index].transform.rotation, attackLocations[index].transform);
+                attackObj = CreateAttack(index);
                 //attackEvents[index].Invoke();
                 canMove = false;
                 yield return new WaitWhile(() => attackObj != null);
@@ -113,6 +119,26 @@ public class BossController : PlatformControllerBase {
                 yield return null;
                 break;
         }
+    }
+
+    GameObject CreateAttack(int index){
+        GameObject obj;
+        if(ignoreAttackParents[index]){
+            obj = Instantiate(attackPrefabs[index], attackLocations[index].transform.position, attackLocations[index].transform.rotation);
+        }else{
+            obj = Instantiate(attackPrefabs[index], attackLocations[index].transform.position, attackLocations[index].transform.rotation, attackLocations[index].transform);
+        }
+        if(alignWithPlayerX[index]){
+            Vector3 pos = obj.transform.position;
+            pos.x = target.transform.position.x;
+            obj.transform.position = pos;
+        }
+        return obj;
+        
+    }
+
+    public void MultiplySpeed (float mod){
+        moveSpeed *= mod;
     }
 
 
@@ -133,9 +159,11 @@ public class BossController : PlatformControllerBase {
                 break;
             case BossPhases.Phase2:
                 foreach (GameObject obj in Phase2Objects){ObjectHandler.SetObjectActive(obj, true);}
+                Phase2Actions?.Invoke();
                 break;
             case BossPhases.Phase3:
                 foreach (GameObject obj in Phase3Objects){ObjectHandler.SetObjectActive(obj, true);}
+                Phase3Actions?.Invoke();
                 break;
             case BossPhases.Defeated:
                 foreach (GameObject obj in DefeatedObjects){ObjectHandler.SetObjectActive(obj, true);}
@@ -169,8 +197,15 @@ public class BossController : PlatformControllerBase {
             if(healthSectionObjects[section] != null){
                 ObjectHandler.SetObjectActive(healthSectionObjects[section], false);
             }
+            if(healthSectionDefeatedActions[section] != null){
+                healthSectionDefeatedActions[section].Invoke();
+            }
                 
                 
         }
+    }
+
+    public void SetAnimTrigger(string triggerName){
+        animator.SetTrigger(triggerName);
     }
 }

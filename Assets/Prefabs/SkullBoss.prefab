@@ -103,7 +103,9 @@ MonoBehaviour:
   - {fileID: 7704934012140874337}
   - {fileID: 7704934011169666477}
   - {fileID: 7704934011216064562}
+  healthSectionDefeatedActions: []
   healthSectionsUsed: 0
+  animator: {fileID: 0}
   IntroObjects: []
   Phase1Objects: []
   Phase2Objects: []
@@ -111,6 +113,12 @@ MonoBehaviour:
   - {fileID: 7704934011216064562}
   DefeatedObjects:
   - {fileID: 7704934011216064562}
+  Phase2Actions:
+    m_PersistentCalls:
+      m_Calls: []
+  Phase3Actions:
+    m_PersistentCalls:
+      m_Calls: []
   attackPrefabs:
   - {fileID: 5279300374658166668, guid: 343e784dc7adc784e951c66bfa326dcb, type: 3}
   - {fileID: 5279300374658166668, guid: 343e784dc7adc784e951c66bfa326dcb, type: 3}
@@ -119,6 +127,8 @@ MonoBehaviour:
   - {fileID: 735500459792823839}
   - {fileID: 735500459792823839}
   - {fileID: 2782108386697901650}
+  ignoreAttackParents: 000000
+  alignWithPlayerX: 000000
   attackEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -625,6 +635,7 @@ GameObject:
   - component: {fileID: 7704934011216064716}
   - component: {fileID: 4880389447350412693}
   - component: {fileID: 3016742311112611931}
+  - component: {fileID: 8118280870345958523}
   m_Layer: 8
   m_Name: GemHead2
   m_TagString: Untagged
@@ -725,7 +736,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7704934011216064562}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -788,6 +799,35 @@ MonoBehaviour:
   onActivation:
   - {fileID: 7643507973368826630, guid: 12baa31c919d81344811620b852861de, type: 3}
   creationPoint: {fileID: 1192874013146585751}
+--- !u!114 &8118280870345958523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704934011216064562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7704934011216064716}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  delay: 2
+  repeat: 0
 --- !u!1 &7704934011308435887
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +1007,8 @@ MonoBehaviour:
   notStarted: 1
   debugStart: 0
   startOnEnable: 0
+  loopAnim: 0
+  lerpSpeed: 1
 --- !u!1 &7704934012126571964
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum BossPhases{
         NotStarted,
+        Intro,
         Phase1,
         Phase2,
         Phase3,
@@ -24,6 +26,9 @@ public class BossHandler : MonoBehaviour
     public Door[] doors;
     public BoxCollider2D bossArea;
 
+    public GameObject introObject;
+    public UnityEvent introEvent;
+
     
 
     private void Start() {
@@ -36,7 +41,7 @@ public class BossHandler : MonoBehaviour
 
     public void StartBoss(){
         if(currentPhase == BossPhases.NotStarted){
-            ChangeState(BossPhases.Phase1);
+            ChangeState(BossPhases.Intro);
         }
     }
 
@@ -45,6 +50,9 @@ public class BossHandler : MonoBehaviour
             case BossPhases.NotStarted:
                 SetDoors(true, true);
                 
+                break;
+            case BossPhases.Intro:
+                introEvent.Invoke();
                 break;
 
             case BossPhases.Phase1:
@@ -81,7 +89,10 @@ public class BossHandler : MonoBehaviour
 
     public void CheckExitConditions(){
         switch(currentPhase){
-            case BossPhases.NotStarted:
+            case BossPhases.Intro:
+                if(introObject == null){
+                    ChangeState(BossPhases.Phase1);
+                }
                 break;
 
             case BossPhases.Phase1:

@@ -27,8 +27,12 @@ abstract public class PlatformControllerBase : MonoBehaviour {
     public void ReceiveHit(GameObject other){
         
         PlatformControllerBase otherController = other.GetComponentInParent<PlatformControllerBase>();
+        DamageObject damageObject = other.GetComponent<DamageObject>();
         if(!ignoreHits && otherController != null && !rayHandler.IsInvincible()){
             hp.DealDamage(otherController.damage);
+            rayHandler.StartKnockback(other);
+        }else if(!ignoreHits && damageObject != null && !rayHandler.IsInvincible()){
+            hp.DealDamage(damageObject.damage);
             rayHandler.StartKnockback(other);
         }
 

@@ -15,6 +15,8 @@ public class MoveAnimScript : MonoBehaviour
     public bool startOnEnable = false;
     public bool loopAnim = false;
 
+    public float lerpSpeed =1.0f;
+
     float progress = 0.0f;
     int nextState = 0;
 
@@ -45,7 +47,7 @@ public class MoveAnimScript : MonoBehaviour
         }
 
         if(!notStarted){
-            progress += Time.deltaTime;
+            progress += Time.deltaTime * lerpSpeed;
             if(useSpots){
                 Vector3 a = localStartPos + ((nextState == 0)? Vector3.zero : animationSpots[nextState-1]);
                 Vector3 b = localStartPos + animationSpots[nextState];
@@ -63,7 +65,7 @@ public class MoveAnimScript : MonoBehaviour
             }
             
 
-            if(progress >= 1.0 + timeAtEachSpot[nextState]){
+            if(progress >= 1.0 + (timeAtEachSpot[nextState] * lerpSpeed)){
                 nextState++;
                 progress = 0.0f;
                 if(nextState >= Mathf.Max(animationSpots.Length, animationScales.Length, animationRotations.Length)){
