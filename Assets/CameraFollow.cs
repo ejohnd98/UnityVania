@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class CameraFollow : MonoBehaviour
 {
     public Transform toFollow;
+    public PixelPerfectCamera ppc;
     public bool followX, followY;
 
     // Update is called once per frame
@@ -12,7 +14,7 @@ public class CameraFollow : MonoBehaviour
     {
         UpdatePos();
     }
-    void FixexUpdate()
+    void FixedUpdate()
     {
         UpdatePos();
     }
@@ -29,6 +31,7 @@ public class CameraFollow : MonoBehaviour
         if(followY){
             newPos.y = toFollow.position.y;
         }
-        transform.position = newPos;
+        //transform.position = newPos;
+        transform.position = ppc.RoundToPixel(newPos);
     }
 }
