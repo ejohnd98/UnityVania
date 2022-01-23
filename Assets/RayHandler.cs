@@ -58,7 +58,8 @@ public class RayHandler : MonoBehaviour
     float groundAngle;
     public bool knockback = false;
     public float knockbackTime = 1.0f;
-    bool simEnabled = true;
+    public bool simEnabled = true;
+    public bool stopInput = false;
     public bool isCrouched = false;
 
     public Vector2 velocity = Vector2.zero; //only used for in-air vertical velocity
@@ -106,7 +107,7 @@ public class RayHandler : MonoBehaviour
     }
 
     public void ProvideInput(float x, bool jumpStart, bool jumpRelease, bool crouch){
-        if(knockback || !simEnabled){
+        if(knockback || !simEnabled || stopInput){
             //override inputs if stunned
             return;
         }

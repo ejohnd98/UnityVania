@@ -43,6 +43,9 @@ public class AttackHandler : MonoBehaviour {
     }
 
     private void ActivateAttack(){
+        if(!physState.InputAllowed()){
+            return;
+        }
         Vector3 tempScale = attackCollider.transform.localScale;
         tempScale.x = Mathf.Abs(tempScale.x) * physState.FaceDir();
         attackCollider.transform.localScale = tempScale;

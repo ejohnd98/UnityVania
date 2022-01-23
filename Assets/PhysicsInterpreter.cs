@@ -12,6 +12,10 @@ public class PhysicsInterpreter : MonoBehaviour
         rayHandler = GetComponent<RayHandler>();
     }
 
+    public bool InputAllowed(){
+        return !(rayHandler.stopInput);
+    }
+
     public bool CollideLeft(){
         return (rayHandler.leftCollide && rayHandler.leftDist >= -collideDist);
     }

@@ -19,6 +19,17 @@ abstract public class PlatformControllerBase : MonoBehaviour {
         physicsState = GetComponent<PhysicsInterpreter>();
         hp = GetComponent<Health>();
     }
+    public void SetSimActive(bool newState){
+        rayHandler.simEnabled = newState;
+        ignoreHits = !newState;
+    }
+
+    public void StopInputs(bool newState){
+        rayHandler.ProvideInput(0.0f, false, false, false);
+        rayHandler.stopInput = newState;
+        ignoreHits = newState;
+        
+    }
 
     public bool SimActive(){
         return ignoreHits || rayHandler.SimActive();

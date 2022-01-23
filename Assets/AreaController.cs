@@ -41,10 +41,10 @@ public class AreaController : MonoBehaviour
         currentEnemies = new List<GameObject>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SetEnemyState(bool newState){
+        foreach(GameObject obj in currentEnemies){
+            obj.GetComponent<EnemyController>().SetSimActive(newState);
+        }
     }
 
     public void UpdateArea (Areas newArea, Area obj){
