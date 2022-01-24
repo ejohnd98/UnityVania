@@ -35,6 +35,8 @@ public class BossController : PlatformControllerBase {
     public BossAIState aiState = BossAIState.Moving;
     public Vector3 currentStart, currentDest;
     public BoxCollider2D bossArea;
+    bool bossIgnoreHits = false;
+    float ignoreHitTime = 1.0f;
     public float moveSpeed = 0.1f;
     public float moveProgress = 0.0f;
     public float currentStep = 1.0f;
@@ -189,9 +191,15 @@ public class BossController : PlatformControllerBase {
     }
 
     public void ReceiveBossHit(int section){
+        if(bossIgnoreHits){
+            return;
+        }
         PlatformControllerBase otherController = target.GetComponent<PlatformControllerBase>();
         if(otherController != null){
             healthSections[section].DealDamage(otherController.damage);
+            handler.UpdateHealthBar();
+            bossIgnoreHits = true;
+            StartCoroutine(PreventHits());
         }
         if(healthSections[section].healthDepleted){
             if(healthSectionObjects[section] != null){
@@ -203,6 +211,10 @@ public class BossController : PlatformControllerBase {
                 
                 
         }
+    }
+    IEnumerator PreventHits(){
+        yield return new WaitForSeconds(ignoreHitTime);
+        bossIgnoreHits = false;
     }
 
     public void SetAnimTrigger(string triggerName){

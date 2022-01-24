@@ -6,6 +6,7 @@ using UnityEngine.U2D;
 public class CameraFollow : MonoBehaviour
 {
     public Transform toFollow;
+    public Vector3 offset;
     public PixelPerfectCamera ppc;
     public bool followX, followY;
 
@@ -31,7 +32,6 @@ public class CameraFollow : MonoBehaviour
         if(followY){
             newPos.y = toFollow.position.y;
         }
-        //transform.position = newPos;
-        transform.position = ppc.RoundToPixel(newPos);
+        transform.position = ppc.RoundToPixel(newPos+offset);
     }
 }

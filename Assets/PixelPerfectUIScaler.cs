@@ -8,6 +8,7 @@ public class PixelPerfectUIScaler : MonoBehaviour
 {
     public PixelPerfectCamera ppc;
     CanvasScaler canvas;
+    public int ratio;
 
     private void Awake() {
         canvas = GetComponent<CanvasScaler>();
@@ -20,5 +21,6 @@ public class PixelPerfectUIScaler : MonoBehaviour
 
     void UpdateScale(){
         canvas.scaleFactor = ppc.pixelRatio;
+        ratio = ppc.pixelRatio;
     }
 }

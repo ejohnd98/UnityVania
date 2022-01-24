@@ -25,6 +25,7 @@ public class BossHandler : MonoBehaviour
     public GameObject playerObj;
     public Door[] doors;
     public BoxCollider2D bossArea;
+    public UIController uiController;
 
     public GameObject introObject;
     public UnityEvent introEvent;
@@ -58,6 +59,7 @@ public class BossHandler : MonoBehaviour
 
             case BossPhases.Phase1:
                 
+                uiController.SetBossUI(this);
                 sndSystem.ChangeMusic(bossMusic);
                 bossObj = GameObject.Instantiate(bossPrefab, transform.position, Quaternion.identity, transform);
                 bossController = bossObj.GetComponent<BossController>();
@@ -69,6 +71,7 @@ public class BossHandler : MonoBehaviour
                 break;
 
             case BossPhases.Defeated:
+                uiController.SetBossUI(null);
                 if(bossDeadPrefab != null){
                     GameObject.Instantiate(bossDeadPrefab, bossController.transform.position, Quaternion.identity, transform);
                 }
@@ -124,5 +127,15 @@ public class BossHandler : MonoBehaviour
         foreach(Door door in doors){
             door.SetOpen(open, force);
         }
+    }
+
+    public void UpdateHealthBar(){
+        int current = 0;
+        int max = 0;
+        foreach(Health health in bossController.healthSections){
+            current += (int)health.currentHealth;
+            max += (int)health.maxHealth;
+        }
+        uiController.SetBossHealth(current, max);
     }
 }
