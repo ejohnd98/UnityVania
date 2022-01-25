@@ -5098,6 +5098,7 @@ GameObject:
   - component: {fileID: 8236499891989472937}
   - component: {fileID: 7920921222106060325}
   - component: {fileID: 8114510218827175609}
+  - component: {fileID: 6785110798882877054}
   m_Layer: 8
   m_Name: CollideEffects
   m_TagString: Untagged
@@ -5174,6 +5175,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
         m_MethodName: set_isTrigger
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6785110798882877054}
+        m_TargetAssemblyTypeName: ScreenShakeObject, Assembly-CSharp
+        m_MethodName: Shake
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10034,3 +10047,16 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &6785110798882877054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344632268202035025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5ae7227dee5c344aa1f6067aec72a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeType: 1

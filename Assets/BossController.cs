@@ -36,7 +36,7 @@ public class BossController : PlatformControllerBase {
     public Vector3 currentStart, currentDest;
     public BoxCollider2D bossArea;
     bool bossIgnoreHits = false;
-    float ignoreHitTime = 1.0f;
+    float ignoreHitTime = 0.5f;
     public float moveSpeed = 0.1f;
     public float moveProgress = 0.0f;
     public float currentStep = 1.0f;

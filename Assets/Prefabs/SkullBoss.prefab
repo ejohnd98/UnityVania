@@ -262,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  shakeType: 2
   healthDepleted: 0
 --- !u!114 &1343108261841914758
 MonoBehaviour:
@@ -277,6 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  shakeType: 2
   healthDepleted: 0
 --- !u!50 &1343108261841914780
 Rigidbody2D:
@@ -313,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  shakeType: 3
   healthDepleted: 0
 --- !u!114 &6009405870323392449
 MonoBehaviour:
