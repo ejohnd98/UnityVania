@@ -23,9 +23,7 @@ NEXT:
 TO-DO:
 	Coding
 		Camera (bounding box style of camera movement, with maybe some fixed sections?)
-		Dialogue box (pause gameplay and show relealing text with small avatar)
 		Mini Map
-		Portals
 		Shop
 		Different Weapons?
 
@@ -33,22 +31,18 @@ TO-DO:
 		Player sprites
 		Enemy sprites
 		Bosses
-		backgrounds + parallax
+		backgrounds
 		area props
 		UI
-
-	Music
-		menu theme
-		shop theme
-		credits theme
 		
-		sound effects
-			walking
-			slashing
-			enemy sounds
+	sound effects
+		walking
+		slashing
+		enemy sounds
+		portals
+		UI
 
 	Polish
 		Particle effects
-		screen shake
 		randomize enemy speeds
 		damage effects (character flash red, screen shake)

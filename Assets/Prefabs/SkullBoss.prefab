@@ -103,7 +103,13 @@ MonoBehaviour:
   - {fileID: 7704934012140874337}
   - {fileID: 7704934011169666477}
   - {fileID: 7704934011216064562}
-  healthSectionDefeatedActions: []
+  healthSectionDefeatedActions:
+  - m_PersistentCalls:
+      m_Calls: []
+  - m_PersistentCalls:
+      m_Calls: []
+  - m_PersistentCalls:
+      m_Calls: []
   healthSectionsUsed: 0
   animator: {fileID: 0}
   IntroObjects: []
