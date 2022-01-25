@@ -33,7 +33,12 @@ public class ScreenShake : MonoBehaviour
         Vector2 offset = Vector2.zero;
         if(isShaking){
             progress += Time.deltaTime;
-            offset = Random.insideUnitCircle * magnitude * (1.0f - (progress / length));
+            Vector2 rand = Random.insideUnitCircle;
+            if(rand.magnitude < 0.75f){
+                rand.Normalize();
+            }
+
+            offset = rand * magnitude * (1.0f - (progress / length));
             
             if(progress >= length){
                 isShaking = false;
@@ -70,10 +75,10 @@ public class ScreenShake : MonoBehaviour
                 StartShake(0.1f, 0.1f);
                 break;
             case ShakePresets.SmallEnemy:
-                StartShake(0.1f, 0.07f);
+                StartShake(0.1f, 0.05f);
                 break;
             case ShakePresets.MedEnemy:
-                StartShake(0.2f, 0.12f);
+                StartShake(0.2f, 0.1f);
                 break;
             case ShakePresets.BigEnemy:
                 StartShake(0.3f, 0.3f);

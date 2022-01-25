@@ -205,6 +205,10 @@ public class BossController : PlatformControllerBase {
         if(healthSections[section].healthDepleted){
             if(healthSectionObjects[section] != null){
                 ObjectHandler.SetObjectActive(healthSectionObjects[section], false);
+                SpriteModifier spriteMod = healthSectionObjects[section].GetComponentInChildren<SpriteModifier>();
+                if(spriteMod.deathEffect){
+                    spriteMod.CreateDeathSprite();
+                }
             }
             if(healthSectionDefeatedActions[section] != null){
                 healthSectionDefeatedActions[section].Invoke();

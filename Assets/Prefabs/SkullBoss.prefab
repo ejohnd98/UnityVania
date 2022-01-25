@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1343108261841914780}
   - component: {fileID: 1343108261841914783}
   - component: {fileID: 6009405870323392449}
+  - component: {fileID: 2775879263640817614}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -268,6 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  spriteMod: {fileID: 1945614915842296531}
   shakeType: 2
   healthDepleted: 0
 --- !u!114 &1343108261841914758
@@ -284,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  spriteMod: {fileID: 5389711209279053866}
   shakeType: 2
   healthDepleted: 0
 --- !u!50 &1343108261841914780
@@ -321,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  spriteMod: {fileID: 9031354653890915898}
   shakeType: 3
   healthDepleted: 0
 --- !u!114 &6009405870323392449
@@ -341,6 +345,20 @@ MonoBehaviour:
   overalSoulValue: 100
   impulseStrength: 6
   debugToggle: 0
+--- !u!114 &2775879263640817614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343108261841914756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc404875cf13a0b46a37f82d9ed4a1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
+  deathEffect: 1
 --- !u!1 &1343108262309417920
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +484,7 @@ GameObject:
   - component: {fileID: 7704934011169666479}
   - component: {fileID: 7704934011169666472}
   - component: {fileID: 5053688835963989082}
+  - component: {fileID: 5389711209279053866}
   m_Layer: 8
   m_Name: GemR
   m_TagString: Untagged
@@ -630,6 +649,20 @@ MonoBehaviour:
   - {fileID: 6721610544462291026, guid: e23444921461ea245b4b0fcc5960651a, type: 3}
   onActivation: []
   creationPoint: {fileID: 2015614317205856205}
+--- !u!114 &5389711209279053866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704934011169666477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc404875cf13a0b46a37f82d9ed4a1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
+  deathEffect: 1
 --- !u!1 &7704934011216064562
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +678,7 @@ GameObject:
   - component: {fileID: 4880389447350412693}
   - component: {fileID: 3016742311112611931}
   - component: {fileID: 8118280870345958523}
+  - component: {fileID: 9031354653890915898}
   m_Layer: 8
   m_Name: GemHead2
   m_TagString: Untagged
@@ -835,8 +869,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  delay: 2
+  delay: 0.5
   repeat: 0
+--- !u!114 &9031354653890915898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704934011216064562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc404875cf13a0b46a37f82d9ed4a1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
+  deathEffect: 0
 --- !u!1 &7704934011308435887
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +899,7 @@ GameObject:
   - component: {fileID: 7704934011308435881}
   - component: {fileID: 7704934011308435882}
   - component: {fileID: 2272128089497417502}
+  - component: {fileID: 8167158308613212045}
   m_Layer: 8
   m_Name: Jaw
   m_TagString: Untagged
@@ -1018,6 +1067,20 @@ MonoBehaviour:
   startOnEnable: 0
   loopAnim: 0
   lerpSpeed: 1
+--- !u!114 &8167158308613212045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704934011308435887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc404875cf13a0b46a37f82d9ed4a1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
+  deathEffect: 1
 --- !u!1 &7704934012126571964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1198,7 @@ GameObject:
   - component: {fileID: 7704934012140874339}
   - component: {fileID: 7704934012140874364}
   - component: {fileID: 4014854236878780284}
+  - component: {fileID: 1945614915842296531}
   m_Layer: 8
   m_Name: GemL
   m_TagString: Untagged
@@ -1299,6 +1363,20 @@ MonoBehaviour:
   - {fileID: 6721610544462291026, guid: e23444921461ea245b4b0fcc5960651a, type: 3}
   onActivation: []
   creationPoint: {fileID: 5130333230126205327}
+--- !u!114 &1945614915842296531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704934012140874337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc404875cf13a0b46a37f82d9ed4a1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
+  deathEffect: 1
 --- !u!1 &8052745294115425041
 GameObject:
   m_ObjectHideFlags: 0

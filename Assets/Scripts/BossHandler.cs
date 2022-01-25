@@ -137,5 +137,7 @@ public class BossHandler : MonoBehaviour
             max += (int)health.maxHealth;
         }
         uiController.SetBossHealth(current, max);
+        uiController.FlashBossHealth();
+        
     }
 }

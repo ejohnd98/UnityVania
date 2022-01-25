@@ -265,7 +265,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  delay: 2
+  delay: 0.5
   repeat: 0
 --- !u!1 &2742180686331541420
 GameObject:
@@ -10494,6 +10494,7 @@ GameObject:
   - component: {fileID: 6791691837646522782}
   - component: {fileID: 2271767682857065920}
   - component: {fileID: 6791691837646522752}
+  - component: {fileID: 3900333055908169209}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -10725,6 +10726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  spriteMod: {fileID: 3900333055908169209}
   shakeType: 2
   healthDepleted: 0
 --- !u!114 &6791691837646522759
@@ -10741,6 +10743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  spriteMod: {fileID: 3900333055908169209}
   shakeType: 2
   healthDepleted: 0
 --- !u!50 &6791691837646522781
@@ -10778,6 +10781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
+  spriteMod: {fileID: 3900333055908169209}
   shakeType: 3
   healthDepleted: 0
 --- !u!114 &2271767682857065920
@@ -10817,6 +10821,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3900333055908169209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6791691837646522757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc404875cf13a0b46a37f82d9ed4a1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
+  deathEffect: 1
 --- !u!1 &6791691837984068033
 GameObject:
   m_ObjectHideFlags: 0

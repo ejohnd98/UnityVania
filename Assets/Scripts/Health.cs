@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 10.0f;
     public float currentHealth = 10.0f;
+    public SpriteModifier spriteMod;
     
     public ShakePresets shakeType = ShakePresets.SmallEnemy;
 
@@ -14,6 +15,7 @@ public class Health : MonoBehaviour
     public void DealDamage(float damageDone){
         currentHealth -= damageDone;
         ScreenShake.instance.StartShake(shakeType);
+        spriteMod.FlashWhite();
 
         if(currentHealth <= 0.0f){
             healthDepleted = true;

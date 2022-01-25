@@ -18,6 +18,13 @@ public class ObjectHandler : MonoBehaviour
 
     static public void DestroyObjects(GameObject obj){
         obj.GetComponent<ObjectStateHandler>()?.CreateObjects(StateTypes.Destroy);
+
+        foreach (SpriteModifier spriteMod in obj.GetComponentsInChildren<SpriteModifier>()){
+            if(spriteMod.deathEffect){
+                spriteMod.CreateDeathSprite();
+            }
+        }
+
         Destroy(obj);
     }
 
