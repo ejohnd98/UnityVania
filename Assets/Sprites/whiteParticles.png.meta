@@ -32,6 +32,9 @@ TextureImporter:
   - first:
       213: -8138452412770251132
     second: whiteParticles_9
+  - first:
+      213: -4437279732991604510
+    second: whiteParticles_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -330,7 +333,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -338,6 +341,27 @@ TextureImporter:
       bones: []
       spriteID: 48e886366a86e0f80800000000000000
       internalID: -8138452412770251132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteParticles_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e8cef1b79d9b62c0800000000000000
+      internalID: -4437279732991604510
       vertices: []
       indices: 
       edges: []

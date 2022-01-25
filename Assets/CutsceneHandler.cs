@@ -8,6 +8,7 @@ public class CutsceneHandler : MonoBehaviour
     public GameObject[] disableDuring;
     public AreaController areaController;
     public PlayerController player;
+    public InputHandler inputHandler;
 
     public Cutscene currentCutscene;
 

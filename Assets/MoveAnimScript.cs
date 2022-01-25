@@ -32,10 +32,19 @@ public class MoveAnimScript : MonoBehaviour
         }
     }
 
+    private void OnEnable() {
+        if(startOnEnable){
+            StartAnim();
+        }
+    }
+
     public void StartAnim(){
         notStarted = false;
         progress = 0.0f;
         nextState = 0;
+        transform.localPosition = localStartPos;
+        transform.localScale = localStartScale;
+        transform.localEulerAngles = localStartRot;
     }
 
     // Update is called once per frame
