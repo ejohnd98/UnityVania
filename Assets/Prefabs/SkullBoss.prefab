@@ -111,7 +111,19 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1467235464740354198}
+        m_TargetAssemblyTypeName: ScreenShakeObject, Assembly-CSharp
+        m_MethodName: StopConstantShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   healthSectionsUsed: 0
   animator: {fileID: 0}
   IntroObjects: []
