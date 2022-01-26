@@ -25,7 +25,12 @@ public class ObjectHandler : MonoBehaviour
             }
         }
 
-        Destroy(obj);
+        CustomDestroy customDestroy = obj.GetComponent<CustomDestroy>();
+        if(customDestroy != null){
+            customDestroy.StartDestroy();
+        }else{
+            Destroy(obj);
+        }
     }
 
 }

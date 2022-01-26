@@ -5,6 +5,16 @@ using UnityEngine;
 public class PlayerController : PlatformControllerBase {
 
     public InputHandler inputHandler;
+    public static PlayerController instance;
+    public Vector3 CenterOfPlayer {get { return rayHandler.center; }}
+
+    private void Awake(){
+        if (instance != null && instance != this){
+            Destroy(this.gameObject);
+        }else{
+            instance = this;
+        }
+    }
 
     void Update(){
         UpdateInput();

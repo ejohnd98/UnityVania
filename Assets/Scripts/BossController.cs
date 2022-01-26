@@ -99,21 +99,21 @@ public class BossController : PlatformControllerBase {
         switch (index){
             case 0:
                 canMove = false;
-                attackEvents[index].Invoke();
+                attackEvents[index]?.Invoke();
                 attackObj = CreateAttack(index);
                 yield return new WaitWhile(() => attackObj != null);
                 attackingDone = true;
                 break;
             case 1:
                 attackObj = CreateAttack(index);
-                attackEvents[index].Invoke();
+                attackEvents[index]?.Invoke();
                 canMove = true;
                 yield return new WaitWhile(() => attackObj != null);
                 attackingDone = true;
                 break;
             case 2:
                 attackObj = CreateAttack(index);
-                //attackEvents[index].Invoke();
+                attackEvents[index]?.Invoke();
                 canMove = false;
                 yield return new WaitWhile(() => attackObj != null);
                 attackingDone = true;

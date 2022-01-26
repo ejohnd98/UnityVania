@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2871309891681870183}
   - component: {fileID: 8053289391992501684}
   - component: {fileID: 7012510717927497865}
-  - component: {fileID: 2801073513322696637}
+  - component: {fileID: 1351495226817040029}
+  - component: {fileID: -878784468502742819}
   m_Layer: 8
   m_Name: StartParticles
   m_TagString: Untagged
@@ -4900,8 +4901,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterSound: 0
   afterParticles: 1
+  afterTime: 0
   persistThroughLoad: 0
---- !u!114 &2801073513322696637
+  timeLength: 0
+--- !u!114 &1351495226817040029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4910,9 +4913,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 3194601529652483844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c1339b00c587f4b8d0c5d1b80c24cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c5ae7227dee5c344aa1f6067aec72a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  afterSound: 0
-  afterParticles: 1
-  persistThroughLoad: 0
+  shakeType: 3
+  overrideLength: 1
+  overrideMag: 0.1
+--- !u!114 &-878784468502742819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194601529652483844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1351495226817040029}
+        m_TargetAssemblyTypeName: ScreenShakeObject, Assembly-CSharp
+        m_MethodName: Shake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  delay: 0
+  repeat: 0

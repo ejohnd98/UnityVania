@@ -85,7 +85,7 @@ public class RayHandler : MonoBehaviour
 
     //For convenience
     float halfWidth, halfHeight;
-    Vector3 center, halfHeightVec, halfWidthVec;
+    public Vector3 center, halfHeightVec, halfWidthVec;
     Vector2 defaultKnockback = (new Vector2 (2.0f, 2.0f)).normalized;
 
     void Start() {

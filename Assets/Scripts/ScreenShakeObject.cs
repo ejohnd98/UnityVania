@@ -15,4 +15,12 @@ public class ScreenShakeObject : MonoBehaviour
     public void ShakeSpecific(){
         ScreenShake.instance.StartShake(overrideLength, overrideMag);
     }
+
+    public void ShakeSpecificConstant(){
+        ScreenShake.instance.SetConstantShake(overrideMag);
+    }
+
+    public void StopConstantShake(){
+        ScreenShake.instance.ResetConstantShake();
+    }
 }

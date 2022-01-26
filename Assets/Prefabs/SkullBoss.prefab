@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 1343108261841914783}
   - component: {fileID: 6009405870323392449}
   - component: {fileID: 2775879263640817614}
+  - component: {fileID: 1467235464740354198}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -166,7 +167,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1467235464740354198}
+        m_TargetAssemblyTypeName: ScreenShakeObject, Assembly-CSharp
+        m_MethodName: ShakeSpecificConstant
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   numberOfAttacks: 0
   aiState: 0
   currentStart: {x: 0, y: 0, z: 0}
@@ -359,6 +372,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
+  createEffectAsSibling: 0
+--- !u!114 &1467235464740354198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343108261841914756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5ae7227dee5c344aa1f6067aec72a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeType: 3
+  overrideLength: 6.5
+  overrideMag: 0.025
 --- !u!1 &1343108262309417920
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
+  createEffectAsSibling: 0
 --- !u!1 &7704934011216064562
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 0
+  createEffectAsSibling: 0
 --- !u!1 &7704934011308435887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
+  createEffectAsSibling: 0
 --- !u!1 &7704934012126571964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,6 +1409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
+  createEffectAsSibling: 0
 --- !u!1 &8052745294115425041
 GameObject:
   m_ObjectHideFlags: 0

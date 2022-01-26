@@ -25,32 +25,30 @@ public class ScreenShake : MonoBehaviour
     float progress;
     public float length;
     public float magnitude;
+    public float constantShakeAmount = 0.0f;
     public bool isShaking = false;
+    public bool constantShaking = false;
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
+
         Vector2 offset = Vector2.zero;
-        if(isShaking){
-            progress += Time.deltaTime;
+        if(isShaking || constantShaking){
+            if(isShaking){
+                progress += Time.deltaTime;
+            }
+            
             Vector2 rand = Random.insideUnitCircle;
             if(rand.magnitude < 0.75f){
                 rand.Normalize();
             }
-
-            offset = rand * magnitude * (1.0f - (progress / length));
+            float appliedMag = constantShakeAmount + (isShaking? (magnitude * (1.0f - (progress / length))) : 0);
+            offset = rand * appliedMag;
             
             if(progress >= length){
                 isShaking = false;
                 progress = 0.0f;
             }
-        }
-        
-        if(length > 0.0f){
-            
-        }else{
-            length = 0.0f;
-            offset = Vector2.zero;
         }
         cameraFollow.offset = offset;
     }
@@ -64,6 +62,16 @@ public class ScreenShake : MonoBehaviour
     }
     public void StartLongShake(float amount){
         StartShake(2.0f, amount);
+    }
+
+    public void SetConstantShake(float mag){
+        constantShakeAmount = mag;
+        constantShaking = true;
+    }
+
+    public void ResetConstantShake(){
+        constantShakeAmount = 0.0f;
+        constantShaking = false;
     }
 
     public void StartShake(ShakePresets preset){
