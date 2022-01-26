@@ -43,7 +43,10 @@ public class AreaController : MonoBehaviour
 
     public void SetEnemyState(bool newState){
         foreach(GameObject obj in currentEnemies){
-            obj.GetComponent<EnemyController>().SetSimActive(newState);
+            if(obj!=null){
+                obj.GetComponent<EnemyController>()?.SetSimActive(newState);
+            }
+            
         }
     }
 
