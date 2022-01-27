@@ -5,20 +5,42 @@ using UnityEngine.Audio;
 
 public class SoundSystem : MonoBehaviour
 {
+    public static SoundSystem instance;
+
     AudioSource musicPlayer;
     public GameObject soundEffectPrefab;
     public float musicVolume = 1.0f;
+    public float sfxVolume = 1.0f;
+    public bool playPlaceholder = false;
 
     public Areas musicArea = Areas.None;
     public AudioClip[] music;
+    public AudioClip[] sfxList;
+    public string[] sfxWithVariance;
+    public int[] sfxVarianceCount;
+    private int[] sfxLastVariantIndex;
+    Dictionary<string, AudioClip> sfx;
+
     AudioClip nextMusic;
 
     bool fadingOut = false;
     public float fadeOutTime = 2.0f;
     float fadeOutCounter = 0.0f;
 
-    void Start(){
+    private void Awake(){
+        if (instance != null && instance != this){
+            Destroy(this.gameObject);
+        }else{
+            instance = this;
+        }
+
         musicPlayer = GetComponent<AudioSource>();
+        sfx = new Dictionary<string, AudioClip>();
+        sfxLastVariantIndex = new int[sfxWithVariance.Length];
+        foreach(AudioClip clip in sfxList){
+            sfx.Add(clip.name, clip);
+            Debug.Log("added " + clip.name);
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +53,43 @@ public class SoundSystem : MonoBehaviour
             musicPlayer.volume = musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter -= Time.deltaTime;
         }
+    }
+
+    public void PlaySound(string sndName){
+        int varianceIndex = GetSoundVarianceIndex(sndName);
+        if(varianceIndex >= 0){
+            int rand = Random.Range(0, sfxVarianceCount[varianceIndex]);
+            if(rand == sfxLastVariantIndex[varianceIndex]){
+                rand = (rand + 1) % sfxVarianceCount[varianceIndex];
+            }
+            sfxLastVariantIndex[varianceIndex] = rand;
+            sndName += (rand+1).ToString();
+            Debug.Log("chosen variant: " + sndName);
+        }
+        
+        AudioClip clip;
+        if (sfx.ContainsKey(sndName)){
+            clip = sfx[sndName];
+        }else{
+            if(playPlaceholder){
+                clip = sfx["placeholder"];
+            }else{
+                return;
+            }
+        }
+        GameObject sndObj = Instantiate(soundEffectPrefab, transform);
+        AudioSource newSrc = sndObj.GetComponent<AudioSource>();
+        newSrc.volume = sfxVolume;
+        newSrc.clip = clip;
+    }
+
+    public int GetSoundVarianceIndex(string snd){
+        for(int i = 0; i < sfxWithVariance.Length; i++){
+            if(sfxWithVariance[i].Equals(snd)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void ChangeMusic(Areas area){

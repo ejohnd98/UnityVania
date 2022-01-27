@@ -4928,6 +4928,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 0
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!1 &1933309472906859873
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,6 +5003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   value: 1
+  pickupSound: soulPickup
 --- !u!114 &1933309472906859886
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -296,6 +296,9 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 1945614915842296531}
   shakeType: 2
+  hasSound: 1
+  hurtSound: skullEyeHit
+  deathSound: skullEyeDeath
   healthDepleted: 0
 --- !u!114 &1343108261841914758
 MonoBehaviour:
@@ -313,6 +316,9 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 5389711209279053866}
   shakeType: 2
+  hasSound: 1
+  hurtSound: skullEyeHit
+  deathSound: skullEyeDeath
   healthDepleted: 0
 --- !u!50 &1343108261841914780
 Rigidbody2D:
@@ -351,6 +357,9 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 9031354653890915898}
   shakeType: 3
+  hasSound: 1
+  hurtSound: skullEyeHit
+  deathSound: skullEyeDeath
   healthDepleted: 0
 --- !u!114 &6009405870323392449
 MonoBehaviour:
@@ -385,6 +394,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!114 &1467235464740354198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +715,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!1 &7704934011216064562
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +939,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 0
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!1 &7704934011308435887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1137,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!1 &7704934012126571964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1435,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!1 &8052745294115425041
 GameObject:
   m_ObjectHideFlags: 0

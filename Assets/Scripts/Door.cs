@@ -8,6 +8,7 @@ public class Door : MonoBehaviour
     public GameObject colliderObject;
     public bool isOpen = true;
     public bool remainClosedAfterBoss = false;
+    public string openSound, closeSound;
 
     // Start is called before the first frame update
     void Awake(){
@@ -17,6 +18,12 @@ public class Door : MonoBehaviour
     public void SetOpen(bool newState, bool force = false){
         if(remainClosedAfterBoss && newState && !force){
             return;
+        }
+        if(newState && !isOpen){
+            SoundSystem.instance.PlaySound(openSound);
+        }
+        if(!newState && isOpen){
+            SoundSystem.instance.PlaySound(closeSound);
         }
         isOpen = newState;
         ObjectHandler.SetObjectActive(colliderObject, !newState);

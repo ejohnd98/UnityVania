@@ -82,6 +82,7 @@ public class PortalHandler : MonoBehaviour
         coolingDown = true;
         if(startIndex != selectionIndex){
             player.transform.position = portals[selectionIndex].spawnLocation.position;
+            SoundSystem.instance.PlaySound("portalTravelSound");
             //wait for animation/whatever to finish
         }
         startIndex = -1;
@@ -102,6 +103,7 @@ public class PortalHandler : MonoBehaviour
         if(coolingDown){
             return;
         }
+        SoundSystem.instance.PlaySound("portalStartSound");
         UpdateText();
         //set index to current portal
         for(int i = 0; i < portals.Length; i++){

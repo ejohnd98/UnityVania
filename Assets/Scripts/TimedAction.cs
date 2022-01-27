@@ -14,12 +14,16 @@ public class TimedAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        progress = 0.0f;
-        state = 0;
+        StartTimer();
     }
 
     public void DestroyThisObject(){
         ObjectHandler.DestroyObjects(this.gameObject);
+    }
+
+    public void StartTimer(){
+        progress = 0.0f;
+        state = 0;
     }
 
     // Update is called once per frame

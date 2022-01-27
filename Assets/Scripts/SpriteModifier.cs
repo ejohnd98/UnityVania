@@ -9,6 +9,7 @@ public class SpriteModifier : MonoBehaviour
     public Material whiteMat;
     public bool deathEffect = false;
     public bool createEffectAsSibling = false;
+    public float fadeTime = 0.4f;
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -42,6 +43,7 @@ public class SpriteModifier : MonoBehaviour
         newRenderer.renderingLayerMask = spriteRenderer.renderingLayerMask;
         newRenderer.sortingOrder = spriteRenderer.sortingOrder;
 
-        deathSprite.AddComponent<FadeAwayThenDelete>();
+        FadeAwayThenDelete fade = deathSprite.AddComponent<FadeAwayThenDelete>();
+        fade.fadeTime = fadeTime;
     }
 }

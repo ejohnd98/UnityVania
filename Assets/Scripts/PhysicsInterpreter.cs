@@ -7,6 +7,8 @@ public class PhysicsInterpreter : MonoBehaviour
     private RayHandler rayHandler;
     private float collideDist = 0.25f;
     private bool lastGroundState = false;
+    private bool lastGroundState2 = false; //I'm sorry
+    public bool groundSound = false;
 
     void Start() {
         rayHandler = GetComponent<RayHandler>();
@@ -48,6 +50,15 @@ public class PhysicsInterpreter : MonoBehaviour
             return rayHandler.lastMoveDir;
         }
         
+    }
+
+
+
+    public void Update() {
+        if(groundSound && !lastGroundState2 && rayHandler.grounded){
+            SoundSystem.instance.PlaySound("groundNoise");
+        }
+        lastGroundState2 = rayHandler.grounded;
     }
 
 

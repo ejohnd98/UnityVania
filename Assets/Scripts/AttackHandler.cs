@@ -46,6 +46,9 @@ public class AttackHandler : MonoBehaviour {
         if(!physState.InputAllowed()){
             return;
         }
+
+        SoundSystem.instance.PlaySound("attackSound");
+
         Vector3 tempScale = attackCollider.transform.localScale;
         tempScale.x = Mathf.Abs(tempScale.x) * physState.FaceDir();
         attackCollider.transform.localScale = tempScale;

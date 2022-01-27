@@ -44,6 +44,7 @@ public class ItemHandler : MonoBehaviour
                     break;
             }
         }
+        SoundSystem.instance.PlaySound(newItem.pickupSound);
         
     }
 
