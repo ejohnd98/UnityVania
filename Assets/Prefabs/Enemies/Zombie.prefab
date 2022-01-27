@@ -149,6 +149,7 @@ MonoBehaviour:
   canJump: 0
   canCrouch: 0
   crouchHeightMod: 0.5
+  jumpSound: 0
   velocityDampenX: 10
   slideVel: 10
   knockbackHeight: 1.6
@@ -194,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fe70d1d78649140b175a980db387da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundSound: 0
 --- !u!114 &8095707985111364288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +212,10 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 2199840757203922734}
   shakeType: 1
+  hasSound: 1
+  hurtSound: zombieHit
+  deathSound: zombieDeath
+  includeGenericSound: 1
   healthDepleted: 0
 --- !u!114 &8095707985111364291
 MonoBehaviour:
@@ -471,6 +477,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!114 &3254726292723507162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 0.2
   progress: 0
+  flashOnEnable: 1
 --- !u!1 &8095707986223272572
 GameObject:
   m_ObjectHideFlags: 0

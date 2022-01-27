@@ -10495,6 +10495,7 @@ GameObject:
   - component: {fileID: 2271767682857065920}
   - component: {fileID: 6791691837646522752}
   - component: {fileID: 3900333055908169209}
+  - component: {fileID: 2559146314101306273}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -10589,6 +10590,21 @@ MonoBehaviour:
   - {fileID: 2742180686276751923}
   - {fileID: 7418603270658963936}
   DefeatedObjects: []
+  Phase1Actions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2559146314101306273}
+        m_TargetAssemblyTypeName: SoundPlayerProxy, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: witchStart
+          m_BoolArgument: 0
+        m_CallState: 2
   Phase2Actions:
     m_PersistentCalls:
       m_Calls:
@@ -10740,6 +10756,9 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 3900333055908169209}
   shakeType: 2
+  hasSound: 1
+  hurtSound: witchHurt
+  deathSound: witchHurt
   healthDepleted: 0
 --- !u!114 &6791691837646522759
 MonoBehaviour:
@@ -10757,6 +10776,9 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 3900333055908169209}
   shakeType: 2
+  hasSound: 1
+  hurtSound: witchHurt
+  deathSound: witchHurt
   healthDepleted: 0
 --- !u!50 &6791691837646522781
 Rigidbody2D:
@@ -10795,6 +10817,9 @@ MonoBehaviour:
   currentHealth: 10
   spriteMod: {fileID: 3900333055908169209}
   shakeType: 3
+  hasSound: 1
+  hurtSound: witchHurt
+  deathSound: witchDeath
   healthDepleted: 0
 --- !u!114 &2271767682857065920
 MonoBehaviour:
@@ -10848,6 +10873,19 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 0
+  fadeTime: 0.4
+--- !u!114 &2559146314101306273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6791691837646522757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f169eaaa8e1d604fbb229d86e78032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6791691837984068033
 GameObject:
   m_ObjectHideFlags: 0

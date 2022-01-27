@@ -21,6 +21,7 @@ public class RayHandler : MonoBehaviour
     public bool canJump = true;
     public bool canCrouch = false;
     public float crouchHeightMod = 0.5f;
+    public bool jumpSound = false;
     
 
     public float velocityDampenX = 0.5f;
@@ -433,6 +434,9 @@ public class RayHandler : MonoBehaviour
                     jumping = true;
                     velocity.y = (airJumpsPerformed <= maxAirJumps)? jumpVel : tallJumpVel;
                     grounded = false;
+                    if(jumpSound){
+                        SoundSystem.instance.PlaySound("jumpSound");
+                    }
                     
                     StopCoroutine(JumpInputPersist());
                     StartCoroutine(JumpStartup());

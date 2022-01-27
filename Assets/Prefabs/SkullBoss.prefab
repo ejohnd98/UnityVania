@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 6009405870323392449}
   - component: {fileID: 2775879263640817614}
   - component: {fileID: 1467235464740354198}
+  - component: {fileID: 3077294300020951862}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -133,6 +134,21 @@ MonoBehaviour:
   - {fileID: 7704934011216064562}
   DefeatedObjects:
   - {fileID: 7704934011216064562}
+  Phase1Actions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3077294300020951862}
+        m_TargetAssemblyTypeName: SoundPlayerProxy, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: skullStart
+          m_BoolArgument: 0
+        m_CallState: 2
   Phase2Actions:
     m_PersistentCalls:
       m_Calls: []
@@ -359,7 +375,7 @@ MonoBehaviour:
   shakeType: 3
   hasSound: 1
   hurtSound: skullEyeHit
-  deathSound: skullEyeDeath
+  deathSound: skullDeath
   healthDepleted: 0
 --- !u!114 &6009405870323392449
 MonoBehaviour:
@@ -410,6 +426,18 @@ MonoBehaviour:
   shakeType: 3
   overrideLength: 6.5
   overrideMag: 0.025
+--- !u!114 &3077294300020951862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343108261841914756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f169eaaa8e1d604fbb229d86e78032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1343108262309417920
 GameObject:
   m_ObjectHideFlags: 0

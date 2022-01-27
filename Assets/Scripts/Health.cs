@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     public ShakePresets shakeType = ShakePresets.SmallEnemy;
     public bool hasSound = false;
     public string hurtSound, deathSound;
+    public bool useGenericSound = true;
 
     public bool healthDepleted = false;
 
@@ -30,12 +31,18 @@ public class Health : MonoBehaviour
                 actor.KillActor();
                 if(hasSound){
                     SoundSystem.instance.PlaySound(deathSound);
+                    if(useGenericSound){
+                        SoundSystem.instance.PlaySound("genericHit");
+                    }
                 }
             }
 
         }else{
             if(hasSound){
                 SoundSystem.instance.PlaySound(hurtSound);
+                if(useGenericSound){
+                    SoundSystem.instance.PlaySound("genericHit");
+                }
             }
             currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
         }

@@ -15,7 +15,7 @@ public class BossController : PlatformControllerBase {
     public Animator animator;
 
     public GameObject[] IntroObjects, Phase1Objects, Phase2Objects, Phase3Objects, DefeatedObjects;
-    public UnityEvent Phase2Actions, Phase3Actions;
+    public UnityEvent Phase1Actions, Phase2Actions, Phase3Actions;
 
     public enum BossAIState{
         Moving,
@@ -159,6 +159,7 @@ public class BossController : PlatformControllerBase {
                 break;
             case BossPhases.Phase1:
                 foreach (GameObject obj in Phase1Objects){ObjectHandler.SetObjectActive(obj, true);}
+                Phase1Actions?.Invoke();
                 break;
             case BossPhases.Phase2:
                 foreach (GameObject obj in Phase2Objects){ObjectHandler.SetObjectActive(obj, true);}
