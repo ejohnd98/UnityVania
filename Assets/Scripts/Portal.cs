@@ -9,6 +9,9 @@ public class Portal : MonoBehaviour
     public PortalHandler handler;
 
     public void ActivatePortal(){
+        if(!discovered){
+            SoundSystem.instance.PlaySound("portalFound");
+        }
         discovered = true;
         handler.StartSelection(this);
     }

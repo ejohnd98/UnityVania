@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class PortalHandler : MonoBehaviour
 {
     public GameObject selectionUI;
+    GameObject effectsObject;
+    public GameObject portalSpriteObj;
+    public GameObject effectsPrefab;
+    public float movePlayerDelay = 1.0f;
     public Transform selectorTransform;
     public Transform[] selectionTransforms;
     public Text menuText;
@@ -81,10 +85,27 @@ public class PortalHandler : MonoBehaviour
         selectionUI.SetActive(false);
         coolingDown = true;
         if(startIndex != selectionIndex){
-            player.transform.position = portals[selectionIndex].spawnLocation.position;
-            SoundSystem.instance.PlaySound("portalTravelSound");
-            //wait for animation/whatever to finish
+            effectsObject = Instantiate(effectsPrefab, portals[startIndex].transform.position, portalSpriteObj.transform.rotation);
+            StartCoroutine(WaitForEffects());
+            StartCoroutine(MovePlayer());
+            SoundSystem.instance.PlaySound("portalSound");
+        }else{
+            startIndex = -1;
+            player.StopInputs(false);
+            StartCoroutine(PortalCooldown());
         }
+        
+    }
+
+    IEnumerator MovePlayer(){
+        yield return new WaitForSeconds(movePlayerDelay);
+        Vector3 moveOffset = player.transform.position - portals[startIndex].transform.position;
+        player.transform.position = portals[selectionIndex].transform.position + moveOffset + Vector3.up*0.005f;
+        effectsObject.transform.position = portals[selectionIndex].transform.position;
+    }
+
+    IEnumerator WaitForEffects(){
+        yield return new WaitWhile(() => effectsObject != null);
         startIndex = -1;
         player.StopInputs(false);
         StartCoroutine(PortalCooldown());
@@ -103,7 +124,7 @@ public class PortalHandler : MonoBehaviour
         if(coolingDown){
             return;
         }
-        SoundSystem.instance.PlaySound("portalStartSound");
+        
         UpdateText();
         //set index to current portal
         for(int i = 0; i < portals.Length; i++){
