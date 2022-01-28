@@ -86,7 +86,6 @@ public class PortalHandler : MonoBehaviour
         coolingDown = true;
         if(startIndex != selectionIndex){
             effectsObject = Instantiate(effectsPrefab, portals[startIndex].transform.position, Quaternion.identity);
-            effectsObject.GetComponentInChildren<SimpleRotate>().transform.rotation = portalSpriteObj.transform.rotation;
             StartCoroutine(WaitForEffects());
             StartCoroutine(MovePlayer());
             SoundSystem.instance.PlaySound("portalSound");

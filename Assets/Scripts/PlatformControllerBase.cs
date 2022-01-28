@@ -26,6 +26,7 @@ abstract public class PlatformControllerBase : MonoBehaviour {
 
     public void StopInputs(bool newState){
         rayHandler.ProvideInput(0.0f, false, false, false);
+        rayHandler.FullHalt();
         rayHandler.stopInput = newState;
         ignoreHits = newState;
         

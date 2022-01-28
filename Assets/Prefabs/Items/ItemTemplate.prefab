@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 6099581493293703690, guid: 28ea3f603f5560449b5cc2e2ac5e49a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4873,7 +4873,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4928,6 +4928,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 0
   createEffectAsSibling: 0
+  fadeTime: 0.4
 --- !u!1 &1569201692070983109
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,6 +5003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 2
   value: 1
+  pickupSound: 
 --- !u!114 &1569201692070983114
 MonoBehaviour:
   m_ObjectHideFlags: 0

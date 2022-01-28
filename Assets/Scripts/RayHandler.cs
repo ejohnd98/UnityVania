@@ -107,6 +107,11 @@ public class RayHandler : MonoBehaviour
         ProvideInput((float)x, jumpStart, jumpRelease, crouch);
     }
 
+    public void FullHalt(){
+        velocity.x = 0;
+        xAxis = 0;
+    }
+
     public void ProvideInput(float x, bool jumpStart, bool jumpRelease, bool crouch){
         if(knockback || !simEnabled || stopInput){
             //override inputs if stunned

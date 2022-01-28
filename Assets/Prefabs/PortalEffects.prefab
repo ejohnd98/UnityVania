@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 5
+  useGlobal: 1
 --- !u!114 &1812439468864959514
 MonoBehaviour:
   m_ObjectHideFlags: 0

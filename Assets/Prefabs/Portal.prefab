@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5834530443918820123}
   - component: {fileID: 4382312139830815703}
   - component: {fileID: 1419476151779123849}
+  - component: {fileID: 2501961456844380935}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1463842904806410803}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.005}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 2281123601994928559}
   m_RootOrder: 0
@@ -97,6 +98,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 5
+  useGlobal: 1
+--- !u!114 &2501961456844380935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463842904806410803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e39f587f339573409b7b300f189236c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSpots: []
+  animationScales:
+  - {x: 1, y: 1, z: 1}
+  animationRotations: []
+  useSpots: 0
+  useScales: 1
+  useRotations: 0
+  timeAtEachSpot:
+  - 0
+  notStarted: 1
+  debugStart: 0
+  startOnEnable: 0
+  loopAnim: 0
+  lerpSpeed: 1
 --- !u!1 &2281123601994928552
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +155,7 @@ Transform:
   m_Children:
   - {fileID: 5834530443918820123}
   - {fileID: 2045163479247651505}
+  - {fileID: 7782527898498029533}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -182,6 +211,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8239487911527142287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7782527898498029533}
+  - component: {fileID: 4046179672936988186}
+  m_Layer: 0
+  m_Name: discovered
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7782527898498029533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239487911527142287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2281123601994928559}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4046179672936988186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239487911527142287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2501961456844380935}
+        m_TargetAssemblyTypeName: MoveAnimScript, Assembly-CSharp
+        m_MethodName: StartAnim
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  delay: 0
+  repeat: 0
 --- !u!1 &8964833115911175383
 GameObject:
   m_ObjectHideFlags: 0
