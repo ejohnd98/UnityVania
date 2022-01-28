@@ -68,8 +68,8 @@ public class MoveAnimScript : MonoBehaviour
                 transform.localScale = Vector3.Lerp(a, b, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
             }
             if(useRotations){
-                Vector3 a = localStartRot + ((nextState == 0)? Vector3.zero : animationSpots[nextState-1]);
-                Vector3 b = localStartRot + animationSpots[nextState];
+                Vector3 a = localStartRot + ((nextState == 0)? Vector3.zero : animationRotations[nextState-1]);
+                Vector3 b = localStartRot + animationRotations[nextState];
                 transform.localEulerAngles = Vector3.Lerp(a, b, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
             }
             
