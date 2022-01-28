@@ -184,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1812439470128960077}
   - component: {fileID: 1812439470128960082}
+  - component: {fileID: 1802447754140839652}
   m_Layer: 13
   m_Name: PortalEffects
   m_TagString: Untagged
@@ -224,6 +225,17 @@ MonoBehaviour:
   afterTime: 1
   persistThroughLoad: 0
   timeLength: 3.5
+--- !u!210 &1802447754140839652
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812439470128960076}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &5274106791469917825
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +425,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 781ca582e1cb8c74f99edc841eed075e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

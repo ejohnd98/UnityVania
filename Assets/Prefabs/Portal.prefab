@@ -135,6 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2281123601994928559}
   - component: {fileID: 2281123601994928557}
+  - component: {fileID: 3702657770755978844}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -211,6 +212,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &3702657770755978844
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281123601994928552}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &8239487911527142287
 GameObject:
   m_ObjectHideFlags: 0
