@@ -9,8 +9,9 @@ public class SoundSystem : MonoBehaviour
 
     AudioSource musicPlayer;
     public GameObject soundEffectPrefab;
-    public float musicVolume = 1.0f;
-    public float sfxVolume = 1.0f;
+    public float overallVolume = 1.0f;
+    public float musicVolume = 0.5f;
+    public float sfxVolume = 0.8f;
     public bool playPlaceholder = false;
 
     public Areas musicArea = Areas.None;
@@ -39,18 +40,18 @@ public class SoundSystem : MonoBehaviour
         sfxLastVariantIndex = new int[sfxWithVariance.Length];
         foreach(AudioClip clip in sfxList){
             sfx.Add(clip.name, clip);
-            Debug.Log("added " + clip.name);
+            //Debug.Log("added " + clip.name);
         }
     }
 
     // Update is called once per frame
     void Update(){
         if(fadingOut && musicPlayer.volume > 0.0){
-            musicPlayer.volume = musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
+            musicPlayer.volume = overallVolume * musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter += Time.deltaTime;
         }
-        if(!fadingOut && musicPlayer.volume < musicVolume){
-            musicPlayer.volume = musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
+        if(!fadingOut && musicPlayer.volume < musicVolume*overallVolume){
+            musicPlayer.volume = overallVolume*musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter -= Time.deltaTime;
         }
     }
@@ -64,7 +65,7 @@ public class SoundSystem : MonoBehaviour
             }
             sfxLastVariantIndex[varianceIndex] = rand;
             sndName += (rand+1).ToString();
-            Debug.Log("chosen variant: " + sndName);
+            //Debug.Log("chosen variant: " + sndName);
         }
         
         AudioClip clip;
@@ -79,7 +80,7 @@ public class SoundSystem : MonoBehaviour
         }
         GameObject sndObj = Instantiate(soundEffectPrefab, transform);
         AudioSource newSrc = sndObj.GetComponent<AudioSource>();
-        newSrc.volume = sfxVolume;
+        newSrc.volume = sfxVolume * overallVolume;
         newSrc.clip = clip;
     }
 
@@ -126,7 +127,7 @@ public class SoundSystem : MonoBehaviour
         musicPlayer.Stop();
         if(nextMusic != null){
             musicPlayer.clip = nextMusic;
-            musicPlayer.volume = musicVolume;
+            musicPlayer.volume = musicVolume * overallVolume;
             musicPlayer.Play();
         }
     }

@@ -1,25 +1,32 @@
-Spawn single sprite anim upon enemies death.
+Work items:
+	Art:
+		create logo + name
+	
+		sprite final boss
+		sprite clock boss
+		sprite props
+		sprite remaining portraits
+			shop
+			witch
+			villain
+		
+		write dialogue
+			game intro
+			witch encounter
+			shopkeeper
+			final boss
+			credits
+			
+		controls explanation
+	Programming:
+		program final boss
+		program final boss
+		program credits
+		program menu
+		program save system
+			generate string with bits corresponding to souls, bosses defeated, and items picked up.
 
-Levels:
-	Mansion
-		Zombies
-		Bats
-	Library
-		Boss: Evil wizard that levitates weapons to attack
-	Cemetery
-	Tombs
-		Boss: Creature formed from tons of skeletons
-	
-	Clocktower
-		Boss: Giant clock that moves hands, then stops them to fire in those directions
-	
-	[Preboss area]
-		Final Boss
-	
-NEXT:
-	Portals & Save Points
 
-	
 TO-DO:
 	Coding
 		Camera (bounding box style of camera movement, with maybe some fixed sections?)
@@ -31,9 +38,7 @@ TO-DO:
 		Player sprites
 		Enemy sprites
 		Bosses
-		backgrounds
 		area props
-		UI
 		
 	sound effects
 		walking
@@ -43,6 +48,4 @@ TO-DO:
 		UI
 
 	Polish
-		Particle effects
 		randomize enemy speeds
-		damage effects (character flash red, screen shake)
