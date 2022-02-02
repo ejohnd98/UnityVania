@@ -58,6 +58,9 @@ public class SaveSystemLoader : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha0)){
                 StartLoadGame(false);
             }
+            if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKey(KeyCode.Alpha5)){
+                PlayerPrefs.DeleteAll();
+            }
         }
         
     }

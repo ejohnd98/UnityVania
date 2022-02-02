@@ -54,6 +54,8 @@ public class PlayerController : PlatformControllerBase {
 
     public override void KillActor(){
         rayHandler.SetSimState(false);
+        SoundSystem.instance.PlayGameOver();
+        FindObjectOfType<SaveSystem>().DeathPrompt();
         Debug.Log("GAME OVER");
     }
 

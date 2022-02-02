@@ -13,6 +13,7 @@ public class MainMenuHandler : MonoBehaviour
     public int startIndex = 0;
     public int selectionIndex;
     public bool isSelecting = false;
+    bool[] disabledSelections = {false, false, false, false, false};
 
     public InputHandler inputHandler;
 
@@ -47,6 +48,15 @@ public class MainMenuHandler : MonoBehaviour
         selectionIndex += change;
         while(selectionIndex >= selectionTransforms.Length){selectionIndex -= selectionTransforms.Length;}
         while(selectionIndex < 0){selectionIndex += selectionTransforms.Length;}
+        
+        int missesInRow = 0;
+        while(disabledSelections[selectionIndex] && missesInRow <= selectionTransforms.Length){
+            missesInRow++;
+            selectionIndex += (change / Mathf.Abs(change));
+            while(selectionIndex >= selectionTransforms.Length){selectionIndex -= selectionTransforms.Length;}
+            while(selectionIndex < 0){selectionIndex += selectionTransforms.Length;}
+        }
+
         selectorTransform.position = selectionTransforms[selectionIndex].position;
     }
 
@@ -80,7 +90,7 @@ public class MainMenuHandler : MonoBehaviour
     }
 
     public void StartSelection(){
-        
+        disabledSelections[1] = !(PlayerPrefs.HasKey("souls"));
         selectionIndex = 0;
         startIndex = 0;
         selectorTransform.position = selectionTransforms[selectionIndex].position;

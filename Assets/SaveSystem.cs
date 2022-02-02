@@ -22,6 +22,8 @@ public class SaveSystem : MonoBehaviour
     public bool isSelecting = false;
     float cooldown = 0.5f;
     bool coolingDown = false;
+    bool deathPrompt = false;
+    bool[] disabledSelections = {false, false, false, false};
 
     public InputHandler inputHandler;
 
@@ -63,6 +65,15 @@ public class SaveSystem : MonoBehaviour
         selectionIndex += change;
         while(selectionIndex >= selectionTransforms.Length){selectionIndex -= selectionTransforms.Length;}
         while(selectionIndex < 0){selectionIndex += selectionTransforms.Length;}
+        
+        int missesInRow = 0;
+        while(disabledSelections[selectionIndex] && missesInRow <= selectionTransforms.Length){
+            missesInRow++;
+            selectionIndex += (change / Mathf.Abs(change));
+            while(selectionIndex >= selectionTransforms.Length){selectionIndex -= selectionTransforms.Length;}
+            while(selectionIndex < 0){selectionIndex += selectionTransforms.Length;}
+        }
+
         selectorTransform.position = selectionTransforms[selectionIndex].position;
     }
 
@@ -101,13 +112,30 @@ public class SaveSystem : MonoBehaviour
         StartCoroutine(SaveCooldown());
     }
 
+    public void DeathPrompt(){
+        menuText.text = "Game Over\n-----------\nLoad Game -\nMain Menu -";
+        disabledSelections[0] = true;
+        disabledSelections[1] = true;
+        deathPrompt = true;
+        StartSelection("death");
+    }
+
     public void StartSelection(string saveLocationName){
         if(coolingDown){
             return;
         }
         
+        disabledSelections[2] = !(PlayerPrefs.HasKey("souls"));
         selectionIndex = 0;
         startIndex = 0;
+        if(deathPrompt){
+            selectionIndex = 2;
+            startIndex = 2;
+            if(disabledSelections[2]){
+                selectionIndex = 3;
+                startIndex = 3;
+            }
+        }
         selectorTransform.position = selectionTransforms[selectionIndex].position;
 
         player.StopInputs(true);

@@ -105,6 +105,12 @@ public class SoundSystem : MonoBehaviour
         
     }
 
+    public void PlayGameOver(){
+        fadeOutTime = 0.5f;
+        ChangeMusic(sfx["game over"]);
+        musicPlayer.loop = false;
+    }
+
     public void StopMusic(){
         ChangeMusic((AudioClip)null);
     }
