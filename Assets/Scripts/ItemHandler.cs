@@ -29,23 +29,27 @@ public class ItemHandler : MonoBehaviour
         if(newItem.itemType == ItemTypes.Soul){
             souls += newItem.value;
         }else{
-            inventory.Add(newItem.itemType);
-            switch(newItem.itemType){
-                case ItemTypes.DoubleJump:
-                    player.GrantDoubleJump();
-                    break;
-                case ItemTypes.TripleJump:
-                    player.GrantTripleJump();
-                    break;
-                case ItemTypes.TallJump:
-                    player.GrantTallJump();
-                    break;
-                default:
-                    break;
-            }
+            AddItemByType(newItem.itemType);
         }
         SoundSystem.instance.PlaySound(newItem.pickupSound);
         
+    }
+
+    public void AddItemByType(ItemTypes itemType){
+        inventory.Add(itemType);
+        switch(itemType){
+            case ItemTypes.DoubleJump:
+                player.GrantDoubleJump();
+                break;
+            case ItemTypes.TripleJump:
+                player.GrantTripleJump();
+                break;
+            case ItemTypes.TallJump:
+                player.GrantTallJump();
+                break;
+            default:
+                break;
+        }
     }
 
     public bool HasItem(ItemTypes itemType){

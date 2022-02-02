@@ -15,6 +15,11 @@ public class Portal : MonoBehaviour
         }
     }
 
+    public void SetState(bool state){
+        discovered = state;
+        discoveredObj.SetActive(state);
+    }
+
     public void ActivatePortal(){
         if(!discovered){
             SoundSystem.instance.PlaySound("portalFound");

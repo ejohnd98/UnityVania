@@ -46,6 +46,13 @@ public class BossHandler : MonoBehaviour
         }
     }
 
+    public void SetDefeated(){ //used by save system;
+        if(introObject != null){
+            introObject.SetActive(false);
+        }
+        currentPhase = BossPhases.Defeated;
+    }
+
     public void ChangeState(BossPhases newState){
         switch(newState){
             case BossPhases.NotStarted:
