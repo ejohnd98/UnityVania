@@ -29,19 +29,25 @@ public class SoundSystem : MonoBehaviour
     float fadeOutCounter = 0.0f;
 
     private void Awake(){
+        Debug.Log("Awake");
         if (instance != null && instance != this){
             Destroy(this.gameObject);
+            return;
         }else{
             instance = this;
         }
 
-        musicPlayer = GetComponent<AudioSource>();
-        sfx = new Dictionary<string, AudioClip>();
-        sfxLastVariantIndex = new int[sfxWithVariance.Length];
-        foreach(AudioClip clip in sfxList){
-            sfx.Add(clip.name, clip);
-            //Debug.Log("added " + clip.name);
+        if(sfx == null){
+            sfx = new Dictionary<string, AudioClip>();
+            sfxLastVariantIndex = new int[sfxWithVariance.Length];
+            foreach(AudioClip clip in sfxList){
+                sfx.Add(clip.name, clip);
+                //Debug.Log("added " + clip.name);
+            }
         }
+
+        musicPlayer = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -97,7 +103,7 @@ public class SoundSystem : MonoBehaviour
         musicArea = area;
         AudioClip newMusic = music[(int)area];
         nextMusic = newMusic;
-        if(musicPlayer.isPlaying && fadingOut && nextMusic == musicPlayer.clip){
+        if(musicPlayer != null && musicPlayer.isPlaying && fadingOut && nextMusic == musicPlayer.clip){
             fadingOut = false;
         }else{
             StartCoroutine(TransitionMusic());

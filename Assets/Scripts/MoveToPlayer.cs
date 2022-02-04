@@ -8,12 +8,16 @@ public class MoveToPlayer : MonoBehaviour
     public Vector3 finalScale;
     Vector3 startPos;
     Vector3 startLocalScale;
+    Vector3 initPlayerPos;
+    public Vector3 targetOffset = Vector3.zero;
     bool remainInPos = false;
+    bool useCubicEaseIn = true;
 
     public UnityEvent finishEvent;
 
     public bool notStarted = true;
     public float lerpSpeed =1.0f;
+    public bool onlyUseInitialPos = false;
     float progress = 0.0f;
 
     private void OnEnable() {
@@ -29,6 +33,7 @@ public class MoveToPlayer : MonoBehaviour
         progress = 0.0f;
         startPos = transform.position;
         startLocalScale = transform.localScale;
+        initPlayerPos = PlayerController.instance.CenterOfPlayer;
     }
 
     // Update is called once per frame
@@ -39,12 +44,12 @@ public class MoveToPlayer : MonoBehaviour
             progress += Time.deltaTime * lerpSpeed;
 
             Vector3 a = startPos;
-            Vector3 b = remainInPos? a : PlayerController.instance.CenterOfPlayer;
-            transform.position = Vector3.Lerp(a, b, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
+            Vector3 b = remainInPos? a : (targetOffset + (onlyUseInitialPos? initPlayerPos : PlayerController.instance.CenterOfPlayer));
+            transform.position = Vector3.Lerp(a, b, useCubicEaseIn? Easings.EaseInCubic(Mathf.Clamp01(progress)) : Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
             
             Vector3 a2 = startLocalScale;
             Vector3 b2 = finalScale;
-            transform.localScale = Vector3.Lerp(a2, b2, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
+            transform.localScale = Vector3.Lerp(a2, b2, useCubicEaseIn? Easings.EaseInCubic(Mathf.Clamp01(progress)) : Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
             
 
             if(progress >= 1.0){

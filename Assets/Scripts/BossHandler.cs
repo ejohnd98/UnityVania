@@ -101,7 +101,7 @@ public class BossHandler : MonoBehaviour
     public void CheckExitConditions(){
         switch(currentPhase){
             case BossPhases.Intro:
-                if(introObject == null){
+                if(introObject == null || !introObject.activeSelf){
                     ChangeState(BossPhases.Phase1);
                 }
                 break;

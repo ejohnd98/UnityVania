@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleRotate : MonoBehaviour
 {
     public float rotateSpeed = 1.0f;
+    public float mod = 1.0f;
     public bool useGlobal = false;
 
 
@@ -13,7 +14,7 @@ public class SimpleRotate : MonoBehaviour
     {
         if(useGlobal){
             Vector3 angles = transform.eulerAngles;
-            angles.z = GlobalRotate.instance.rotationZ;
+            angles.z = GlobalRotate.instance.rotationZ * mod;
             transform.eulerAngles = angles;
         }else{
             Vector3 angles = transform.localEulerAngles;

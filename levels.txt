@@ -1,3 +1,32 @@
+Shopkeeper has a special mirror that allows souls to transcend.
+Boss:
+	Blue spirits are pure
+	By sending them to the shopkeeper, they can be sent to rest through a special mirror
+	
+	can repeatedly bring spirits back
+	can only take so much, and become broken corrupt (red)
+	by the player killing enemies, they are pushing those spirits close to this state.
+	
+	When that happens the villain claims them for himself. He can't use blue spirits as they are too "human". They need to be beaten down into a mindless state first. Then he can command them as he wishes
+	
+	Phases:
+		Start:
+			villain jumps and lies ontop of mirror which floats
+			hit mirror to damage
+			
+			mirror spits out red skulls/spirits
+		Second:
+			mirror becomes cracked
+			villain frustrated
+			[some new minor attack]
+		Third:
+			mirror has broken, see portal effect outside through windows
+			red spirits come from all angles off screen to attack
+		
+NEXT:
+	Create script to create projectile that moves in specified direction
+		Direction will be from boss to player
+		
 Work items:
 	Art:
 		create logo + name

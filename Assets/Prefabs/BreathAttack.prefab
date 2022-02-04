@@ -4895,7 +4895,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterSound: 0
   afterParticles: 1
+  afterTime: 0
   persistThroughLoad: 0
+  timeLength: 0
 --- !u!114 &505076116703492960
 MonoBehaviour:
   m_ObjectHideFlags: 0

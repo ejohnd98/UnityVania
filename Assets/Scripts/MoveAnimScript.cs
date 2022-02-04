@@ -14,6 +14,7 @@ public class MoveAnimScript : MonoBehaviour
     public bool debugStart = false;
     public bool startOnEnable = false;
     public bool loopAnim = false;
+    public bool useLinearLerp = false;
 
     public float lerpSpeed =1.0f;
 
@@ -60,7 +61,7 @@ public class MoveAnimScript : MonoBehaviour
             if(useSpots){
                 Vector3 a = localStartPos + ((nextState == 0)? Vector3.zero : animationSpots[nextState-1]);
                 Vector3 b = localStartPos + animationSpots[nextState];
-                transform.localPosition = Vector3.Lerp(a, b, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
+                transform.localPosition = useLinearLerp? Vector3.Lerp(a,b,Mathf.Clamp01(progress)): Vector3.Lerp(a, b, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
             }
             if(useScales){
                 Vector3 a = ((nextState == 0)? localStartScale : animationScales[nextState-1]);

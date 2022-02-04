@@ -1998,7 +1998,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 405cd42c1e1e4464b96ee0861547ab90, type: 3}
   - {fileID: 8300000, guid: 8b10e2ed66aadd744a5588469bb93caf, type: 3}
   - {fileID: 8300000, guid: bec7f76ec002aa24a978c05ef7d9d73b, type: 3}
-  - {fileID: 8300000, guid: bec7f76ec002aa24a978c05ef7d9d73b, type: 3}
   - {fileID: 8300000, guid: 45c5b41bb20a7824f9555f30471b2ad1, type: 3}
   sfxWithVariance:
   - playerHurt
