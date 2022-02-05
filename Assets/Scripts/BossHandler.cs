@@ -9,6 +9,7 @@ public enum BossPhases{
         Phase1,
         Phase2,
         Phase3,
+        Phase4,
         Defeated,
 
         None
@@ -29,6 +30,8 @@ public class BossHandler : MonoBehaviour
 
     public GameObject introObject;
     public UnityEvent introEvent;
+
+    public bool usePhase4 = false;
 
     
 
@@ -82,7 +85,7 @@ public class BossHandler : MonoBehaviour
                 if(bossDeadPrefab != null){
                     GameObject.Instantiate(bossDeadPrefab, bossController.transform.position, Quaternion.identity, transform);
                 }
-                bossObj.GetComponentInChildren<ItemDropper>().DropItems();
+                GetComponentInChildren<ItemDropper>().DropItems();
                 ObjectHandler.DestroyObjects(bossObj);
                 sndSystem.StopMusic();
                 SetDoors(true);
@@ -119,6 +122,14 @@ public class BossHandler : MonoBehaviour
                 break;
 
             case BossPhases.Phase3:
+                if(usePhase4 && bossController.SectionKilled(2)){
+                    ChangeState(BossPhases.Phase4);
+                }
+                else if(bossObj == null || bossController.SectionKilled(bossController.healthSectionsUsed - 1)){
+                    ChangeState(BossPhases.Defeated);
+                }
+                break;
+            case BossPhases.Phase4:
                 if(bossObj == null || bossController.SectionKilled(bossController.healthSectionsUsed - 1)){
                     ChangeState(BossPhases.Defeated);
                 }

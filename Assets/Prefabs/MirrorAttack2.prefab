@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 7201295792649784785}
   - component: {fileID: 4795740749563671880}
   - component: {fileID: 6061084400203291317}
+  - component: {fileID: 2720250507132543760}
+  - component: {fileID: 3352814522482146463}
+  - component: {fileID: 4004396749057485481}
   m_Layer: 8
   m_Name: MirrorAttack2
   m_TagString: Untagged
@@ -4937,3 +4940,73 @@ MonoBehaviour:
   timedCollider: {fileID: 1973768991138990869}
   delay: 2
   length: 2.4
+--- !u!114 &2720250507132543760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899674150699814489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4004396749057485481}
+        m_TargetAssemblyTypeName: AttackCreator, Assembly-CSharp
+        m_MethodName: CreateAttack
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7149704928007117304, guid: 391c5b0cc798d4f40a2b174f299cfedd, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  delay: 0.75
+  repeat: 1
+--- !u!114 &3352814522482146463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899674150699814489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2720250507132543760}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  delay: 2.6
+  repeat: 0
+--- !u!114 &4004396749057485481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899674150699814489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6c68b1818fbd043922c84ecf6955f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

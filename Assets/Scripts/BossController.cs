@@ -15,7 +15,7 @@ public class BossController : PlatformControllerBase {
     public Animator animator;
 
     public GameObject[] IntroObjects, Phase1Objects, Phase2Objects, Phase3Objects, DefeatedObjects;
-    public UnityEvent Phase1Actions, Phase2Actions, Phase3Actions;
+    public UnityEvent Phase1Actions, Phase2Actions, Phase3Actions, Phase4Actions;
 
     public enum BossAIState{
         Moving,
@@ -84,6 +84,10 @@ public class BossController : PlatformControllerBase {
                     attackNumber++;
                     StartCoroutine(StartAttack(1 + attackNumber%2));
                 }
+                if(handler.currentPhase == BossPhases.Phase4){
+                    attackNumber++;
+                    StartCoroutine(StartAttack(3 + attackNumber%2));
+                }
                 attackingDone = false;
             }
         }else if(aiState == BossAIState.Attacking){
@@ -118,6 +122,20 @@ public class BossController : PlatformControllerBase {
                 yield return new WaitWhile(() => attackObj != null);
                 attackingDone = true;
                 break;
+            case 3:
+                attackObj = CreateAttack(index);
+                attackEvents[index]?.Invoke();
+                canMove = false;
+                yield return new WaitWhile(() => attackObj != null);
+                attackingDone = true;
+                break;
+            case 4:
+                attackObj = CreateAttack(index);
+                attackEvents[index]?.Invoke();
+                canMove = true;
+                yield return new WaitWhile(() => attackObj != null);
+                attackingDone = true;
+                break;
             default:
                 yield return null;
                 break;
@@ -147,7 +165,6 @@ public class BossController : PlatformControllerBase {
 
     //There is a definitely a better way to do this
     public void SetPhaseObjects(BossPhases phase){
-        Debug.Log ("setting phase objects: " + phase);
         foreach (GameObject obj in IntroObjects){obj.SetActive(false);}
         foreach (GameObject obj in Phase1Objects){obj.SetActive(false);}
         foreach (GameObject obj in Phase2Objects){obj.SetActive(false);}
@@ -168,6 +185,9 @@ public class BossController : PlatformControllerBase {
             case BossPhases.Phase3:
                 foreach (GameObject obj in Phase3Objects){ObjectHandler.SetObjectActive(obj, true);}
                 Phase3Actions?.Invoke();
+                break;
+            case BossPhases.Phase4:
+                Phase4Actions.Invoke();
                 break;
             case BossPhases.Defeated:
                 foreach (GameObject obj in DefeatedObjects){ObjectHandler.SetObjectActive(obj, true);}
