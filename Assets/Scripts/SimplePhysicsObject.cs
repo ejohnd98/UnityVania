@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO:
-// Allow dynamic resizing of player dimensions
-// have width and height parameters to enter which will:
-//  -   adjust number of rays to go along with dimensions
-//  -   resize collider and adjust offset
-//  -   resize sprite (only temp)
-
 public class SimplePhysicsObject : MonoBehaviour
 {
     [Header("Editor Settings")]
