@@ -5,4 +5,5 @@ using UnityEngine;
 public class MinimapObject : MonoBehaviour
 {
     public Sprite minimapSprite;
+    public Vector3 offset;
 }

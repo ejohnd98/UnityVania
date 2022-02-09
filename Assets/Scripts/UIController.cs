@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     public Transform healthBarFullPos;
     public Transform healthBarDepletedPos;
 
+    public GameObject miniMapUI;
+
     public GameObject bossUI;
     bool bossUIActive = false;
     public Transform bossHealthBar;
@@ -45,6 +47,7 @@ public class UIController : MonoBehaviour
         bossHandler = handler;
         bossUI.SetActive(handler != null);
         bossUIActive = (handler != null);
+        miniMapUI.SetActive(handler == null);
     }
 
     public void SetBossHealth(int current, int max){

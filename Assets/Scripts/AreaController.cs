@@ -28,6 +28,7 @@ public class AreaController : MonoBehaviour
     public GameObject areaRoot;
     public GameObject playerObj;
     public SoundSystem sndSystem;
+    public MinimapHandler minimap;
 
     public GameObject[] enemyPrefabs;
     public List<GameObject> currentEnemies;
@@ -54,6 +55,7 @@ public class AreaController : MonoBehaviour
         if(newArea == currentArea){
             return;
         }
+        minimap.ChangeArea(newArea);
 
         //despawn enemies
         foreach(GameObject en in currentEnemies){
