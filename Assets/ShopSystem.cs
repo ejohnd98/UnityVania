@@ -14,8 +14,11 @@ public class ShopSystem : MonoBehaviour
     public bool isSelecting = false;
     float cooldown = 0.5f;
     bool coolingDown = false;
+    public bool waitingOnPrompt = false;
+    public bool ignoreInputAfterPromptFlag = false;
 
     public InputHandler inputHandler;
+    public PopUpSystem popUp;
 
     //debug
     public bool moveUp, moveDown;
@@ -35,12 +38,8 @@ public class ShopSystem : MonoBehaviour
             shopItems.Add(shopListTransform.GetChild(i).GetComponent<ShopItem>());
         }
     }
-
-    private void Start() {
-    }
-
     private void Update() {
-        if(isSelecting){
+        if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));
             }
@@ -50,6 +49,10 @@ public class ShopSystem : MonoBehaviour
             if(inputHandler.jump_button_pressed){
                 StopSelecting();
             }
+        }
+        if(ignoreInputAfterPromptFlag){
+            ignoreInputAfterPromptFlag = false;
+            waitingOnPrompt = false;
         }
     }
 
@@ -87,9 +90,19 @@ public class ShopSystem : MonoBehaviour
     }
 
     public void SelectOption(){
-
         ShopItem itm = shopItems[selectionIndex];
         if(itemHandler.souls >= itm.cost){
+            string prompt = "Buy " + itm.itemName + " for " + itm.cost + "?";
+            popUp.PromptChoice(ChoiceType.Binary, BuyItem, prompt, "No", "Yes", true, 0.5f);
+            waitingOnPrompt = true;
+        }else{
+            //play sound
+        }
+    }
+
+    public void BuyItem(Result choice){
+        ShopItem itm = shopItems[selectionIndex];
+        if(choice.choiceResult && itemHandler.souls >= itm.cost){
             itemHandler.souls -= itm.cost;
             itemHandler.AddItemByType(itm.gameItemType);
             itm.boughtAction.Invoke();
@@ -101,11 +114,12 @@ public class ShopSystem : MonoBehaviour
 
             UpdateUI();
         }
-        
+        ignoreInputAfterPromptFlag = true;
     }
 
     public void StopSelecting(){
         isSelecting = false;
+        waitingOnPrompt = false;
         selectionUI.SetActive(false);
         coolingDown = true;
         player.StopInputs(false);

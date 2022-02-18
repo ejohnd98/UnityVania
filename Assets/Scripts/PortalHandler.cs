@@ -24,9 +24,10 @@ public class PortalHandler : MonoBehaviour
     public Portal[] portals;
     public PlayerController player;
     public InputHandler inputHandler;
+    public PopUpSystem popUp;
 
     //debug
-    public bool moveUp, moveDown;
+    public bool moveUp, moveDown, waitingOnPrompt = false, ignoreInputAfterPromptFlag = false;
 
     private void Update() {
         if(moveUp){
@@ -37,7 +38,7 @@ public class PortalHandler : MonoBehaviour
             moveDown = false;
             MoveSelector(1);
         }
-        if(isSelecting){
+        if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));
             }
@@ -47,6 +48,11 @@ public class PortalHandler : MonoBehaviour
             if(inputHandler.jump_button_pressed){
                 StopSelecting();
             }
+        }
+
+        if(ignoreInputAfterPromptFlag){
+            ignoreInputAfterPromptFlag = false;
+            waitingOnPrompt = false;
         }
     }
 
@@ -81,20 +87,29 @@ public class PortalHandler : MonoBehaviour
     }
 
     public void SelectPortal(){
-        isSelecting = false;
-        selectionUI.SetActive(false);
-        coolingDown = true;
         if(startIndex != selectionIndex){
+            string prompt = "Travel to " + portals[selectionIndex].name + "?";
+            popUp.PromptChoice(ChoiceType.Binary, StartPortalMove, prompt, "No", "Yes", true, 0.5f);
+            waitingOnPrompt = true;
+        }else{
+            startIndex = -1;
+            player.StopInputs(false);
+            StopSelecting();
+            StartCoroutine(PortalCooldown());
+        }
+    }
+
+    public void StartPortalMove(Result choice){
+        if(choice.choiceResult){
+            isSelecting = false;
+            selectionUI.SetActive(false);
+            coolingDown = true;
             effectsObject = Instantiate(effectsPrefab, portals[startIndex].transform.position, Quaternion.identity);
             StartCoroutine(WaitForEffects());
             StartCoroutine(MovePlayer());
             SoundSystem.instance.PlaySound("portalSound");
-        }else{
-            startIndex = -1;
-            player.StopInputs(false);
-            StartCoroutine(PortalCooldown());
-        }
-        
+        }        
+        ignoreInputAfterPromptFlag = true;
     }
 
     IEnumerator MovePlayer(){
@@ -116,6 +131,7 @@ public class PortalHandler : MonoBehaviour
         startIndex = -1;
         selectionUI.SetActive(false);
         coolingDown = true;
+        waitingOnPrompt = false;
         player.StopInputs(false);
         StartCoroutine(PortalCooldown());
     }
@@ -139,6 +155,8 @@ public class PortalHandler : MonoBehaviour
         player.StopInputs(true);
         isSelecting = true;
         selectionUI.SetActive(true);
+        ignoreInputAfterPromptFlag = false;
+        waitingOnPrompt = false;
     }
 
     IEnumerator PortalCooldown(){

@@ -23,9 +23,12 @@ public class SaveSystem : MonoBehaviour
     float cooldown = 0.5f;
     bool coolingDown = false;
     bool deathPrompt = false;
+    public bool waitingOnPrompt = false;
+    public bool ignoreInputAfterPromptFlag = false;
     bool[] disabledSelections = {false, false, false, false};
 
     public InputHandler inputHandler;
+    public PopUpSystem popUp;
 
     //debug
     public bool moveUp, moveDown;
@@ -48,7 +51,7 @@ public class SaveSystem : MonoBehaviour
             moveDown = false;
             MoveSelector(1);
         }
-        if(isSelecting){
+        if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));
             }
@@ -58,6 +61,10 @@ public class SaveSystem : MonoBehaviour
             if(inputHandler.jump_button_pressed){
                 StopSelecting();
             }
+        }
+        if(ignoreInputAfterPromptFlag){
+            ignoreInputAfterPromptFlag = false;
+            waitingOnPrompt = false;
         }
     }
 
@@ -78,29 +85,58 @@ public class SaveSystem : MonoBehaviour
     }
 
     public void SelectOption(){
-        isSelecting = false;
-        selectionUI.SetActive(false);
-        coolingDown = true;
-        switch(selectionIndex){
-            case 0:
-                StopSelecting();
-            break;
-            case 1:
-                loader.SaveGame();
-                StopSelecting();
-            break;
-            case 2:
-                loader.StartLoadGame(false);
-            break;
-            case 3:
-                loader.ReturnToMainMenu();
-                StopSelecting();
-            break;
-            default:
-                StopSelecting();
-            break;
+        if(selectionIndex == 0){
+            isSelecting = false;
+            selectionUI.SetActive(false);
+            coolingDown = true;
+            StopSelecting();
+        }else{
+            string prompt = "";
+            switch(selectionIndex){
+                case 1:
+                    prompt = "Save progress?";
+                break;
+                case 2:
+                    prompt = "Load last save?";
+                break;
+                case 3:
+                    prompt = "Return to main menu?";
+                break;
+                default:
+                    prompt = "Confirm:";
+                break;
+            }
+            popUp.PromptChoice(ChoiceType.Binary, FollowThroughSelection, prompt, "No", "Yes", true, 0.5f);
+            waitingOnPrompt = true;
         }
-        
+    }
+
+    public void FollowThroughSelection(Result choiceResult){
+        if(choiceResult.choiceResult){
+            isSelecting = false;
+            selectionUI.SetActive(false);
+            coolingDown = true;
+            switch(selectionIndex){
+                case 0:
+                    StopSelecting();
+                break;
+                case 1:
+                    loader.SaveGame();
+                    StopSelecting();
+                break;
+                case 2:
+                    loader.StartLoadGame(false);
+                break;
+                case 3:
+                    loader.ReturnToMainMenu();
+                    StopSelecting();
+                break;
+                default:
+                    StopSelecting();
+                break;
+            }
+        }
+        ignoreInputAfterPromptFlag = true;
     }
 
     public void StopSelecting(){
@@ -128,6 +164,8 @@ public class SaveSystem : MonoBehaviour
         disabledSelections[2] = !(PlayerPrefs.HasKey("souls"));
         selectionIndex = 0;
         startIndex = 0;
+        ignoreInputAfterPromptFlag = false;
+        waitingOnPrompt = false;
         if(deathPrompt){
             selectionIndex = 2;
             startIndex = 2;

@@ -14,8 +14,11 @@ public class MainMenuHandler : MonoBehaviour
     public int selectionIndex;
     public bool isSelecting = false;
     bool[] disabledSelections = {false, false, false, false, false};
+    public bool waitingOnPrompt = false;
+    public bool ignoreInputAfterPromptFlag = false;
 
     public InputHandler inputHandler;
+    public PopUpSystem popUp;
 
     //debug
     public bool moveUp, moveDown;
@@ -34,13 +37,17 @@ public class MainMenuHandler : MonoBehaviour
             moveDown = false;
             MoveSelector(1);
         }
-        if(isSelecting){
+        if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));
             }
             if(inputHandler.attack_button_pressed){
                 SelectOption();
             }
+        }
+        if(ignoreInputAfterPromptFlag){
+            ignoreInputAfterPromptFlag = false;
+            waitingOnPrompt = false;
         }
     }
 
@@ -61,24 +68,51 @@ public class MainMenuHandler : MonoBehaviour
     }
 
     public void SelectOption(){
-        isSelecting = false;
-        selectionUI.SetActive(false);
+
+        string prompt = "";
         switch(selectionIndex){
             case 0: //new game
-                loader.StartLoadGame(true);
+                prompt = "Start new game?";
             break;
             case 1: //load game
-                loader.StartLoadGame(false);
+                prompt = "Load previous progress?";
             break;
             case 2: //settings
             break;
             case 3: //credits
             break;
             case 4: //exit
-                Application.Quit();
+                prompt = "Exit Game?";
             break;
             default:
             break;
+        }
+        waitingOnPrompt = true;
+        popUp.PromptChoice(ChoiceType.Binary, FollowThroughSelection, prompt, "No", "Yes", true, 0.5f);
+    }
+
+    public void FollowThroughSelection(Result choiceResult){
+        ignoreInputAfterPromptFlag = true;
+        if(choiceResult.choiceResult){
+            switch(selectionIndex){
+                case 0: //new game
+                    loader.StartLoadGame(true);
+                break;
+                case 1: //load game
+                    loader.StartLoadGame(false);
+                break;
+                case 2: //settings
+                break;
+                case 3: //credits
+                break;
+                case 4: //exit
+                    selectionUI.SetActive(false);
+                    isSelecting = false;
+                    Application.Quit();
+                break;
+                default:
+                break;
+            }
         }
         
     }
