@@ -28,6 +28,8 @@ public class SoundSystem : MonoBehaviour
     public float fadeOutTime = 2.0f;
     float fadeOutCounter = 0.0f;
 
+    float currentMusicVol = 1.0f;
+
     private void Awake(){
         Debug.Log("Awake");
         if (instance != null && instance != this){
@@ -47,19 +49,26 @@ public class SoundSystem : MonoBehaviour
         }
 
         musicPlayer = GetComponent<AudioSource>();
-        
+    }
+
+    private void UpdateSoundSettings(){
+        overallVolume = SettingsObject.instance.globalVolume;
+        musicVolume = SettingsObject.instance.musicVolume;
+        sfxVolume = SettingsObject.instance.sfxVolume;
     }
 
     // Update is called once per frame
     void Update(){
-        if(fadingOut && musicPlayer.volume > 0.0){
-            musicPlayer.volume = overallVolume * musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
+        UpdateSoundSettings();
+        if(fadingOut && currentMusicVol > 0.0){
+            currentMusicVol = 1.0f * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter += Time.deltaTime;
         }
-        if(!fadingOut && musicPlayer.volume < musicVolume*overallVolume){
-            musicPlayer.volume = overallVolume*musicVolume * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
+        if(!fadingOut && currentMusicVol < 1.0f){
+            currentMusicVol = 1.0f * easeInOutCubic(1.0f - fadeOutCounter/fadeOutTime);
             fadeOutCounter -= Time.deltaTime;
         }
+        musicPlayer.volume = currentMusicVol * musicVolume* overallVolume;
     }
 
     public void PlaySound(string sndName){
@@ -133,13 +142,13 @@ public class SoundSystem : MonoBehaviour
 
     IEnumerator TransitionMusic(){
         fadingOut = true;
-        yield return new WaitUntil(() => (musicPlayer.volume <= 0.001f || !musicPlayer.isPlaying));
+        yield return new WaitUntil(() => (currentMusicVol <= 0.001f || !musicPlayer.isPlaying));
         fadingOut = false;
         fadeOutCounter = 0.0f;
         musicPlayer.Stop();
         if(nextMusic != null){
             musicPlayer.clip = nextMusic;
-            musicPlayer.volume = musicVolume * overallVolume;
+            currentMusicVol = 1.0f;
             musicPlayer.Play();
         }
     }

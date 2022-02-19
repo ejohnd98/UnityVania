@@ -16,9 +16,13 @@ public class MainMenuHandler : MonoBehaviour
     bool[] disabledSelections = {false, false, false, false, false};
     public bool waitingOnPrompt = false;
     public bool ignoreInputAfterPromptFlag = false;
+    public bool creditsIgnoreInputFlag = false;
 
     public InputHandler inputHandler;
     public PopUpSystem popUp;
+    public OptionsMenuHandler optionsMenu;
+
+    public GameObject creditsObj;
 
     //debug
     public bool moveUp, moveDown;
@@ -37,7 +41,7 @@ public class MainMenuHandler : MonoBehaviour
             moveDown = false;
             MoveSelector(1);
         }
-        if(isSelecting && !waitingOnPrompt){
+        if(isSelecting && !waitingOnPrompt && !optionsMenu.isSelecting && !creditsObj.activeSelf){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));
             }
@@ -48,6 +52,13 @@ public class MainMenuHandler : MonoBehaviour
         if(ignoreInputAfterPromptFlag){
             ignoreInputAfterPromptFlag = false;
             waitingOnPrompt = false;
+        }
+        if(creditsObj.activeSelf && inputHandler.v_axis_pressed || inputHandler.h_axis_pressed || inputHandler.attack_button_pressed || inputHandler.jump_button_pressed){
+            if(creditsIgnoreInputFlag){
+                creditsIgnoreInputFlag = false; 
+            }else{
+                creditsObj.SetActive(false);
+            }
         }
     }
 
@@ -78,9 +89,13 @@ public class MainMenuHandler : MonoBehaviour
                 prompt = "Load previous progress?";
             break;
             case 2: //settings
-            break;
+                optionsMenu.StartSelection();
+                StopSelecting();
+                return;
             case 3: //credits
-            break;
+                creditsObj.SetActive(true);
+                creditsIgnoreInputFlag = true;
+                return;
             case 4: //exit
                 prompt = "Exit Game?";
             break;

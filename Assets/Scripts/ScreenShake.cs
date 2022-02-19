@@ -21,6 +21,10 @@ public class ScreenShake : MonoBehaviour
         }
     }
 
+    private void Start() {
+        shakeSetting = SettingsObject.instance.screenShake;
+    }
+
     public CameraFollow cameraFollow;
     float progress;
     public float length;
@@ -28,6 +32,7 @@ public class ScreenShake : MonoBehaviour
     public float constantShakeAmount = 0.0f;
     public bool isShaking = false;
     public bool constantShaking = false;
+    public float shakeSetting = 1.0f;
 
     // Update is called once per frame
     void Update(){
@@ -44,6 +49,7 @@ public class ScreenShake : MonoBehaviour
             }
             float appliedMag = constantShakeAmount + (isShaking? (magnitude * (1.0f - (progress / length))) : 0);
             offset = rand * appliedMag;
+            offset *= shakeSetting;
             
             if(progress >= length){
                 isShaking = false;
@@ -95,6 +101,7 @@ public class ScreenShake : MonoBehaviour
     }
 
     public void StartShake(float seconds, float amount){
+        shakeSetting = SettingsObject.instance.screenShake;
         if(isShaking){
             float currentMag = magnitude * (1.0f - (progress / length));
             float currentLength = length - progress;

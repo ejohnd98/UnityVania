@@ -47,7 +47,7 @@ public class PopUpSystem : MonoBehaviour
     {
         if(waitingOnInput){
             if(inputHandler.h_axis_pressed){
-                MoveSelection((int)Mathf.Sign(-inputHandler.h_axis));
+                MoveSelection((int)Mathf.Sign(inputHandler.h_axis));
             }
             if(inputHandler.attack_button_pressed){
                 MakeChoice();
@@ -63,6 +63,7 @@ public class PopUpSystem : MonoBehaviour
                         UpdateUI();
                     break;
                     case ChoiceType.Slider:
+                        binaryChoice = false;
                         MakeChoice();
                     break;
                     default:
