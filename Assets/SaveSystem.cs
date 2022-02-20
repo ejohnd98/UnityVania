@@ -70,6 +70,7 @@ public class SaveSystem : MonoBehaviour
 
     public void MoveSelector(int change){
         selectionIndex += change;
+        SoundSystem.instance.PlaySound("ui_move");
         while(selectionIndex >= selectionTransforms.Length){selectionIndex -= selectionTransforms.Length;}
         while(selectionIndex < 0){selectionIndex += selectionTransforms.Length;}
         
@@ -89,6 +90,7 @@ public class SaveSystem : MonoBehaviour
             isSelecting = false;
             selectionUI.SetActive(false);
             coolingDown = true;
+            SoundSystem.instance.PlaySound("ui_cancel");
             StopSelecting();
         }else{
             string prompt = "";
@@ -117,17 +119,17 @@ public class SaveSystem : MonoBehaviour
             selectionUI.SetActive(false);
             coolingDown = true;
             switch(selectionIndex){
-                case 0:
-                    StopSelecting();
-                break;
                 case 1:
+                    //SoundSystem.instance.PlaySound("ui_save");
                     loader.SaveGame();
                     StopSelecting();
                 break;
                 case 2:
+                    //SoundSystem.instance.PlaySound("ui_load");
                     loader.StartLoadGame(false);
                 break;
                 case 3:
+                    //SoundSystem.instance.PlaySound("ui_cancel");
                     loader.ReturnToMainMenu();
                     StopSelecting();
                 break;
@@ -135,6 +137,8 @@ public class SaveSystem : MonoBehaviour
                     StopSelecting();
                 break;
             }
+        }else{
+            SoundSystem.instance.PlaySound("ui_cancel");
         }
         ignoreInputAfterPromptFlag = true;
     }

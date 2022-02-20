@@ -72,6 +72,7 @@ public class PortalHandler : MonoBehaviour
     }
 
     public void MoveSelector(int change){
+        SoundSystem.instance.PlaySound("ui_move");
         selectionIndex += change;
         while(selectionIndex >= portals.Length){selectionIndex -= portals.Length;}
         while(selectionIndex < 0){selectionIndex += portals.Length;}

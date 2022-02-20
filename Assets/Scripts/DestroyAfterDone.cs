@@ -50,4 +50,10 @@ public class DestroyAfterDone : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public void SetPersist(bool state){
+        if(state){
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 }

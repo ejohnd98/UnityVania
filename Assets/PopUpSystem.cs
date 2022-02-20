@@ -85,6 +85,7 @@ public class PopUpSystem : MonoBehaviour
     }
 
     void MoveSelection(int direction){
+        SoundSystem.instance.PlaySound("ui_move");
         switch(currentChoiceType){
             case ChoiceType.Binary:
                 binaryChoice = !binaryChoice;
@@ -124,12 +125,18 @@ public class PopUpSystem : MonoBehaviour
         popUpObj.SetActive(true);
         startUpFlag = true;
         waitingOnInput = false;
+        SoundSystem.instance.PlaySound("ui_move");
     }
 
     private void MakeChoice(){
         Debug.Log("choice made!");
         if(currentCallback != null){
             currentCallback(new Result(binaryChoice, sliderValue));
+        }
+        if(binaryChoice){
+            SoundSystem.instance.PlaySound("ui_select", true);
+        }else{
+            SoundSystem.instance.PlaySound("ui_cancel", true);
         }
         popUpObj.SetActive(false);
         waitingOnInput = false;

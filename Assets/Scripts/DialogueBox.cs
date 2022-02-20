@@ -39,7 +39,7 @@ public class DialogueBox : MonoBehaviour
         }
 
         if(waitingForInput && (inputHandler.attack_button_held || inputHandler.jump_button_held)){
-            SoundSystem.instance.PlaySound("dialogueAdvanceSound");
+            SoundSystem.instance.PlaySound("ui_move");
             waitingForInput = false;
             advanceTextObject.SetActive(false);
         }

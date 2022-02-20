@@ -56,6 +56,7 @@ public class OptionsMenuHandler : MonoBehaviour
 
     public void MoveSelector(int change){
         selectionIndex += change;
+        SoundSystem.instance.PlaySound("ui_move");
         while(selectionIndex >= selectionTransforms.Length){selectionIndex -= selectionTransforms.Length;}
         while(selectionIndex < 0){selectionIndex += selectionTransforms.Length;}
         

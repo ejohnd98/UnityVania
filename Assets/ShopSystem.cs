@@ -58,6 +58,7 @@ public class ShopSystem : MonoBehaviour
 
     public void MoveSelector(int change){
         selectionIndex += change;
+        SoundSystem.instance.PlaySound("ui_move");
         if(selectionIndex >= shopItems.Count){
             selectionIndex = 0;
         }
@@ -96,7 +97,7 @@ public class ShopSystem : MonoBehaviour
             popUp.PromptChoice(ChoiceType.Binary, BuyItem, prompt, "No", "Yes", true, 0.5f);
             waitingOnPrompt = true;
         }else{
-            //play sound
+            SoundSystem.instance.PlaySound("ui_error");
         }
     }
 
@@ -118,6 +119,7 @@ public class ShopSystem : MonoBehaviour
     }
 
     public void StopSelecting(){
+        SoundSystem.instance.PlaySound("ui_cancel");
         isSelecting = false;
         waitingOnPrompt = false;
         selectionUI.SetActive(false);

@@ -71,7 +71,7 @@ public class SoundSystem : MonoBehaviour
         musicPlayer.volume = currentMusicVol * musicVolume* overallVolume;
     }
 
-    public void PlaySound(string sndName){
+    public void PlaySound(string sndName, bool persist = false){
         int varianceIndex = GetSoundVarianceIndex(sndName);
         if(varianceIndex >= 0){
             int rand = Random.Range(0, sfxVarianceCount[varianceIndex]);
@@ -95,6 +95,7 @@ public class SoundSystem : MonoBehaviour
         }
         GameObject sndObj = Instantiate(soundEffectPrefab, transform);
         AudioSource newSrc = sndObj.GetComponent<AudioSource>();
+        soundEffectPrefab.GetComponent<DestroyAfterDone>().SetPersist(persist);
         newSrc.volume = sfxVolume * overallVolume;
         newSrc.clip = clip;
     }
