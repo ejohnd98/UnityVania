@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class InputHandler : MonoBehaviour
         UpdateInputs();
     }
 
-    void UpdateInputs(){
+    void UpdateInputs(){/*
         h_axis = Input.GetAxisRaw("Horizontal");
         if(h_axis != 0 && !h_axis_held){
             h_axis_held = true;
@@ -97,10 +98,25 @@ public class InputHandler : MonoBehaviour
             attack_button_released = true;
         }else if(attack_button_released){
             attack_button_released = false;
-        }
+        }*/
     }
 
     public bool CrouchHeld(){
         return v_axis <= -0.15f && v_axis_held;
+    }
+
+    public void OnAttack()
+    {
+        Debug.Log("on attack");
+    }
+
+    public void OnJump()
+    {
+        Debug.Log("on jump");
+    }
+
+    public void OnMove(InputValue value)
+    {
+        Debug.Log("on move");
     }
 }

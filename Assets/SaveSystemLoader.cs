@@ -50,21 +50,6 @@ public class SaveSystemLoader : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void Update() {
-        if(allowSavingAnywhere){
-            if (Input.GetKeyDown(KeyCode.Alpha9)){
-                SaveGame();
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha0)){
-                StartLoadGame(false);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKey(KeyCode.Alpha5)){
-                PlayerPrefs.DeleteAll();
-            }
-        }
-        
-    }
-
     public void StartNewGame(){
         SceneManager.LoadScene(gameSceneName);
     }
