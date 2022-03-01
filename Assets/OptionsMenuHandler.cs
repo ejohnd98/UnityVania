@@ -45,6 +45,7 @@ public class OptionsMenuHandler : MonoBehaviour
                     StopSelecting();
                 }else{
                     selectionIndex = selectionTransforms.Length - 1;
+                    selectorTransform.position = selectionTransforms[selectionIndex].position;
                 }
             }
         }
@@ -101,7 +102,6 @@ public class OptionsMenuHandler : MonoBehaviour
             break;
             case 4: //exit
                 StopSelecting();
-                mainMenu.StartSelection();
                 return;
             default:
             break;
@@ -144,6 +144,7 @@ public class OptionsMenuHandler : MonoBehaviour
         isSelecting = false;
         startIndex = -1;
         selectionUI.SetActive(false);
+        mainMenu.StartSelection();
     }
 
     public void StartSelection(){
@@ -154,7 +155,4 @@ public class OptionsMenuHandler : MonoBehaviour
         UpdateOptionValues();
         selectionUI.SetActive(true);
     }
-
-
-        
 }

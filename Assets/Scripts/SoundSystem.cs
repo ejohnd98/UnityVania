@@ -31,7 +31,6 @@ public class SoundSystem : MonoBehaviour
     float currentMusicVol = 1.0f;
 
     private void Awake(){
-        Debug.Log("Awake");
         if (instance != null && instance != this){
             Destroy(this.gameObject);
             return;

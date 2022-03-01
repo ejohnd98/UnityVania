@@ -56,7 +56,7 @@ public class PlayerController : PlatformControllerBase {
         rayHandler.SetSimState(false);
         SoundSystem.instance.PlayGameOver();
         FindObjectOfType<SaveSystem>().DeathPrompt();
-        Debug.Log("GAME OVER");
+        //Debug.Log("GAME OVER");
     }
 
     
