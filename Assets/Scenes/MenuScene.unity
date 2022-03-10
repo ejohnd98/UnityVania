@@ -2251,6 +2251,7 @@ GameObject:
   - component: {fileID: 1615270389}
   - component: {fileID: 1615270388}
   - component: {fileID: 1615270390}
+  - component: {fileID: 1615270391}
   m_Layer: 0
   m_Name: sky
   m_TagString: Untagged
@@ -2363,8 +2364,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1867076185}
-        m_TargetAssemblyTypeName: SoundSystem, Assembly-CSharp
+      - m_Target: {fileID: 1615270391}
+        m_TargetAssemblyTypeName: SoundPlayerProxy, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
@@ -2424,6 +2425,18 @@ MonoBehaviour:
         m_CallState: 2
   delay: 0.1
   repeat: 0
+--- !u!114 &1615270391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615270385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f169eaaa8e1d604fbb229d86e78032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1635872182
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,7 +2893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8739389062849457759, guid: 459144c45079aec48acf83b73fa8b8e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 8739389062849457759, guid: 459144c45079aec48acf83b73fa8b8e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2997,7 +3010,7 @@ MonoBehaviour:
         m_MethodName: ChangeMusic
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 128d9d80f91698e49b461a27dc2e394e, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 646be4a174ee68448a5535067bc61f8c, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3327,13 +3340,13 @@ MonoBehaviour:
   playPlaceholder: 0
   musicArea: 7
   music:
-  - {fileID: 8300000, guid: 38c2f8cd1fcb2704382449f0e50523b9, type: 3}
-  - {fileID: 8300000, guid: 5517dd311d77956478fbdf572f7f565d, type: 3}
-  - {fileID: 8300000, guid: e7829da7e266ed74e946e57398ec80af, type: 3}
-  - {fileID: 8300000, guid: 12ba7165b02d60249be747d2555ba05f, type: 3}
-  - {fileID: 8300000, guid: aeab9914686d64e45a77f7e3250c2272, type: 3}
-  - {fileID: 8300000, guid: 5fc15c0d18334eb4691a9a11f18ff2ae, type: 3}
-  - {fileID: 8300000, guid: bd34e45c115a9e14e98c0b4002810f9b, type: 3}
+  - {fileID: 8300000, guid: b46cb3366b414a34b86f925cc7d106ee, type: 3}
+  - {fileID: 8300000, guid: c22006b4ad88eae41996e9caa50ef4d2, type: 3}
+  - {fileID: 8300000, guid: 7b02e46e2d29c7b4297c0f579e5ad0a4, type: 3}
+  - {fileID: 8300000, guid: 2170b1521b8cf9d4fb460bd0c8ca9a1c, type: 3}
+  - {fileID: 8300000, guid: 36445eef6d501fd4894402fcafbf6116, type: 3}
+  - {fileID: 8300000, guid: 7ceeb000888f2de4f84f3c1b5d3cd952, type: 3}
+  - {fileID: 8300000, guid: ed51ea1f27ca9234c8813123600a9e32, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   sfxList:
@@ -3370,6 +3383,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8b10e2ed66aadd744a5588469bb93caf, type: 3}
   - {fileID: 8300000, guid: bec7f76ec002aa24a978c05ef7d9d73b, type: 3}
   - {fileID: 8300000, guid: 45c5b41bb20a7824f9555f30471b2ad1, type: 3}
+  - {fileID: 8300000, guid: 4b9dfae7a3989984c825a7e1102ba621, type: 3}
+  - {fileID: 8300000, guid: dc5b2096a4c0833409abd9555978bd61, type: 3}
+  - {fileID: 8300000, guid: 4df173d15b92b034d9311bb1b0d2ea06, type: 3}
+  - {fileID: 8300000, guid: 3c6f6543de92e1f41b1ac6f070c6da8f, type: 3}
+  - {fileID: 8300000, guid: 2d9cb1c623b5a274c9f48c65c1b8dca6, type: 3}
+  - {fileID: 8300000, guid: 8e87e65783ae4ad49b3f8980a7562f72, type: 3}
   sfxWithVariance:
   - playerHurt
   - attackSound
