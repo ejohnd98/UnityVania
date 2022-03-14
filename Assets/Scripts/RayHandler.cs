@@ -168,6 +168,10 @@ public class RayHandler : MonoBehaviour
         return invincible;
     }
 
+    public bool IsSliding(){
+        return isCrouched && grounded && velocity.x != 0.0f;
+    }
+
     public void CastRays() {
         if(simEnabled){
             raycastsPerUpdate = 0;
@@ -430,11 +434,11 @@ public class RayHandler : MonoBehaviour
                 if(!grounded){
                     airJumpsPerformed++;
                 }
-                if(isCrouched && true){
+                if(isCrouched && !IsSliding()){
                     velocity.x = slideVel * (float)lastMoveDir; //WIP sliding
                     //could use arrow keys to slide as well. Can only slide when x velocity is below certain value
                     //when sliding, use custom decelleration for velocity, or tweak existing one
-                }else{
+                }else if (!isCrouched){
                     jumpInput = false;
                     jumping = true;
                     velocity.y = (airJumpsPerformed <= maxAirJumps)? jumpVel : tallJumpVel;

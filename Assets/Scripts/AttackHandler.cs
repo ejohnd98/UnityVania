@@ -17,7 +17,7 @@ public class AttackHandler : MonoBehaviour {
     int direction = 1;
 
     public bool StartAttack(){
-        if(attackCoolingDown){
+        if(attackCoolingDown || physState.IsSliding()){
             return false;
         }else{
             ActivateAttack();

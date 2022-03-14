@@ -43,6 +43,10 @@ public class PhysicsInterpreter : MonoBehaviour
         return false;
     }
 
+    public bool IsSliding(){
+        return rayHandler.IsSliding();
+    }
+
     public int FaceDir(){
         if(rayHandler.lastMoveDir == 0){
             return 1;
