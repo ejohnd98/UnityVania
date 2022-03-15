@@ -10,22 +10,39 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
     public PixelPerfectCamera ppc;
     public bool followX, followY;
+    public Vector3 desiredPos;
 
     public float minXFollow, minYFollowAbove, minYFollowBelow;
+
+    public bool debugSwitch = false;
+
+    float pixelSnap;
+    int maxPixelsPerStep = 2;
+
+    private void Start() {
+        pixelSnap = 1.0f / ppc.assetsPPU;
+        transform.position = toFollow.position;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        UpdatePos();
+        if(followOverride != null){
+            desiredPos = followOverride.position + offset;
+        }else{
+            UpdatePos();
+        }
+        SmoothFollowPixelPerfect();
     }
     void LateUpdate()
     {
-        //UpdatePos();
         Debug.DrawLine(transform.position + Vector3.up * minYFollowAbove, transform.position - Vector3.up * minYFollowBelow, Color.cyan);
+        Debug.DrawLine(transform.position + Vector3.left * minXFollow/2, transform.position + Vector3.right * minXFollow/2, Color.cyan);
     }
 
     void UpdatePos(){
         Vector3 newPos = transform.position;
+
         if(followX){
             float currentX = newPos.x;
             float targetX = toFollow.position.x;
@@ -52,6 +69,34 @@ public class CameraFollow : MonoBehaviour
 
             newPos.y = currentY;
         }
-        transform.position = ppc.RoundToPixel(newPos+offset);
+
+        desiredPos = newPos + offset;
+    }
+
+    public int xmod, ymod;
+    
+    void SmoothFollowPixelPerfect(){
+        Vector3 target = ppc.RoundToPixel(desiredPos);
+        Vector3 current = ppc.RoundToPixel(transform.position);
+        int xMod = (int)Mathf.Abs((target.x - current.x)*0.75f);
+        xMod = Mathf.Min(2 + xMod, 99);
+        int yMod = (int)Mathf.Abs((target.y - current.y)*0.75f);
+        yMod = Mathf.Min(2 + yMod, 99);
+
+        xmod = xMod; ymod = yMod;
+
+        for(int i = 0; current.x < target.x && i < xMod; i++){
+            current.x += pixelSnap;
+        }
+        for(int i = 0; current.x > target.x && i < xMod; i++){
+            current.x -= pixelSnap;
+        }
+        for(int i = 0; current.y < target.y && i < yMod; i++){
+            current.y += pixelSnap;
+        }
+        for(int i = 0; current.y > target.y && i < yMod; i++){
+            current.y -= pixelSnap;
+        }
+        transform.position = ppc.RoundToPixel(current);
     }
 }

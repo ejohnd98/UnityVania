@@ -25,6 +25,7 @@ public class PortalHandler : MonoBehaviour
     public PlayerController player;
     public InputHandler inputHandler;
     public PopUpSystem popUp;
+    public Transform cam;
 
     //debug
     public bool moveUp, moveDown, waitingOnPrompt = false, ignoreInputAfterPromptFlag = false;
@@ -116,7 +117,10 @@ public class PortalHandler : MonoBehaviour
     IEnumerator MovePlayer(){
         yield return new WaitForSeconds(movePlayerDelay);
         Vector3 moveOffset = player.transform.position - portals[startIndex].transform.position;
+        Vector3 cameraOffset = cam.position - portals[startIndex].transform.position;
         player.transform.position = portals[selectionIndex].transform.position + moveOffset + Vector3.up*0.005f;
+        cam.position =  portals[selectionIndex].transform.position + cameraOffset + Vector3.up*0.005f;
+
         effectsObject.transform.position = portals[selectionIndex].transform.position;
     }
 
