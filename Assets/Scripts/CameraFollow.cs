@@ -6,31 +6,51 @@ using UnityEngine.U2D;
 public class CameraFollow : MonoBehaviour
 {
     public Transform toFollow;
+    public Transform followOverride;
     public Vector3 offset;
     public PixelPerfectCamera ppc;
     public bool followX, followY;
 
+    public float minXFollow, minYFollowAbove, minYFollowBelow;
+
     // Update is called once per frame
-    void EarlyUpdate()
-    {
-        UpdatePos();
-    }
     void FixedUpdate()
     {
         UpdatePos();
     }
     void LateUpdate()
     {
-        UpdatePos();
+        //UpdatePos();
+        Debug.DrawLine(transform.position + Vector3.up * minYFollowAbove, transform.position - Vector3.up * minYFollowBelow, Color.cyan);
     }
 
     void UpdatePos(){
         Vector3 newPos = transform.position;
         if(followX){
-            newPos.x = toFollow.position.x;
+            float currentX = newPos.x;
+            float targetX = toFollow.position.x;
+
+            if(currentX < targetX - minXFollow){
+                currentX = targetX - minXFollow;
+            }
+            if(currentX > targetX + minXFollow){
+                currentX = targetX + minXFollow;
+            }
+
+            newPos.x = currentX;
         }
         if(followY){
-            newPos.y = toFollow.position.y;
+            float currentY = newPos.y;
+            float targetY = toFollow.position.y;
+
+            if(currentY < targetY - minYFollowAbove){
+                currentY = targetY - minYFollowAbove;
+            }
+            else if(currentY > targetY + minYFollowBelow){
+                currentY = targetY + minYFollowBelow;
+            }
+
+            newPos.y = currentY;
         }
         transform.position = ppc.RoundToPixel(newPos+offset);
     }
