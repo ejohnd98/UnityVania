@@ -122,9 +122,9 @@ public class MainMenuHandler : MonoBehaviour
                 case 3: //credits
                 break;
                 case 4: //exit
-                    selectionUI.SetActive(false);
                     isSelecting = false;
-                    Application.Quit();
+                    StartCoroutine(ExitGame());
+                    
                 break;
                 default:
                 break;
@@ -146,6 +146,13 @@ public class MainMenuHandler : MonoBehaviour
         selectorTransform.position = selectionTransforms[selectionIndex].position;
         isSelecting = true;
         selectionUI.SetActive(true);
+    }
+
+    IEnumerator ExitGame(){
+        BlackFade.instance.FadeOut();
+        yield return new WaitUntil(() => BlackFade.instance.DoneFading());
+        Application.Quit();
+
     }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,31 +51,25 @@ public class SaveSystemLoader : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void StartNewGame(){
-        SceneManager.LoadScene(gameSceneName);
-    }
-
     public void StartLoadGame(bool newGame = false){
         if(!newGame && !PlayerPrefs.HasKey("souls")){
             return;
         }
-
-        SceneManager.LoadScene(gameSceneName);
-        StartCoroutine(WaitForScene(gameSceneName, newGame));
+        StartCoroutine(SceneTransition(gameSceneName, ()=> FinishLoadGame(newGame)));
     }
 
     public void ReturnToMainMenu(){
-        SceneManager.LoadScene(mainMenuSceneName);
+        StartCoroutine(SceneTransition(mainMenuSceneName, null));
     }
 
     public void FinishLoadGame(bool newGame){
         saveSystem = FindObjectOfType<SaveSystem>();
-
         if(newGame){
             //get intro cutscene started
+            Debug.Log("New Game started!");
 
         }else{ //otherwise load saved data
-
+            Debug.Log("Previous Game resumed!");
             string inventoryString = PlayerPrefs.GetString("inventoryString");
             string[] itemStrings = inventoryString.Split(',');
             foreach(string itm in itemStrings){
@@ -106,8 +101,13 @@ public class SaveSystemLoader : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForScene(string newScene, bool newGame){
+    IEnumerator SceneTransition(string newScene, Action callback){
+        BlackFade.instance.FadeOut();
+        yield return new WaitUntil(() => BlackFade.instance.DoneFading());
+        SceneManager.LoadScene(newScene);
         yield return new WaitWhile(() => !SceneManager.GetActiveScene().name.Equals(newScene));
-        FinishLoadGame(newGame);
+        BlackFade.instance.SetOpacity(1.0f);
+        callback?.Invoke();
+        BlackFade.instance.FadeIn();
     }
 }

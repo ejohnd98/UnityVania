@@ -58,7 +58,7 @@ public class SaveSystem : MonoBehaviour
             if(inputHandler.attack_button_pressed){
                 SelectOption();
             }
-            if(inputHandler.jump_button_pressed){
+            if(inputHandler.jump_button_pressed && !deathPrompt){
                 StopSelecting();
             }
         }
@@ -153,10 +153,15 @@ public class SaveSystem : MonoBehaviour
     }
 
     public void DeathPrompt(){
-        menuText.text = "Game Over\n-----------\nLoad Game -\nMain Menu -";
+        if(PlayerPrefs.HasKey("souls")){
+            menuText.text = "Game Over\n-----------\nLoad Game -\nMain Menu -";
+        }else{
+            menuText.text = "Game Over\n-----------\n\nMain Menu -";
+        }
+        
         disabledSelections[0] = true;
         disabledSelections[1] = true;
-        disabledSelections[2] = false;
+        disabledSelections[2] = !PlayerPrefs.HasKey("souls");
         disabledSelections[3] = false;
         deathPrompt = true;
         StartSelection("death");
