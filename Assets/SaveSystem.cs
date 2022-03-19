@@ -156,6 +156,8 @@ public class SaveSystem : MonoBehaviour
         menuText.text = "Game Over\n-----------\nLoad Game -\nMain Menu -";
         disabledSelections[0] = true;
         disabledSelections[1] = true;
+        disabledSelections[2] = false;
+        disabledSelections[3] = false;
         deathPrompt = true;
         StartSelection("death");
     }
