@@ -233,10 +233,11 @@ MonoBehaviour:
   slideVel: 10
   knockbackHeight: 1.6
   iFrameDuration: 0.6
-  hRays: 9
-  vRays: 5
+  hRays: 4
+  vRays: 3
   rayDist: 1
-  movementSubdivisions: 4
+  morePrecisePhysics: 0
+  movementSubdivisions: 2
   lastMoveDir: 0
   grounded: 0
   knockback: 0

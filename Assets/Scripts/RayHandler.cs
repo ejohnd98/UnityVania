@@ -47,6 +47,7 @@ public class RayHandler : MonoBehaviour
 
     public int hRays = 5, vRays = 9;
     public float rayDist = 1.0f;
+    public bool morePrecisePhysics = false;
     float edgeInset = 0.98f;
     public int movementSubdivisions = 4;
 
@@ -178,7 +179,7 @@ public class RayHandler : MonoBehaviour
             UpdateVariables();
             CastHRays(Vector3.zero);
             CastVRays(Vector3.zero);
-            GetAccurateGroundDist(Vector3.zero);
+            if(morePrecisePhysics){GetAccurateGroundDist(Vector3.zero);}
             CheckGrounded();
         }
     }
