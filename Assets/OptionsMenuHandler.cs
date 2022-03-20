@@ -21,18 +21,7 @@ public class OptionsMenuHandler : MonoBehaviour
     public MainMenuHandler mainMenu;
     public Text settingsTextValues;
 
-    //debug
-    public bool moveUp, moveDown;
-
     private void Update() {
-        if(moveUp){
-            moveUp = false;
-            MoveSelector(-1);
-        }
-        if(moveDown){
-            moveDown = false;
-            MoveSelector(1);
-        }
         if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));

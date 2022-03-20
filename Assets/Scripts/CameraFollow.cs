@@ -14,8 +14,6 @@ public class CameraFollow : MonoBehaviour
 
     public float minXFollow, minYFollowAbove, minYFollowBelow;
 
-    public bool debugSwitch = false;
-
     float pixelSnap;
     int maxPixelsPerStep = 2;
 
@@ -33,11 +31,6 @@ public class CameraFollow : MonoBehaviour
             UpdatePos();
         }
         SmoothFollowPixelPerfect();
-    }
-    void LateUpdate()
-    {
-        Debug.DrawLine(transform.position + Vector3.up * minYFollowAbove, transform.position - Vector3.up * minYFollowBelow, Color.cyan);
-        Debug.DrawLine(transform.position + Vector3.left * minXFollow/2, transform.position + Vector3.right * minXFollow/2, Color.cyan);
     }
 
     void UpdatePos(){

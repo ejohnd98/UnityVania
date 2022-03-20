@@ -26,19 +26,9 @@ public class PortalHandler : MonoBehaviour
     public InputHandler inputHandler;
     public PopUpSystem popUp;
     public Transform cam;
-
-    //debug
-    public bool moveUp, moveDown, waitingOnPrompt = false, ignoreInputAfterPromptFlag = false;
+    public bool waitingOnPrompt = false, ignoreInputAfterPromptFlag = false;
 
     private void Update() {
-        if(moveUp){
-            moveUp = false;
-            MoveSelector(-1);
-        }
-        if(moveDown){
-            moveDown = false;
-            MoveSelector(1);
-        }
         if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));

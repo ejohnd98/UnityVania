@@ -30,9 +30,6 @@ public class SaveSystem : MonoBehaviour
     public InputHandler inputHandler;
     public PopUpSystem popUp;
 
-    //debug
-    public bool moveUp, moveDown;
-
     private void Awake() {
         coolingDown = true;
     }
@@ -43,14 +40,6 @@ public class SaveSystem : MonoBehaviour
     }
 
     private void Update() {
-        if(moveUp){
-            moveUp = false;
-            MoveSelector(-1);
-        }
-        if(moveDown){
-            moveDown = false;
-            MoveSelector(1);
-        }
         if(isSelecting && !waitingOnPrompt){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));

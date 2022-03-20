@@ -129,7 +129,6 @@ public class PopUpSystem : MonoBehaviour
     }
 
     private void MakeChoice(){
-        //Debug.Log("choice made!");
         if(currentCallback != null){
             currentCallback(new Result(binaryChoice, sliderValue));
         }

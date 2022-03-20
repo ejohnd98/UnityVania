@@ -20,8 +20,6 @@ public class ShopSystem : MonoBehaviour
     public InputHandler inputHandler;
     public PopUpSystem popUp;
 
-    //debug
-    public bool moveUp, moveDown;
     public Transform shopListTransform;
     public Transform shopUIList;
     public List<ShopItem> shopItems;

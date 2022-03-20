@@ -331,8 +331,8 @@ MonoBehaviour:
   maxWalkAngle: 50
   maxJumpHeight: 3.1
   maxTallJumpHeight: 6.2
-  maxAirJumps: 0
-  maxTallJumps: 0
+  maxAirJumps: 1
+  maxTallJumps: 1
   gravity: 30
   canJump: 1
   canCrouch: 1
@@ -342,9 +342,10 @@ MonoBehaviour:
   slideVel: 10
   knockbackHeight: 2
   iFrameDuration: 1
-  hRays: 9
-  vRays: 5
+  hRays: 3
+  vRays: 7
   rayDist: 1
+  morePrecisePhysics: 1
   movementSubdivisions: 4
   lastMoveDir: 0
   grounded: 0

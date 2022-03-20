@@ -9,6 +9,8 @@ public class EnemyController : PlatformControllerBase {
     public float desiredDistanceV = 1.5f;
     public float detectDistance = 20.0f;
 
+    public bool physicsActive = true;
+  
     ItemDropper itemDropper;
 
     private void Awake() {
@@ -26,7 +28,10 @@ public class EnemyController : PlatformControllerBase {
         bool crouch = false;
 
         if (target != null && Vector2.Distance(transform.position, target.transform.position) < detectDistance){
-
+            if(!physicsActive){
+                rayHandler.SetSimState(true);
+            }
+            physicsActive = true;
             // Move towards target
             if (target.transform.position.x < transform.position.x - desiredDistanceH){
                 xAxis = -1;
@@ -47,10 +52,16 @@ public class EnemyController : PlatformControllerBase {
             if (target.transform.position.y < transform.position.y - 1.0f){
                 crouch = true;
             }
-        }
 
-        rayHandler.ProvideInput(xAxis, jump, endJump, crouch);
-        FaceDirection(physicsState.FaceDir());
+            rayHandler.ProvideInput(xAxis, jump, endJump, crouch);
+            FaceDirection(physicsState.FaceDir());
+
+        }else{
+            if (physicsActive && rayHandler.grounded){
+                physicsActive = false;
+                rayHandler.SetSimState(false);
+            }
+        }
     }
 
     public override void KillActor(){

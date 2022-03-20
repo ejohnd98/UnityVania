@@ -43,7 +43,6 @@ public class SoundSystem : MonoBehaviour
             sfxLastVariantIndex = new int[sfxWithVariance.Length];
             foreach(AudioClip clip in sfxList){
                 sfx.Add(clip.name, clip);
-                //Debug.Log("added " + clip.name);
             }
         }
 
@@ -79,7 +78,6 @@ public class SoundSystem : MonoBehaviour
             }
             sfxLastVariantIndex[varianceIndex] = rand;
             sndName += (rand+1).ToString();
-            //Debug.Log("chosen variant: " + sndName);
         }
         
         AudioClip clip;

@@ -24,23 +24,12 @@ public class MainMenuHandler : MonoBehaviour
 
     public GameObject creditsObj;
 
-    //debug
-    public bool moveUp, moveDown;
-
     private void Start() {
         loader = FindObjectOfType<SaveSystemLoader>();
         StartSelection();
     }
 
     private void Update() {
-        if(moveUp){
-            moveUp = false;
-            MoveSelector(-1);
-        }
-        if(moveDown){
-            moveDown = false;
-            MoveSelector(1);
-        }
         if(isSelecting && !waitingOnPrompt && !optionsMenu.isSelecting && !creditsObj.activeSelf){
             if(inputHandler.v_axis_pressed){
                 MoveSelector((int)Mathf.Sign(-inputHandler.v_axis));

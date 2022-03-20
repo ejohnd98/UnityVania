@@ -209,7 +209,6 @@ public class BossController : PlatformControllerBase {
     }
 
     public new void ReceiveHit(GameObject other){
-        //Debug.Log ("test");
     }
 
     public void ReceiveBossHit(int section){

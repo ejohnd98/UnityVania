@@ -225,8 +225,6 @@ public class RayHandler : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.right, rayDistH, groundLayer);
 
             if(hit.collider != null){
-                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
-
                 float angle = GetHitAngle(hit, false);
                 if(angle < maxWalkAngle){
                     continue;
@@ -237,8 +235,6 @@ public class RayHandler : MonoBehaviour
                     rightDist = dist;
                     rightHit = hit;
                 }
-            }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.right*rayDistH, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
 
@@ -251,8 +247,6 @@ public class RayHandler : MonoBehaviour
             hit = Physics2D.Raycast(rayPos, Vector2.left, rayDistH, groundLayer);
 
             if(hit.collider != null){
-                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
-
                 float angle = GetHitAngle(hit, false);
                 if(angle < maxWalkAngle){
                     continue;
@@ -263,8 +257,6 @@ public class RayHandler : MonoBehaviour
                     leftDist = dist;
                     leftHit = hit;
                 }
-            }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.left*rayDistH, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
         }
@@ -294,9 +286,6 @@ public class RayHandler : MonoBehaviour
                     topDist = dist;
                     topHit = hit;
                 }
-                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
-            }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.up*rayDistV, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
 
@@ -323,9 +312,6 @@ public class RayHandler : MonoBehaviour
                     bottomDist = dist;
                     bottomHit = hit;
                 }
-                if(showRays) Debug.DrawLine(rayPos, hit.point, Color.green, Time.fixedDeltaTime/updatePeriod);
-            }else{
-                if(showRays) Debug.DrawLine(rayPos, rayPos + Vector3.down*rayDistV, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
         }
@@ -372,9 +358,6 @@ public class RayHandler : MonoBehaviour
                     bottomDist = dist;
                     bottomHit = hit;
                 }
-                if(showRays) Debug.DrawLine(usePos, hit.point, Color.blue, Time.fixedDeltaTime/updatePeriod);
-            }else{
-                if(showRays) Debug.DrawLine(usePos, usePos + Vector3.down*rayDistV, Color.red, Time.fixedDeltaTime/updatePeriod);
             }
             raycastsPerUpdate++;
         }

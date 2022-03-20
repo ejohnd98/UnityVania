@@ -235,7 +235,7 @@ MonoBehaviour:
   iFrameDuration: 0.6
   hRays: 4
   vRays: 3
-  rayDist: 1
+  rayDist: 0.5
   morePrecisePhysics: 0
   movementSubdivisions: 2
   lastMoveDir: 0
