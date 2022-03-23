@@ -9,6 +9,7 @@ public class PhysicsInterpreter : MonoBehaviour
     private bool lastGroundState = false;
     private bool lastGroundState2 = false; //I'm sorry
     public bool groundSound = false;
+    bool firstGroundSound = true;
 
     void Start() {
         rayHandler = GetComponent<RayHandler>();
@@ -60,7 +61,11 @@ public class PhysicsInterpreter : MonoBehaviour
 
     public void Update() {
         if(groundSound && !lastGroundState2 && rayHandler.grounded){
-            SoundSystem.instance.PlaySound("groundNoise");
+            if(firstGroundSound){
+                firstGroundSound = false;
+            }else{
+                SoundSystem.instance.PlaySound("groundNoise");
+            }
         }
         lastGroundState2 = rayHandler.grounded;
     }

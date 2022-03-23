@@ -66,10 +66,12 @@ public class SaveSystemLoader : MonoBehaviour
     public void FinishLoadGame(bool newGame){
         saveSystem = FindObjectOfType<SaveSystem>();
         if(newGame){
-            //get intro cutscene started
+            BlackFade.instance.FadeIn(3.0f);
+            saveSystem.StartNewGame();
             Debug.Log("New Game started!");
 
         }else{ //otherwise load saved data
+            BlackFade.instance.FadeIn();
             Debug.Log("Previous Game resumed!");
             string inventoryString = PlayerPrefs.GetString("inventoryString");
             string[] itemStrings = inventoryString.Split(',');
@@ -101,16 +103,17 @@ public class SaveSystemLoader : MonoBehaviour
             saveSystem.player.transform.position = FindObjectOfType<PixelPerfectCamera>().RoundToPixel(pos);
             CameraFollow cam = FindObjectOfType<CameraFollow>();
             cam.transform.position = saveSystem.player.transform.position;
+            FindObjectOfType<SoundSystem>()?.AllowMusic();
         }
     }
 
     IEnumerator SceneTransition(string newScene, Action callback){
         BlackFade.instance.FadeOut();
+        FindObjectOfType<SoundSystem>().FadeOut(0.5f);
         yield return new WaitUntil(() => BlackFade.instance.DoneFading());
         SceneManager.LoadScene(newScene);
         yield return new WaitWhile(() => !SceneManager.GetActiveScene().name.Equals(newScene));
         BlackFade.instance.SetOpacity(1.0f);
         callback?.Invoke();
-        BlackFade.instance.FadeIn();
     }
 }

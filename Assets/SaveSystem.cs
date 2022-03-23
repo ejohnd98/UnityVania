@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class SaveSystem : MonoBehaviour
 
     public InputHandler inputHandler;
     public PopUpSystem popUp;
+    public UnityEvent newGameActions;
+
 
     private void Awake() {
         coolingDown = true;
@@ -37,6 +40,10 @@ public class SaveSystem : MonoBehaviour
     private void Start() {
         loader = FindObjectOfType<SaveSystemLoader>();
         StartCoroutine(SaveCooldown());
+    }
+
+    public void StartNewGame(){
+        newGameActions.Invoke();
     }
 
     private void Update() {
@@ -100,6 +107,10 @@ public class SaveSystem : MonoBehaviour
             popUp.PromptChoice(ChoiceType.Binary, FollowThroughSelection, prompt, "No", "Yes", true, 0.5f);
             waitingOnPrompt = true;
         }
+    }
+
+    public void ReturnToMenu(){
+        loader.ReturnToMainMenu();
     }
 
     public void FollowThroughSelection(Result choiceResult){

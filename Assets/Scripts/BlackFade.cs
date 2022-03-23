@@ -7,7 +7,7 @@ public class BlackFade : MonoBehaviour
     SpriteRenderer spriteRenderer;
     const float defaultFadeTime = 0.5f;
     float fadeTime = defaultFadeTime;
-    float delayFadeIn = 0.5f;
+    float delayFadeIn = 1.0f;
     float progress = 0.0f;
     float delayProgress = 0.0f;
     Color spriteColor = Color.white;

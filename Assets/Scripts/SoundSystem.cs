@@ -13,6 +13,7 @@ public class SoundSystem : MonoBehaviour
     public float musicVolume = 0.5f;
     public float sfxVolume = 0.8f;
     public bool playPlaceholder = false;
+    public bool musicStarted = false;
 
     public Areas musicArea = Areas.None;
     public AudioClip[] music;
@@ -22,6 +23,7 @@ public class SoundSystem : MonoBehaviour
     private int[] sfxLastVariantIndex;
     Dictionary<string, AudioClip> sfx;
 
+    AudioClip firstMusic;
     AudioClip nextMusic;
 
     bool fadingOut = false;
@@ -69,6 +71,11 @@ public class SoundSystem : MonoBehaviour
         musicPlayer.volume = currentMusicVol * musicVolume* overallVolume;
     }
 
+    public void FadeOut(float time){
+        fadeOutTime = time;
+        fadingOut = true;
+    }
+
     public void PlaySound(string sndName, bool persist = false){
         int varianceIndex = GetSoundVarianceIndex(sndName);
         if(varianceIndex >= 0){
@@ -109,13 +116,37 @@ public class SoundSystem : MonoBehaviour
     public void ChangeMusic(Areas area){
         musicArea = area;
         AudioClip newMusic = music[(int)area];
+        if(!musicStarted){
+            firstMusic = newMusic;
+            return;
+        }
         nextMusic = newMusic;
+
         if(musicPlayer != null && musicPlayer.isPlaying && fadingOut && nextMusic == musicPlayer.clip){
             fadingOut = false;
         }else{
             StartCoroutine(TransitionMusic());
         }
         
+    }
+
+    public void ChangeMusic(AudioClip newMusic){
+        if(!musicStarted){
+            firstMusic = newMusic;
+            return;
+        }
+        nextMusic = newMusic;
+        if(musicPlayer.isPlaying && fadingOut && nextMusic == musicPlayer.clip){
+            fadingOut = false;
+        }else{
+            StartCoroutine(TransitionMusic());
+        }
+        
+    }
+
+    public void AllowMusic(){
+        musicStarted = true;
+        ChangeMusic(firstMusic);
     }
 
     public void PlayGameOver(){
@@ -126,16 +157,6 @@ public class SoundSystem : MonoBehaviour
 
     public void StopMusic(){
         ChangeMusic((AudioClip)null);
-    }
-
-    public void ChangeMusic(AudioClip newMusic){
-        nextMusic = newMusic;
-        if(musicPlayer.isPlaying && fadingOut && nextMusic == musicPlayer.clip){
-            fadingOut = false;
-        }else{
-            StartCoroutine(TransitionMusic());
-        }
-        
     }
 
     IEnumerator TransitionMusic(){

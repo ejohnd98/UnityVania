@@ -15,7 +15,6 @@ public class CameraFollow : MonoBehaviour
     public float minXFollow, minYFollowAbove, minYFollowBelow;
 
     float pixelSnap;
-    int maxPixelsPerStep = 2;
 
     private void Start() {
         pixelSnap = 1.0f / ppc.assetsPPU;
@@ -69,7 +68,7 @@ public class CameraFollow : MonoBehaviour
     public int xmod, ymod;
     
     void SmoothFollowPixelPerfect(){
-        Vector3 target = ppc.RoundToPixel(desiredPos);
+        Vector3 target = ppc.RoundToPixel(desiredPos); //ppc.RoundToPixel(
         Vector3 current = ppc.RoundToPixel(transform.position);
         int xMod = (int)Mathf.Abs((target.x - current.x)*0.75f);
         xMod = Mathf.Min(2 + xMod, 99);

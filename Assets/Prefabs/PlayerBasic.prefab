@@ -327,7 +327,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   attackHandler: {fileID: 1182643519627546237}
-  movementSpeed: 4.8
+  movementSpeed: 5
   maxWalkAngle: 50
   maxJumpHeight: 3.1
   maxTallJumpHeight: 6.2
@@ -339,7 +339,7 @@ MonoBehaviour:
   crouchHeightMod: 0.65
   jumpSound: 1
   velocityDampenX: 12
-  slideVel: 10
+  slideVel: 12
   knockbackHeight: 2
   iFrameDuration: 1
   hRays: 3
