@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812439468864959508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.002}
+  m_LocalPosition: {x: 0, y: 0, z: -0.048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1812439470128960077}
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationSpots: []
   animationScales:
-  - {x: 12, y: 12, z: 12}
+  - {x: 13, y: 13, z: 13}
   - {x: 1, y: 1, z: 1}
   animationRotations: []
   useSpots: 0
@@ -455,7 +455,7 @@ MonoBehaviour:
   whiteMat: {fileID: 2100000, guid: 2b6f1394f7a430f488fdd57cf1f2bac6, type: 2}
   deathEffect: 1
   createEffectAsSibling: 1
-  fadeTime: 3
+  fadeTime: 1
 --- !u!114 &7069260960644543934
 MonoBehaviour:
   m_ObjectHideFlags: 0

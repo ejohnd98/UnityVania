@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D;
 
 public class SaveSystemLoader : MonoBehaviour
 {
@@ -97,7 +98,9 @@ public class SaveSystemLoader : MonoBehaviour
             Vector3 pos = saveSystem.player.transform.position;
             pos.x = PlayerPrefs.GetFloat("posX");
             pos.y = PlayerPrefs.GetFloat("posY");
-            saveSystem.player.transform.position = pos;
+            saveSystem.player.transform.position = FindObjectOfType<PixelPerfectCamera>().RoundToPixel(pos);
+            CameraFollow cam = FindObjectOfType<CameraFollow>();
+            cam.transform.position = saveSystem.player.transform.position;
         }
     }
 

@@ -861,8 +861,6 @@ MonoBehaviour:
   popUp: {fileID: 158247542}
   mainMenu: {fileID: 1512383235}
   settingsTextValues: {fileID: 0}
-  moveUp: 0
-  moveDown: 0
 --- !u!1 &620124304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,7 +1005,6 @@ MonoBehaviour:
   minXFollow: 0
   minYFollowAbove: 0
   minYFollowBelow: 0
-  debugSwitch: 0
   xmod: 0
   ymod: 0
 --- !u!4 &654269619
@@ -2048,7 +2045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33efbf4377305804784c37dd70a59ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.8
   fadingOut: 0
   doneFading: 0
 --- !u!212 &1459458897
@@ -2167,8 +2163,6 @@ MonoBehaviour:
   popUp: {fileID: 158247542}
   optionsMenu: {fileID: 1821089385}
   creditsObj: {fileID: 543086272}
-  moveUp: 0
-  moveDown: 0
 --- !u!1 &1513449246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,6 +2355,7 @@ GameObject:
   - component: {fileID: 1615270388}
   - component: {fileID: 1615270390}
   - component: {fileID: 1615270391}
+  - component: {fileID: 1615270392}
   m_Layer: 0
   m_Name: sky
   m_TagString: Untagged
@@ -2441,7 +2436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615270385}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88a12b8f2cc69934f8db73171af4670e, type: 3}
   m_Name: 
@@ -2512,7 +2507,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615270385}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
   m_Name: 
@@ -2546,6 +2541,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f169eaaa8e1d604fbb229d86e78032e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1615270392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615270385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0aedb71525b248bd2e00cbf2d4c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1615270390}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1615270388}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  delay: 5
+  repeat: 0
 --- !u!1 &1635872182
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,8 +3327,6 @@ MonoBehaviour:
   popUp: {fileID: 158247542}
   mainMenu: {fileID: 1512383235}
   settingsTextValues: {fileID: 1824947766}
-  moveUp: 0
-  moveDown: 0
 --- !u!1 &1824947764
 GameObject:
   m_ObjectHideFlags: 0
