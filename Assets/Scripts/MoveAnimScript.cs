@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class MoveAnimScript : MonoBehaviour
 {
@@ -15,8 +16,10 @@ public class MoveAnimScript : MonoBehaviour
     public bool startOnEnable = false;
     public bool loopAnim = false;
     public bool useLinearLerp = false;
+    public bool pixelSnap = false;
 
     public float lerpSpeed =1.0f;
+    PixelPerfectCamera ppc;
 
     float progress = 0.0f;
     int nextState = 0;
@@ -40,6 +43,9 @@ public class MoveAnimScript : MonoBehaviour
     }
 
     public void StartAnim(){
+        if(pixelSnap){
+            ppc = FindObjectOfType<PixelPerfectCamera>();
+        }
         notStarted = false;
         progress = 0.0f;
         nextState = 0;
@@ -62,6 +68,9 @@ public class MoveAnimScript : MonoBehaviour
                 Vector3 a = localStartPos + ((nextState == 0)? Vector3.zero : animationSpots[nextState-1]);
                 Vector3 b = localStartPos + animationSpots[nextState];
                 transform.localPosition = useLinearLerp? Vector3.Lerp(a,b,Mathf.Clamp01(progress)): Vector3.Lerp(a, b, Easings.EaseInOutQuad(Mathf.Clamp01(progress)));
+                if(pixelSnap){
+                    transform.position = ppc.RoundToPixel(transform.position);
+                }
             }
             if(useScales){
                 Vector3 a = ((nextState == 0)? localStartScale : animationScales[nextState-1]);

@@ -18,12 +18,21 @@ public class CameraFollow : MonoBehaviour
 
     private void Start() {
         pixelSnap = 1.0f / ppc.assetsPPU;
-        transform.position = toFollow.position;
+        transform.position = ppc.RoundToPixel(toFollow.position);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(followOverride != null){
+            //desiredPos = followOverride.position + offset;
+        }else{
+            //UpdatePos();
+        }
+        //SmoothFollowPixelPerfect();
+    }
+
+    private void LateUpdate() {
         if(followOverride != null){
             desiredPos = followOverride.position + offset;
         }else{
@@ -68,7 +77,7 @@ public class CameraFollow : MonoBehaviour
     public int xmod, ymod;
     
     void SmoothFollowPixelPerfect(){
-        Vector3 target = ppc.RoundToPixel(desiredPos); //ppc.RoundToPixel(
+        Vector3 target = ppc.RoundToPixel(desiredPos);
         Vector3 current = ppc.RoundToPixel(transform.position);
         int xMod = (int)Mathf.Abs((target.x - current.x)*0.75f);
         xMod = Mathf.Min(2 + xMod, 99);
